@@ -38,3 +38,4 @@ config.gem 'webrat', :lib => false, :version => '0.7.3'
 # Number of children statements shown
 TOP_CHILDREN = 7
 MORE_CHILDREN = 7
+TOP_ALTERNATIVES = 7

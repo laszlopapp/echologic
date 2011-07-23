@@ -1,36 +1,51 @@
 <% type_plural = @type.to_s.underscore.pluralize %>
 var statement = $('#statements > #<%=dom_id(@statement_node)%>');
-var children_list = statement.find('.<%=type_plural%> .children_list');
-var more_element = statement.find('.<%=type_plural%> .more_pagination');
+var container =  statement.find('.<%=type_plural%>');
+var children_list = container.find('.children_list');
+var more_element = container.find('.more_pagination');
 
-<%if @page.to_i == 1 %>
+<% if @page.to_i == 1 %>
   panel_height = <%= @children[@type].total_entries <= 7 ? ((@children[@type].total_entries + 1) * 29) : 203 %>
 	resetChildrenList(children_list, {height: panel_height});
 <% end %>
 
 var elements_list = "<%= escape_javascript(render :partial => 'statements/child',
+                                                  :locals => {:child_type => @type.to_s.underscore,
+                                                              :new_level => params[:nl]},
                                                   :collection => @children[@type][@offset, @per_page]) %>";
-var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type], :class => 'more_pagination',
-                                                   :next_label => I18n.t("application.general.more"),
-                                                   :renderer => StatementsHelper::MoreRenderer)) %>";
+var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type],
+                                                              :class => 'more_pagination',
+                                                              :next_label => I18n.t("application.general.more"),
+                                                              :renderer => StatementsHelper::MoreRenderer)) %>";
 
 var scrollpane;
 <% if @page.to_i > 1 %>
-  scrollpane = statement.find('.<%=type_plural%> .children_list').data('jsp');
+  scrollpane = container.find('.children_list').data('jsp');
   children_list = scrollpane.getContentPane();
 <% end %>
 
 children_list.append(elements_list);
 <% if @children[@type].next_page.nil? %>
-  children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, @type.to_s.underscore, :css => 'ajax', :new_level => true) %>');
+  children_list.append('<%= add_create_new_statement_button(@statement_node,
+                                                            @child_type || @type.to_s.underscore,
+                                                            :label_type => @type.to_s.underscore,
+                                                            :nl => true,
+                                                            :bids => params[:bids],
+                                                            :origin => params[:origin],
+                                                            :css => "ajax" ) %>');
 <% end %>
 
-more_element.replaceWith(pagination_buttons);
+if(pagination_buttons.length > 0) {
+  more_element.replaceWith(pagination_buttons);
+} else {
+	more_element.children().remove();
+  more_element.append($("<span/>").addClass("more_children disabled").text("<%= I18n.t("application.general.more") %>"));
+}
 
 <% if @page.to_i > 1 %>
   scrollpane.reinitialise();
   scrollpane.scrollToBottom();
 <% end %>
-statement.find('.<%=type_plural%> .more_pagination a').addClass('ajax');
+container.find('.more_pagination a').addClass('ajax');
 
-statement.data('api').reinitialiseChildren(".<%=type_plural%>");
+statement.data('api').reinitialiseContainerBlock(".<%=type_plural%>", <%= params[:nl] ? true : false %>);

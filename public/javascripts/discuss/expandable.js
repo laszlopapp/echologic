@@ -10,6 +10,7 @@
       },
       'animation_speed': 300,
 			'loading_class': '.loading',
+			'parent_class' : 'div:first',
 
 			// SPECIAL CONDITION ELEMENTS
 			'condition_element': null,
@@ -35,7 +36,7 @@
 
     /* The expandable handler */
     function Expandable(expandable) {
-			var expandable_parent = expandable.parents('div:first');
+			var expandable_parent = expandable.parents(settings['parent_class']);
 			var expandable_supporters_label = expandable.find('.supporters_label');
 			var expandable_loading = expandable.parent().find(settings['loading_class']);
 			var expandable_content = expandable_parent.children('.expandable_content');
@@ -46,6 +47,9 @@
       initialise();
 
       function initialise() {
+				if(expandable_content.length > 0) {
+					expandable.addClass("active");
+				}
 			  // Collapse/expand clicks
         expandable.bind("click", function(){
 					if (!settings['condition_element']) {

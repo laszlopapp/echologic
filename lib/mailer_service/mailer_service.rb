@@ -23,6 +23,11 @@ class MailerService
     puts "Newsletter has been delivered to: " + recipient.email
     sleep 2
   end
+  
+  
+  def send_user_mail(sender, recipient, mail)
+    ProfileMailer.deliver_user_mail(sender, recipient, mail)
+  end
 
   ###############
   # Async calls #

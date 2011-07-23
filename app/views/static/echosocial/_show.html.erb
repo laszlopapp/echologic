@@ -6,14 +6,14 @@
 
 <%= I18n.t('static.echosocial.show.text') %>
 
-<ul class="spreadedList">
+<ul class="spreaded_list">
   <li>
     <strong><%= I18n.t('static.echosocial.show.part_2.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.show.part_2.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.show.part_2.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.show.part_3.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.show.part_3.text', :echo_link => url_for(:host => ECHO_HOST))) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.show.part_3.text', :echo_link => url_for(:host => ECHO_HOST))) %>
   </li>
 </ul>
 

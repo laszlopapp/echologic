@@ -35,11 +35,11 @@ module PublishableModule
     @page_count = params[:page_count].blank? ? 1 : params[:page_count]
     @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
-    @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
+    @origin = @value.blank? ? 'ds' : "sr#{Breadcrumb.instance.encode_terms(@value)}" 
     @origin << "|#{params[:page_count].blank? ? @page : params[:page_count]}"
     @origin = @origin
 
-    statement_nodes_not_paginated = search_discussions :search_term => @value
+    statement_nodes_not_paginated = search_statement_nodes :search_term => @value
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)
@@ -63,7 +63,9 @@ module PublishableModule
           if @statement_node.statement.save
             @statement_node.statement.statement_nodes.each do |node|
               EchoService.instance.published(node)
+              node.publish_descendants
             end
+            format.html {params[:in] == 'mi' ? my_questions : show}
             format.js do
               set_info("discuss.statements.published")
               render_with_info do |page|
@@ -82,6 +84,8 @@ module PublishableModule
               end
             end
           else
+            set_error(@statement_node.statement)
+            format.html{flash_error and params[:in] == 'mi' ? my_questions : show}
             format.js do
               set_error @statement_node and render_with_error
             end
@@ -100,6 +104,7 @@ module PublishableModule
       log_message_info("Statement node '#{@statement_node.id}' has been published sucessfully.")
     end
   end
+  
 
   protected
 

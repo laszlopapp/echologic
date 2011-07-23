@@ -1,19 +1,20 @@
 <% statement_node ||= @statement_node %>
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
-
+<% publishable = @statement_node_type ? @statement_node_type.publishable? : statement_node.publishable? %>
+<% has_embeddable_data = @statement_node_type ? @statement_node_type.has_embeddable_data? : statement_node.class.has_embeddable_data? %>
 
 <!-- Basic fields: title + text -->
 <%= render :partial => "statements/form/document_form",
            :locals => { :form => form,
-                        :statement_node => statement_node, 
+                        :statement_node => statement_node,
                         :statement_document => statement_document } %>
 
 
 <!-- Approved document -->
 <%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
 
-<% if statement_node.publishable? -%>
+<% if publishable -%>
 
   <!-- Statement tags (currently only for questions) -->
   <% form.inputs :class => 'statement_tags' do %>
@@ -37,9 +38,21 @@
   <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
 <% end -%>
 
+
+<!-- Type or Radio Types -->
+<% if @statement_node_type and @statement_node_type.has_alternatives? %>
+  <%= render_alternative_types(@statement_node, @statement_node_type.alternative_types.map{|t|t.to_s.underscore}) %>
+<% else %>
+  <%= hidden_field_tag :type, node_type(statement_node) %>
+<% end %>
+
 <!-- Hidden fields -->
 <%= form.hidden_field :statement_id %>
 <%= form.hidden_field :parent_id %>
+
+<!-- Embed data -->
+<%= render :partial => 'statements/form/embed_data',
+           :locals => {:statement_node => statement_node} if has_embeddable_data %>
 
 <!-- Submit or cancel -->
 <% form.buttons do %>
@@ -48,3 +61,7 @@
   <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
   <%= statement_node.new_record? ? cancel_new_statement_node : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
 <% end %>
+
+<!-- Embed data -->
+<%= render :partial => 'statements/form/embed_preview',
+           :locals => {:statement_node => statement_node} if has_embeddable_data %>

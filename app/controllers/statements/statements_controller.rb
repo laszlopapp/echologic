@@ -1,24 +1,30 @@
 class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget]
+                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget,
+                                    :auto_complete_for_statement_title, :link_statement, :link_statement_node]
   verify :method => :post, :only => [:create, :share]
-  verify :method => :put, :only => [:update, :create_translation, :publish]
+  verify :method => :put, :only => [:update, :create_translation]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :add, :ancestors, :descendants,
-                                              :redirect_to_statement]
+                                              :redirect_to_statement, :auto_complete_for_statement_title]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create,
+                                                   :auto_complete_for_statement_title, :link_statement]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
-  before_filter :check_read_permission, :except => [:category, :my_questions, :new, :create]
+  before_filter :check_read_permission, :except => [:category, :my_questions, :new, :create,
+                                                    :auto_complete_for_statement_title, :link_statement,
+                                                    :link_statement_node]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
   before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :ancestors]
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
+
+  before_filter :fetch_current_stack, :only => [:show, :add, :new, :cancel]
 
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
@@ -27,6 +33,7 @@ class StatementsController < ApplicationController
   include TranslationModule
   include IncorporationModule
   before_filter :is_draftable?, :only => [:incorporate]
+  include LinkingModule
 
   # Authlogic access control block
   access_control do
@@ -34,7 +41,6 @@ class StatementsController < ApplicationController
     allow logged_in, :editor, :except => [:destroy]
     allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :descendants]
   end
-
 
   ##############
   # ATTRIBUTES #
@@ -62,16 +68,16 @@ class StatementsController < ApplicationController
       @statement_node.visited!(current_user) if current_user
 
       # Transfer statement node data to client for prev/next functionality
-      load_siblings(@statement_node) if !params[:new_level].blank?
+      load_siblings(@statement_node) if !params[:nl].blank?
 
       # Test for special links
       @set_language_skills_teaser = @statement_node.should_set_languages?(current_user,
-                                                                           @locale_language_id,
-                                                                           @statement_document.language_id)
+                                                                          @locale_language_id,
+                                                                          @statement_document.language_id)
       @translation_permission = @statement_node.original_language == @statement_document.language &&
-                                @statement_node.translatable?(current_user,
-                                                              @statement_document.language,
-                                                              Language[params[:locale]])
+      @statement_node.translatable?(current_user,
+                                    @statement_document.language,
+                                    Language[params[:locale]])
 
       # If statement node is draftable, then try to get the approved one
       load_approved_statement
@@ -94,21 +100,26 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new
-    @statement_node ||= @statement_node_type.new_instance(:parent_id => params[:id],
-                                                          :editorial_state => StatementState[:new])
+    @statement_node ||= StatementNode.new_instance(:parent_id => params[:id],
+                                                   :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
 
     #search terms as tags
-    if @statement_node.taggable?
-      @statement_node.load_root_tags if @statement_node.class.is_top_statement?
-      loadSearchTermsAsTags(params[:origin]) if params[:origin]
+    if @statement_node_type.taggable?
+      @statement_node.load_root_tags if @statement_node_type.is_top_statement?
+      load_search_terms_as_tags(params[:origin]) if params[:origin]
     end
 
-    # set new breadcrumb
-    if @statement_node.class.is_top_statement? and !params[:new_level].blank?
+    inc = params[:hub].blank? ? 1 : 0
+    @level = (@statement_node.parent_node.nil? or @statement_node_type.is_top_statement?) ? 0 : @statement_node.parent_node.level + inc
+
+    if !params[:nl].blank? and params[:hub].blank?
       set_parent_breadcrumb
-      load_origin_statement
+      # set new breadcrumb
+      if @statement_node_type.is_top_statement?
+        load_origin_statement
+      end
     end
 
     load_echo_info_messages if @statement_node.echoable?
@@ -131,33 +142,45 @@ class StatementsController < ApplicationController
     form_tags = attrs.delete(:topic_tags) || ""
 
     begin
-      parent_node_id = attrs[:parent_id]
-      attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
+      node_id = attrs[:parent_id]
+      if !node_id.blank?
+        parent_node = StatementNode.find(node_id)
+        attrs.merge!({:root_id => parent_node.root_id})
 
+        if !@statement_node_type.is_top_statement?
+          root = parent_node.root
+          attrs.merge!({:editorial_state_id => root.editorial_state_id})
+        end
+      end
 
       # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
-      @statement_document = @statement_node.add_statement_document(
-                            doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
-                                             :author_id => current_user.id,
-                                             :current => true}))
+      @statement_document = !@statement_node.statement.new_record? ?
+                            @statement_node.statement.document_in_language(doc_attrs[:language_id] || @locale_language_id) :
+                            @statement_node.add_statement_document(doc_attrs.merge({:original_language_id => doc_attrs[:language_id] || @locale_language_id,
+                                                                                    :author_id => current_user.id,
+                                                                                    :current => true}))
 
       @tags = []
       created = false
 
-      # add possible secret tags to the current user profile
+      # Add possible secret tags to the current user profile
       new_permission_tags = filter_permission_tags(form_tags.split(","), :read_write)
 
-      #added tags to statement
+      # Calculating added tags to statement
       if @statement_node.taggable?
         @tags = @statement_node.topic_tags = form_tags
       end
 
       # Persisting
       StatementNode.transaction do
+
+        # IF ALTERNATIVE
+        @statement_node.move_to_alternatives_hub(node_id) if params[:hub] and params[:hub].eql? 'alternative'
+
         if @statement_node.save
           # add to tree
-          if parent_node_id.blank? or @statement_node.class.is_top_statement?
+          if node_id.blank? or @statement_node.class.is_top_statement?
             @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
           end
 
@@ -178,7 +201,6 @@ class StatementsController < ApplicationController
         end
       end
 
-
       # Rendering
       if created
         load_siblings @statement_node
@@ -190,6 +212,10 @@ class StatementsController < ApplicationController
         end
       else
         set_error(@statement_document)
+        if @statement_node.class.has_embeddable_data?
+          set_error(@statement_node.statement, :only => [:info_type_id, :external_url])
+          @statement_node.statement_datas.each{|s|set_error(s)}
+        end
         render_statement_with_error :template => 'statements/new'
       end
 
@@ -259,11 +285,11 @@ class StatementsController < ApplicationController
         holds_lock = holds_lock?(old_statement_document, locked_at)
         if holds_lock
           @statement_document = @statement_node.add_statement_document(
-                                  attrs_doc.merge({:author_id => current_user.id,
-                                                   :current => true}))
+                                                                       attrs_doc.merge({:author_id => current_user.id,
+                                                     :current => true}))
           @statement_document.save
 
-          @statement_node.update_attributes(attrs)
+          @statement_node.update_node(attrs)
           if @statement_node.taggable? and form_tags
             @tags = @statement_node.topic_tags = form_tags
           end
@@ -289,7 +315,6 @@ class StatementsController < ApplicationController
         set_error(@statement_node) unless @statement_document
         show_statement true
       end
-
 
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
@@ -364,18 +389,20 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize.to_sym
+    @type = params[:type].classify.to_sym
     begin
       load_children :type => @type
       respond_to do |format|
         format.html{show}
-        format.js { render :template => @type.to_s.constantize.children_template }
+        format.js {
+          @children_list_template = @type.to_s.constantize.children_list_template
+          render :template => "statements/children"
+        }
       end
     rescue Exception => e
       log_error_home(e, "Error loading children of type #{@type}.")
     end
   end
-
 
 
   #
@@ -386,15 +413,23 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize.to_sym
+    @type = params[:type].classify.to_sym
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     begin
-      load_children :type => @type, :page => @page, :per_page => @per_page
+      if @type.eql? :Alternative
+        @child_type = @statement_node.class.alternative_types.first.to_s.underscore
+        @offset =  TOP_ALTERNATIVES if @offset > 0
+        template = @statement_node.class.alternative_more_template
+        load_alternatives @page, @per_page
+      else
+        template = @type.to_s.constantize.more_template
+        load_children :type => @type, :page => @page, :per_page => @per_page
+      end
       respond_to do |format|
         format.html{show}
-        format.js {render :template => @type.to_s.constantize.more_template}
+        format.js {render :template => template}
       end
     rescue Exception => e
       log_error_home(e, "Error loading more children of type #{@type}.")
@@ -411,7 +446,7 @@ class StatementsController < ApplicationController
   def add
     @type = params[:type].to_s
     begin
-      if !params[:new_level].blank?
+      if !params[:nl].blank?
         if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
           load_children_for_parent @statement_node, @type
         else # this is the question's teaser (e.g.: /add/question
@@ -441,7 +476,7 @@ class StatementsController < ApplicationController
       @statement_node.destroy
       set_statement_info("discuss.messages.deleted")
       flash_info
-      redirect_to(@statement_node.parent ? statement_node_url(@statement_node.parent) : discuss_search_url)
+      redirect_to(@statement_node.parent_node ? statement_node_url(@statement_node.parent_node) : discuss_search_url)
     rescue Exception => e
       log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do
         flash_error and redirect_to_statement
@@ -464,7 +499,7 @@ class StatementsController < ApplicationController
   #
   def redirect_to_statement
     options = {}
-    %w(origin bids).each{|s| options[s.to_sym] = params[s.to_sym]}
+      %w(origin bids).each{|s| options[s.to_sym] = params[s.to_sym]}
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
 
@@ -480,9 +515,15 @@ class StatementsController < ApplicationController
   # Response: JSON
   #
   def ancestors
-    @statement_ids = @statement_node.self_and_ancestors.map(&:id)
+    statement_nodes = @statement_node.self_and_ancestors
+    @statement_ids = statement_nodes.map(&:id)
+    @bids = []
+    statement_nodes.each_with_index do |s, index|
+      break if index > statement_nodes.length - 2
+      @bids << "#{Breadcrumb.instance.generate_key(statement_nodes[index+1].u_class_name)}#{s.id}"
+    end
     respond_to do |format|
-      format.json{render :json => @statement_ids}
+      format.json{render :json => {:sids => @statement_ids, :bids => @bids}}
     end
   end
 
@@ -491,6 +532,18 @@ class StatementsController < ApplicationController
   #############
 
   protected
+
+  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES)
+    @children ||= {}
+    @children_documents ||= {}
+    @children[:Alternative] = @statement_node.paginated_alternatives(page,
+                                                                     per_page,
+                                                                     :language_ids => filter_languages_for_children,
+                                                                     :user => current_user)
+    @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
+                                                          :statement_ids => @children[:Alternative].flatten.map(&:statement_id))
+
+  end
 
   #
   # Loads the children of the current statement
@@ -503,7 +556,7 @@ class StatementsController < ApplicationController
   #
   def load_all_children
     @children ||= {}
-    children_types = @statement_node.class.children_types(:visibility => true).transpose
+    children_types = @statement_node.class.all_children_types(:visibility => true).transpose
     if !children_types.empty?
       types = children_types[0]
       @children_documents ||= {}
@@ -520,6 +573,7 @@ class StatementsController < ApplicationController
         end
       end
     end
+    load_alternatives if @statement_node.class.has_alternatives?
   end
 
   #
@@ -550,12 +604,22 @@ class StatementsController < ApplicationController
     # if no user or user doesn't have any language defined, show everything
     if current_user.nil? or current_user.spoken_languages.empty?
       nil
-    #if user doesn't speak the local language, then don't show the children on it
-    elsif !current_user.speaks_language?(Language[I18n.locale])
-      @language_preference_list - [locale_language_id]
     else
       @language_preference_list
     end
+  end
+
+  # aux function to load the statements with the right set of languages
+  def filter_languages(opts={})
+    languages = @language_preference_list
+    if opts[:node] and !opts[:node].new_record?
+      # VERY IMP: remove statement original language if user doesn't speak it
+      original_language = opts[:node].original_language
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
+       (current_user.nil? or
+       !current_user.sorted_spoken_languages.include?(original_language.id))
+    end
+    languages
   end
 
   #
@@ -626,6 +690,32 @@ class StatementsController < ApplicationController
   end
 
   #
+  # Gets the current stack state.
+  #
+  # Loads instance variables:
+  # @current_stack(Array[Integer]) : current stack state that will be visible once this request reaches its end
+  # @level(Integer) : level at which the new statement will be rendered
+  #
+  def fetch_current_stack
+    @current_stack = params[:cs] ? params[:cs].split(",").map(&:to_i) : nil
+    @level = @current_stack ? @current_stack.length - 1 : nil
+    @parent_node = (@current_stack and @statement_node and !@statement_node.level.eql?(0)) ?
+                   StatementNode.find(@current_stack[@current_stack.index(@statement_node.id)-1],
+                                      :select => "id, type") : nil
+  end
+
+  #
+  # Checks if the user can access this very statement
+  #
+  def check_statement_permissions
+    # check if the user has permissions to read this statement
+    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags, false)
+      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+      return
+    end
+  end
+
+  #
   # Redirect to parent if incorporable is approved or already incorporated.
   #
   def redirect_if_approved_or_incorporated
@@ -638,10 +728,10 @@ class StatementsController < ApplicationController
         end
         respond_to do |format|
           flash_info
-          format.html { redirect_to statement_node_url @statement_node.parent }
+          format.html { redirect_to statement_node_url @statement_node.parent_node }
           format.js do
             render :update do |page|
-              page.redirect_to statement_node_url @statement_node.parent
+              page.redirect_to statement_node_url @statement_node.parent_node
             end
           end
         end
@@ -670,7 +760,7 @@ class StatementsController < ApplicationController
   def check_empty_text
     if params[statement_node_symbol].include? :new_statement_document or params[statement_node_symbol].include? :statement_document
       document_param = params[statement_node_symbol][:new_statement_document] ||
-                       params[statement_node_symbol][:statement_document]
+      params[statement_node_symbol][:statement_document]
       text = document_param[:text]
       document_param[:text] = "" if text.eql?('<br>')
     end
@@ -680,8 +770,7 @@ class StatementsController < ApplicationController
   # Returns the statement node corresponding symbol (:question, :proposal...).
   #
   def statement_node_symbol
-    klass = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
-    klass.name.underscore.to_sym
+    @symbol ||= @statement_node_type.nil? ? @statement_node.u_class_name.to_sym : :statement_node
   end
 
   #
@@ -698,25 +787,27 @@ class StatementsController < ApplicationController
 
 
   #
-  # Sets the breadcrumb of the current statement node's parent.
+  # Sets the breadcrumb of the current statement node's parent. Used only for new action.
   #
   # Loads instance variables:
   # @breadcrumb(Array[]) (check build_breadcrumb documentation)
   # @bids(String) : breadcrumb keycodes separated by comma
   #
   def set_parent_breadcrumb
-    return if @statement_node.parent.nil?
-    parent_node = @statement_node.parent
+    return if @statement_node.parent_node.nil?
+    parent_node = @statement_node.parent_node
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
-                         parent_node.document_in_original_language
+    parent_node.document_in_original_language
+    key = Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
     #[id, classes, url, title, label, over]
-    @breadcrumb = {:key => "fq#{parent_node.id}",
-                   :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+    @breadcrumb = {:key => "#{key}#{parent_node.id}",
+                   :css => "statement statement_link #{parent_node.u_class_name}_link",
                    :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-                   :title => statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
-                   :label => I18n.t("discuss.statements.breadcrumbs.labels.fq"),
-                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.fq")}
-    @bids = params[:bids]||''
+                   :title => Breadcrumb.instance.decode_terms(statement_document.title),
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
+    @breadcrumb[:css] << " #{parent_node.info_type.code}_link" if parent_node.class.has_embeddable_data?
+    @bids = params[:bids] || ''
     @bids = @bids.split(",")
     @bids << @breadcrumb[:key]
     @bids = @bids.join(",")
@@ -729,10 +820,19 @@ class StatementsController < ApplicationController
   # @breadcrumbs(Array[Array[]]) (check build_breadcrumb documentation)
   #
   def load_breadcrumbs
-    return if params[:bids].blank?
 
-    # get bids into an array structure
-    bids = params[:bids].split(',')
+    if !params[:bids].blank?
+      # get bids into an array structure
+      bids = params[:bids].split(',')
+    else
+      bids = []
+      @ancestors.each_with_index do |ancestor, index|
+        b_type = ancestor == @ancestors.last ?
+                 @statement_node.u_class_name :
+                 @ancestors[index+1].u_class_name
+        bids << "#{Breadcrumb.instance.generate_key(b_type)}#{ancestor.id}"
+      end if @ancestors
+    end
 
     @breadcrumbs = []
 
@@ -745,24 +845,28 @@ class StatementsController < ApplicationController
       breadcrumb[:css] = "search_link statement_link"
       case key
         when "ds" then breadcrumb[:page_count] = value.blank? ? 1 : value[1..-1] # ds|:page_count
-                       breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count])
-                       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
+        breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count])
+        breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
         when "sr" then value = value.split('|')
-                       breadcrumb[:page_count] = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
-                       search_terms = value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')
-                       breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count], :search_terms => search_terms)
-                       breadcrumb[:title] = value[0]
+        breadcrumb[:page_count] = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
+        search_terms = Breadcrumb.instance.decode_terms(value[0])
+        breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count], :search_terms => search_terms)
+        breadcrumb[:title] = value[0]
         when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
-                       breadcrumb[:url] = my_questions_url
-                       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
-        when "fq" then statement_node = StatementNode.find(bid[2..-1])
-                       statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
-                                            statement_node.document_in_original_language
-                       origin = index > 0 ? bids[index-1] : ''
-                       breadcrumb[:key] = "fq#{value}"
-                       breadcrumb[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
-                       breadcrumb[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
-                       breadcrumb[:title] = statement_document.title
+        breadcrumb[:url] = my_questions_url
+        breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
+        when "pr", "im", "ar", "bi", "fq", "jp"
+        then statement_node = StatementNode.find(bid[2..-1])
+        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
+        statement_node.document_in_original_language
+        origin = index > 0 ? bids.select{|b|Breadcrumb.instance.origin_keys.include?(b[0,2])}[index-1] : ''
+        breadcrumb[:key] = "#{key}#{value}"
+        breadcrumb[:css] = "statement statement_link #{statement_node.u_class_name}_link"
+        breadcrumb[:css] << " #{statement_node.info_type.code}_link" if statement_node.class.has_embeddable_data?
+        breadcrumb[:url] = statement_node_url(statement_node,
+                                              :bids => bids[0, bids.index(bid)].join(","),
+                                              :origin => origin)
+        breadcrumb[:title] = statement_document.title
       end
       breadcrumb[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
       breadcrumb[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
@@ -865,20 +969,26 @@ class StatementsController < ApplicationController
   #
   # search_term (String : optional) : text snippet to look for in the statements
   #
-  # for more info about attributes, please check the StatementNode.search_discussions documentation
+  # for more info about attributes, please check the StatementNode.search_statement_nodes documentation
   #
-  def search_discussions(opts = {})
-    languages = @language_preference_list
-    if opts[:node] and !opts[:node].new_record?
-      # VERY IMP: remove statement original language if user doesn't speak it
-      original_language = opts[:node].original_language
-      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
-                                             (current_user.nil? or
-                                              !current_user.sorted_spoken_languages.include?(original_language.id))
-    end
-    StatementNode.search_discussions(opts.merge({:user => current_user,
-                                                 :language_ids => languages,
-                                                 :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  def search_statement_nodes(opts = {})
+    opts[:language_ids] ||= filter_languages
+    StatementNode.search_statement_nodes(opts.merge({:user => current_user,
+                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  end
+
+  #
+  # Calls the statement sql query.
+  # opts attributes:
+  #
+  # search_term (String : optional) : text snippet to look for in the statements
+  #
+  # for more info about attributes, please check the Statement.search_statements documentation
+  #
+  def search_statements(opts = {})
+    opts[:languages] ||= filter_languages
+    Statement.search_statements(opts.merge({:user => current_user,
+                                            :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
@@ -895,7 +1005,7 @@ class StatementsController < ApplicationController
     statement_documents = StatementDocument.search_statement_documents(opts).sort! {|a, b|
       a_index = l_ids.index(a.language_id)
       b_index = l_ids.index(b.language_id)
-      (a_index and b_index) ? a_index <=> b_index : 0
+       (a_index and b_index) ? a_index <=> b_index : 0
     }
     statement_documents.each_with_object({}) do |sd, documents_hash|
       documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
@@ -918,8 +1028,8 @@ class StatementsController < ApplicationController
   # @previous_type(String) : type of breadcrumb
   #
   def load_origin_statement
-    @previous_node = @statement_node.parent
-    @previous_type = case @statement_node.class.name
+    @previous_node = @statement_node.parent_node
+    @previous_type = case @statement_node_type.name
       when "FollowUpQuestion" then "fq"
     end
   end
@@ -938,18 +1048,26 @@ class StatementsController < ApplicationController
   #                             documents belonging to the loaded ancestors
   #
   def load_ancestors(teaser = false)
+    stack_ids = !params[:sids].blank? ? params[:sids].split(",") : nil
+
     if @statement_node
-      @ancestors = @statement_node.ancestors
+      @ancestors = stack_ids ? StatementNode.find(stack_ids).sort{|s1, s2|s1.level <=> s2.level} : @statement_node.ancestors
       @ancestor_documents = {}
       @ancestors.each {|a| load_siblings(a) }
 
       load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
       if teaser
-        @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
+
+        # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
+        # if stack ids exists, that means the @statement node is already in ancestors
+        @ancestors << @statement_node if !@ancestors.map(&:id).include?(@statement_node.id)
         load_children_for_parent(@statement_node, @type)
       end
 
-      @ancestors.each{|a|@ancestor_documents[a.statement_id] = a.document_in_preferred_language(@language_preference_list)}
+      @ancestors.each do |a|
+        l_ids = (@language_preference_list + [a.original_language.id]).uniq
+        @ancestor_documents[a.statement_id] = a.document_in_preferred_language(l_ids)
+      end
     else
       if teaser
         load_roots_to_session
@@ -973,7 +1091,7 @@ class StatementsController < ApplicationController
     @siblings ||= {}
     class_name = type.classify
     siblings = statement_node.children_to_session :language_ids => @language_preference_list,
-                                                  :type => class_name, :user => current_user
+                                                    :type => class_name, :user => current_user
     @siblings["add_#{type}"] = siblings
   end
 
@@ -987,11 +1105,19 @@ class StatementsController < ApplicationController
   #                   value : Array[Integer] : Array of statement ids with teaser path as last element
   #
   def load_siblings(statement_node)
+    return if statement_node.new_record?
     @siblings ||= {}
-    class_name = statement_node.target_statement.class.name.underscore
+    class_name = statement_node.target_statement.u_class_name
+
+
     # if has parent then load siblings
     if statement_node.parent_id
-      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, :user => current_user
+      prev = @current_stack ?
+             StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
+             statement_node.parent_node
+      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list,
+                                                    :user => current_user,
+                                                    :prev => prev
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end
@@ -1043,35 +1169,51 @@ class StatementsController < ApplicationController
       key = origin[0,2]
       value = CGI.unescape(origin[2..-1])
       roots = case key
-       # get question siblings depending from the request's origin (key)
-       # discuss search with no search results
-       when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                      opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
-       # discuss search with search results
-     when 'sr'then value = value.split('|')
-                   term = value[0].gsub(/\\;/,',').gsub(/\\:;/, '|')
-                   per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                   sn = search_discussions(:search_term => term,
-                                           :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                   opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
-       # my discussions
-       when 'mi' then sn = Question.by_creator(current_user).by_creation
-                      opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
-       # follow up questions from a statement
-       when 'fq' then @previous_node = StatementNode.find(value)
-                      @previous_type = "FollowUpQuestion"
-                      sn = @previous_node.child_statements :language_ids => filter_languages_for_children,
-                                                           :type => @previous_type,
-                                                           :user => current_user,
-                                                           :for_session => opts[:for_session]
-                      opts[:for_session] ? sn : sn.map(&:target_statement)
+
+        # get question siblings depending from the request's origin (key)
+        # discuss search with no search results
+        when 'ds' then
+          per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
+          sn = search_statement_nodes(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).
+                 paginate(:page => 1, :per_page => per_page)
+          opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+
+        # discuss search with search results
+        when 'sr'then
+          value = value.split('|')
+          term = Breadcrumb.instance.decode_terms(value[0])
+          per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
+          sn = search_statement_nodes(:search_term => term,
+                                      :param => opts[:for_session] ? 'root_id' : nil,
+                                      :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+          opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+
+        # my discussions
+        when 'mi' then
+          sn = Question.by_creator(current_user).by_creation
+          opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
+
+        # follow up questions from a statement
+        when 'fq' then
+          @previous_node = StatementNode.find(value)
+          @previous_type = "FollowUpQuestion"
+          sn = @previous_node.child_statements :language_ids => filter_languages_for_children,
+                                                               :type => @previous_type,
+                                                               :user => current_user,
+                                                               :for_session => opts[:for_session]
+          opts[:for_session] ? sn : sn.map(&:target_statement)
+
+        # jumped from
+        when 'jp' then
+          nodes = opts[:node].nil? ? [] : [opts[:node]]
+          opts[:for_session] ? nodes.map(&:id) + ["/add/question"] : nodes
       end
     else
       # no origin (direct link)
       roots = opts[:node].nil? ? [] : [opts[:node]]
       roots = roots.map(&:id) + ["/add/question"] if opts[:for_session]
     end
+
     if !opts[:for_session] # for descendants, must load statement documents and fill the necessary attributes for rendering
       per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
       per_page = 1 if per_page == 0 # in case roots is an empty array
@@ -1084,23 +1226,42 @@ class StatementsController < ApplicationController
     roots
   end
 
+  #########################
+  # RENDER HELPER METHODS #
+  #########################
+
+  #
+  # Loads the level which the statement (or teaser) will be rendered in
+  #
+  # teaser (boolean : optional) : whether what we are rendering now is a teaser or a statement
+  #
+  # Loads instance variables:
+  # @level(Integer)
+  #
+  def load_statement_level(teaser = false)
+    # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
+    @level ||= teaser ?
+               ((@statement_node.nil? or @type.classify.constantize.is_top_statement?) ?
+                 0 : @statement_node.level + 1) :
+               @statement_node.level
+  end
 
   ####################
   # RESPONSE RENDERS #
   ####################
 
-  %w(info error).each do |type|
+    %w(info error).each do |type|
     class_eval %(
-      def render_statement_with_#{type}(opts={}, &block)
-        respond_to do |format|
-          format.html do
-            flash_#{type}
-            opts[:template] ? (render :template => opts[:template]) : show
+        def render_statement_with_#{type}(opts={}, &block)
+          respond_to do |format|
+            format.html do
+              flash_#{type}
+              opts[:template] ? (render :template => opts[:template]) : show
+            end
+            format.js { render_with_#{type} &block }
           end
-          format.js { render_with_#{type} &block }
         end
-      end
-    )
+      )
   end
 
   def show_statement(errors = false)
@@ -1118,13 +1279,14 @@ class StatementsController < ApplicationController
   def render_template(template, teaser = false)
     respond_to do |format|
       format.html {
-        load_breadcrumbs
         load_ancestors(teaser)
+        load_breadcrumbs
         render :template => template
       }
       format.js {
-        load_ancestors(teaser) if !params[:sids].blank? or (!params[:new_level].blank? and (@statement_node.nil? or @statement_node.level == 0))
+        load_ancestors(teaser) if !params[:sids].blank? or (!params[:nl].blank? and (@statement_node.nil? or @statement_node.level == 0))
         load_breadcrumbs if !params[:bids].blank?
+        load_statement_level(teaser)
         render :template => template
       }
     end
@@ -1140,16 +1302,16 @@ class StatementsController < ApplicationController
   #
   def set_statement_info(object)
     code = object.kind_of?(String) ? object : "discuss.messages.#{object.action.code}"
-    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
+    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.u_class_name}")
   end
 
   #
   # Loads search terms from the search as tags for the statement node.
   #
-  def loadSearchTermsAsTags(origin)
+  def load_search_terms_as_tags(origin)
     return if !origin[0,2].eql?('sr')
     origin = CGI.unescape(origin).split('|')[0]
-    default_tags = origin[2..-1].gsub(/\\;/, ',').gsub(/\\:;/, '|')
+    default_tags = Breadcrumb.instance.decode_terms(origin[2..-1])
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }
@@ -1184,4 +1346,5 @@ class StatementsController < ApplicationController
       flash_error and redirect_to_home
     end
   end
+
 end

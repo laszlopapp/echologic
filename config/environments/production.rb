@@ -41,3 +41,4 @@ config.action_mailer.default_url_options = { :host => 'echo.to' }
 # Number of children statements shown
 TOP_CHILDREN = 3
 MORE_CHILDREN = 7
+TOP_ALTERNATIVES = 2

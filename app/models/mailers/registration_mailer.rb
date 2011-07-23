@@ -1,7 +1,5 @@
 class RegistrationMailer < ActionMailer::Base
 
-  
-
   # Delivers activation instructions to the given user.
   # TODO i18n see view
   def activation_instructions(user)

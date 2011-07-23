@@ -8,7 +8,8 @@ class Question < StatementNode
   # Deletion handling - also delete all FUQs referencing this question
   has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
 
-  has_children_of_types [:Proposal,true]
+  has_children_of_types [:Proposal,true],[:BackgroundInfo,true]
+  has_linkable_types
 
   # methods / settings to overwrite default statement_node behaviour
 
@@ -22,15 +23,8 @@ class Question < StatementNode
     true
   end
 
-  #################################################
-  # string helpers (acts_as_echoable overwriting) #
-  #################################################
-
-  def self.support_tag
-    "recommend"
+  def self.publishable?
+    true
   end
 
-  def self.unsupport_tag
-    "unrecommend"
-  end
 end

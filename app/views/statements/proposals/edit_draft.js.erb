@@ -1,2 +1,4 @@
-var element = $("<%= escape_javascript(render :partial => 'statements/proposals/edit_draft') %>").statement({'level' : <%= @statement_node.level %>});
+var index = $("div#<%=dom_id(@statement_node)%>").index();
+
+var element = $("<%= escape_javascript(render :partial => 'statements/proposals/edit_draft') %>").statement({'level' : index});
 element.data('api').removeBelow();

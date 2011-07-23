@@ -77,6 +77,13 @@ AboutCategory.purge_enumerations_cache
 end
 AboutCategory.enumeration_model_updates_permitted = false
 
+# INFO TYPE
+InfoType.enumeration_model_updates_permitted = true
+InfoType.purge_enumerations_cache
+%w(article paper book audio photo video law document misc).each_with_index do |code, index|
+  InfoType.create(:code => code, :key => index+1, :description => "info_type")
+end
+InfoType.enumeration_model_updates_permitted = false
 
 #################
 #  ENUM VALUES  #
@@ -342,5 +349,51 @@ end
                               :value => value, :context=> "")
 end
 
+# Order of values: EN, DE, FR, PT, ES, HU
+["Article","Artikel","Article","Artigo","Artículo","Cikk"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('article','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Paper","Ausarbeitung","Art. Scientifique","Artigo Científico","Artículo Científico","Tudományos cikk"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('paper','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Book","Buch","Livre","Livro","Libro","Könyv"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('book','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Audio","Audio","Audio","Audio","Audio","Hanganyag"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('audio','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Photo","Foto","Photo","Fotografia","Foto","Fénykép"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('photo','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Video","Video","Vidéo","Video","Vídeo","Videó"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('video','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Law","Rechtliches","Loi","Legislação","Ley","Jogszabály"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('law','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Document","Dokument","Document","Documento","Documento","Dokumentum"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('document','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Other","Sonstiges","Divers","Outro","Otro","Egyéb"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('misc','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
 
 EnumValue.enumeration_model_updates_permitted = false

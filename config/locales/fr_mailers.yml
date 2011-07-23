@@ -6,6 +6,11 @@ fr:
       follow_echo: Suivez echo
     greeting: 'Cher(e) {{name}},'
     echo_community: 'echo community'
+    echo_member: echo member
+    bye: |
+      Bien à vous,
+
+      L'équipe echo
     bye_as_html: |-
       Bien à vous,
       <br/><br/>
@@ -47,6 +52,11 @@ fr:
       sent: |-
         Your newsletter mails are being delivered...
 
+    user_mail:
+      subject: "[echo message] {{subject}}"
+      prefix: "{{sender}} has sent you a message via echo:"
+      suffix: "You can answer {{sender}} directly by replying to this mail or see his or her profile in echo here: {{url}}"
+
     activity_tracking:
       subject: echo - Notifications d'activité
       title: Notifications d'activité
@@ -58,6 +68,7 @@ fr:
           Nouvelles propositions d'amélioraton' concernant la proposition "<strong>{{title}}</strong>":
         created_pro_arguments: 'Nouveaux arguments PRO concernant la proposition "<strong>{{title}}</strong>":'
         created_contra_arguments: 'Nouveaux arguments CONTRE concernant la proposition "<strong>{{title}}</strong>":'
+        created_background_infos: 'New content in the statement "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'Nouvelle question suivie concernant "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

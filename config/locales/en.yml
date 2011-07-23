@@ -70,7 +70,7 @@ en:
           <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
           having the same **tag as a decision making tag in their profile.</p>
           <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          solution with circles, invitations and fine-graded access right management will be coming later.</p>
     profile:
       closed_discussions:
         hint: Tags to access closed discussions...
@@ -79,7 +79,7 @@ en:
           take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
           ones (protected with **tag) respectively.</p>
           <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          solution with circles, invitations and fine-graded access right management will be coming later.</p>
 
   # Localizations for the layout components
   layouts:
@@ -403,6 +403,7 @@ en:
       messages:
         created: "Thank you for your message. An administrator was notified."
 
+
   # ---------------
   # Discuss section
   # ---------------
@@ -449,6 +450,7 @@ en:
       current_improvement: 'The currently displayed addition'
       current_pro_argument: 'The currently displayed PRO argument'
       current_contra_argument: 'The currently displayed CONTRA argument'
+      current_background_info: 'The currently displayed background info'
       current_follow_up_question: 'The currently displayed follow-up question'
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
@@ -463,6 +465,8 @@ en:
       next_pro_argument: 'Read next argument for the current proposal'
       prev_contra_argument: 'Read previous argument for the current proposal'
       next_contra_argument: 'Read next argument for the current proposal'
+      prev_background_info: 'See previous background info for the current statement'
+      next_background_info: 'See next background info for the current statement'
       prev_follow_up_question: 'Read previous follow-up question in the context shown above'
       next_follow_up_question: 'Read next follow-up question in the context shown above'
       create_question: 'Create a new question'
@@ -470,6 +474,8 @@ en:
       create_improvement: "Post a new addition to the current proposal"
       create_pro_argument: "Post a new PRO argument to the current proposal"
       create_contra_argument: "Post a new CONTRA argument to the current proposal"
+      create_alternative: "Post a new opposition to this statement"
+      create_background_info: "Recommend a new piece of background information related to this statement"
       create_follow_up_question: "Post a new new follow-up question concerning this statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
@@ -482,30 +488,33 @@ en:
         proposal: See all proposals belonging to the current question
         improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
-        contra_argument:  See all arguments belonging to the current proposal
-
+        contra_argument: See all arguments belonging to the current proposal
+        background_info: See all background infos belonging to the current statement
+      link_statement: |-
+        Enter a part of the title or paste in the URL of a statement.
+        Afterwards press this button to reuse the statement in the current context.
+      unlink_statement: "Click the button again to unlink the statement."
 
     statements:
       label: 'votes'
+      echo_link: 'Support (echo)'
+      unecho_link: 'Withdraw vote'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
-        recommend:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
-      add_new: Add new...
+        one: '{{supporter_count}} supporter'
+        many: '{{supporter_count}} supporters'
+      add_new: New statement
+      copy_url: Link to
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_link: Propose new addition
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
+      create_alternative_link: Add new opposition
+      create_background_info_link: Add new background info
       create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Support (echo)'
-      unrecommend_link: 'Withdraw vote'
-      support_link: 'Support (echo)'
-      unsupport_link: 'Withdraw vote'
+      preview_embedded_content: Preview
+      open_embedded_content: Open in new window
 
       statement_language_hint: |
         Please set your language skills in your <a href='{{url}}'>Profile</a>.
@@ -526,8 +535,11 @@ en:
         improvement: Enter the addition title in... English?
         pro_argument: Enter the PRO argument title in... English?
         contra_argument: Enter the CONTRA argument title in... English?
+        background_info: Enter the background info title in... English?
         follow_up_question: Enter the follow-up question title in... English?
       text_hint:
+        alternative_prefix: |
+          OPPOSITIONS are mutually exclusive to the original statement and all its other alternatives.<br/><br/>
         question: Please describe the issue in more detail and ask a concrete question...
         proposal: |
           Please describe your proposal in more detail...<br/><br/>
@@ -540,8 +552,13 @@ en:
           opportunity to incorporate their ideas and thoughts into the proposal.
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
+        background_info: |
+          Please describe the recommended background information shortly and tell why you
+          think it is interesting in this context...
         follow_up_question: Please describe your follow-up question in more detail...
       tag_hint: 'Enter tags here...'
+      info_url_hint: 'Enter the link to the external content'
+      copy_url_hint: 'Copy the link to this statement and use it to spread the word via your favorite channels.'
 
       publish: Release
       published: The question has been released successfully.
@@ -553,6 +570,8 @@ en:
         improvement: 'Addition'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
+        alternative: 'Opposition'
+        background_info: 'Background Info'
         follow_up_question: 'Follow-Up Question'
       new:
         question: 'New Question'
@@ -560,20 +579,25 @@ en:
         improvement: 'New Addition'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
+        background_info: 'New Background Info'
         follow_up_question: 'New Follow-Up Question'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Pros & Cons'
+        alternatives: 'Alternatives'
+        background_info: 'Background Infos'
         follow_up_question: 'Follow-up Questions'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
+        background_info: 'Backgrounds'
         follow_up_question: 'Questions'
       siblings:
+        background_info: 'Background Infos'
         follow_up_question: 'Follow-up Question in the context shown above'
 
       topic: Topic (Tags / Keywords)
@@ -612,7 +636,12 @@ en:
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
       published_to_share: 'This discussion is yet to be published. Until then, it is not possible to share it.'
       cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
+      cannot_be_linked: Unfortunately this statement cannot be linked in the current context.
       echos_label: Support
+
+      linking:
+        disabled: Link
+        enabled: Linked
 
       breadcrumbs:
         discuss_search: Search results
@@ -621,12 +650,22 @@ en:
           ds: ''
           mi: ''
           sr: 'Questions found for'
+          pr: 'Proposals for'
+          im: 'Additions for'
+          ar: 'Arguments for'
+          bi: 'Background Infos for'
           fq: 'Follow-up Questions for'
+          jp: 'Following link in'
           over:
             ds: 'Back to'
             mi: 'Back to'
             sr: 'Back to search results for'
+            pr: 'Back to'
+            im: 'Back to'
+            ar: 'Back to'
+            bi: 'Back to'
             fq: 'Back to'
+            jp: 'Back to'
 
       upload_image:
         title: Upload Image
@@ -649,6 +688,10 @@ en:
           Press the button above to enter it NOW!
         contra_argument: |
           This is where your argument AGAINST the proposal could appear.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
+        background_info: |
+          This is where a new background info related to the current statement could appear.<br/><br/>
+          Would you like to recommend one?<br/><br/>
           Press the button above to enter it NOW!
         follow_up_question: |
           This is where YOUR follow-up question could appear.<br/><br/>Have you got one?<br/><br/>
@@ -727,6 +770,7 @@ en:
         web_addresses: 'Web Addresses'
       actions:
         report: "Report"
+        send_mail: "Send Message"
     messages:
       empty:           'No members found. Please change your search criteria.'
       no_concernments: "This member hasn't defined any concernments and competences, yet."
@@ -746,6 +790,15 @@ en:
       send: Send message
     create:
       thank_you: Thank you for your feedback.
+
+  user_mail:
+    new:
+      title: Send Mail
+      guide: Here you can send an E-Mail to contact the selected echo member.
+      subject: Subject
+      text: Message
+    create:
+      thank_you: Your message has been sent successfully.
 
   activerecord:
     errors:
@@ -813,6 +866,10 @@ en:
         title: 'Title'
         text: 'Summary'
         image: 'Illustration'
+      statement:
+        info_type_id: 'Content Type'
+      statement_data:
+        info_url: 'Background Info Link'
       about_item:
         photo: 'Photo'
         name: 'Name'

@@ -74,8 +74,8 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
-        | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
-        | proposal_statement_document_text | nothing to propose yet...                              |
+        | statement_node_statement_document_title | a proposal to propose some proposeworthy proposal data |
+        | statement_node_statement_document_text | nothing to propose yet...                              |
       And I press "Save"
       Then I should see "a proposal to propose some"
       And the question should have one proposal
@@ -88,11 +88,13 @@ Feature: Take Part on a question
     When I go to the questions first proposal
       And I follow localized "discuss.statements.create_improvement_link"
       And I fill in the following:
-      | improvement_statement_document_title           | Improving the unimprovable                                           |
-      | improvement_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
+      | statement_node_statement_document_title           | Improving the unimprovable                                           |
+      | statement_node_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
       And I press "Save"
     Then I should see "Improving the unimprovable"
       And the proposal should have one improvement
+
+
 
   # TEST THE 'ADD NEW' SECTION
 
@@ -105,8 +107,8 @@ Feature: Take Part on a question
     Then the question should have 5 siblings in session
       And I follow localized "discuss.statements.types.question" within ".add_new_panel"
       And I fill in the following:
-      | question_statement_document_title           | Question on the side              |
-      | question_statement_document_text            | i like big butts and i cannot lie |
+      | statement_node_statement_document_title           | Question on the side              |
+      | statement_node_statement_document_text            | i like big butts and i cannot lie |
       And I press "Save"
     Then I should see "Question on the side"
       And the question should have 6 siblings in session
@@ -121,8 +123,8 @@ Feature: Take Part on a question
     Then the proposal should have 0 siblings in session
       And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
       And I fill in the following:
-      | proposal_statement_document_title           | How to propose to women   |
-      | proposal_statement_document_text            | i find you very atractive |
+      | statement_node_statement_document_title           | How to propose to women   |
+      | statement_node_statement_document_text            | i find you very atractive |
       And I press "Save"
     Then I should see "How to propose to women"
       And the proposal should have 1 siblings in session
@@ -138,8 +140,8 @@ Feature: Take Part on a question
     Then the improvement should have 4 siblings in session
       And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
       And I fill in the following:
-      | improvement_statement_document_title           | How to improve yer status    |
-      | improvement_statement_document_text            | Eat the poor                 |
+      | statement_node_statement_document_title           | How to improve yer status    |
+      | statement_node_statement_document_text            | Eat the poor                 |
       And I press "Save"
     Then I should see "How to improve yer status"
       And the improvement should have 5 siblings in session
@@ -152,8 +154,8 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
       And I fill in the following:
-      | proposal_statement_document_title           | How to propose to women   |
-      | proposal_statement_document_text            | i find you very atractive |
+      | statement_node_statement_document_title           | How to propose to women   |
+      | statement_node_statement_document_text            | i find you very atractive |
       And I press "Save"
     Then I should see "How to propose to women"
       And the proposal should have 1 siblings in session
@@ -167,11 +169,15 @@ Feature: Take Part on a question
       And I choose the "A first proposal!" Proposal
       And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
       And I fill in the following:
-      | improvement_statement_document_title           | How to improve yer status    |
-      | improvement_statement_document_text            | Eat the poor                 |
+      | statement_node_statement_document_title           | How to improve yer status    |
+      | statement_node_statement_document_text            | Eat the poor                 |
       And I press "Save"
     Then I should see "How to improve yer status"
       And the improvement should have 5 siblings in session
+
+  #############
+  # ARGUMENTS #
+  #############
 
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
@@ -182,8 +188,8 @@ Feature: Take Part on a question
       And I choose the "A first proposal!" Proposal
       And I follow localized "discuss.statements.types.pro_argument" within ".add_new_panel"
       And I fill in the following:
-      | pro_argument_statement_document_title           | Pro 4 life                   |
-      | pro_argument_statement_document_text            | I submit this pro-life stand |
+      | statement_node_statement_document_title           | Pro 4 life                   |
+      | statement_node_statement_document_text            | I submit this pro-life stand |
       And I press "Save"
     Then I should see "Pro 4 life"
       And the pro argument should have 0 siblings in session
@@ -197,11 +203,15 @@ Feature: Take Part on a question
       And I choose the "A first proposal!" Proposal
       And I follow localized "discuss.statements.types.contra_argument" within ".add_new_panel"
       And I fill in the following:
-      | contra_argument_statement_document_title           | Contra is cool    |
-      | contra_argument_statement_document_text            | Best Game... EVA! |
+      | statement_node_statement_document_title           | Contra is cool    |
+      | statement_node_statement_document_text            | Best Game... EVA! |
       And I press "Save"
     Then I should see "Contra is cool"
       And the contra argument should have 0 siblings in session
+
+  #######################
+  # FOLLOW UP QUESTIONS #
+  #######################
 
   Scenario: Add a Follow Up Question to a Question
     Given I am logged in as "user" with password "true"
@@ -211,9 +221,9 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
       And I fill in the following:
-      | follow_up_question_statement_document_title           | Livin it up      |
-      | follow_up_question_statement_document_text            | I love this game |
-      | follow_up_question_topic_tags                         |                  |
+      | statement_node_statement_document_title           | Livin it up      |
+      | statement_node_statement_document_text            | I love this game |
+      | statement_node_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -234,9 +244,9 @@ Feature: Take Part on a question
       And I choose the "A first proposal!" Proposal
       And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
       And I fill in the following:
-      | follow_up_question_statement_document_title           | Livin it up      |
-      | follow_up_question_statement_document_text            | I love this game |
-      | follow_up_question_topic_tags                         |                  |
+      | statement_node_statement_document_title           | Livin it up      |
+      | statement_node_statement_document_text            | I love this game |
+      | statement_node_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -252,9 +262,9 @@ Feature: Take Part on a question
       And I choose the "A better first proposal" Improvement
       And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
       And I fill in the following:
-      | follow_up_question_statement_document_title           | Livin it up      |
-      | follow_up_question_statement_document_text            | I love this game |
-      | follow_up_question_topic_tags                         |                  |
+      | statement_node_statement_document_title           | Livin it up      |
+      | statement_node_statement_document_text            | I love this game |
+      | statement_node_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -270,20 +280,153 @@ Feature: Take Part on a question
       And I choose the "A better first proposal" Improvement
       And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
       And I fill in the following:
-      | follow_up_question_statement_document_title           | Livin it up      |
-      | follow_up_question_statement_document_text            | I love this game |
-      | follow_up_question_topic_tags                         |                  |
+      | statement_node_statement_document_title           | Livin it up      |
+      | statement_node_statement_document_text            | I love this game |
+      | statement_node_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
       And there should be a "A better first proposal" breadcrumb
     When I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
       And I fill in the following:
-      | follow_up_question_statement_document_title           | Livin it up Part Deux     |
-      | follow_up_question_statement_document_text            | I still love this game    |
+      | statement_node_statement_document_title           | Livin it up Part Deux     |
+      | statement_node_statement_document_text            | I still love this game    |
       And I press "Save"
     Then I should see "Livin it up Part Deux"
       And the question should have 0 siblings in session
+
+
+  ###############
+  # ALTERNATIVE #
+  ###############
+
+  Scenario: Add an Alternative to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Alternativating         |
+      | statement_node_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating"
+      And the proposal should have 1 alternative
+
+  Scenario: Add an Alternative to an Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Alternativating         |
+      | statement_node_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating"
+      And the improvement should have 1 alternative
+
+
+  Scenario: Add an Alternative to a pro argument (and afterwards adding an alternative to the alternative)
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.pro_argument" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Pro 4 life                   |
+      | statement_node_statement_document_text            | I submit this pro-life stand |
+      And I press "Save"
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Alternativating part 1  |
+      | statement_node_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating part 1"
+      And I go to the proposal
+      And I choose the "Alternativating part 1" Contra Argument
+      And the contra argument should have 1 alternative
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Alternativating part 2  |
+      | statement_node_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating part 2"
+      And I go to the proposal
+      And I choose the "Alternativating part 2" Pro Argument
+      And the pro argument should have 1 alternative
+
+
+  ####################
+  # BACKGROUND INFOS #
+  ####################
+
+  Scenario: Add a Background Info to a Question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Undercova Brotha        |
+      | statement_node_statement_document_text            | Funkytime in Funkytown  |
+      | statement_node_external_url_info_url              | http://Ipitythefool.com |
+      And I choose "statement_node_info_type_misc"
+      And I press "Save"
+    Then I should see "Undercova Brotha"
+      And the background info should have 0 siblings in session
+      And there should be a "Test Question2?" breadcrumb
+    Given I go to the question
+    Then I should see "Undercova Brotha"
+
+  Scenario: Add a Background Info to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Undercova Brotha        |
+      | statement_node_statement_document_text            | Funkytime in Funkytown  |
+      | statement_node_external_url_info_url              | http://Ipitythefool.com |
+      And I choose "statement_node_info_type_misc"
+      And I press "Save"
+    Then I should see "Undercova Brotha"
+      And the background info should have 0 siblings in session
+      And there should be a "A first proposal!" breadcrumb
+    Given I go to the improvement
+    Then I should see "Undercova Brotha"
+
+  Scenario: Add a Background Info to an improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Undercova Brotha        |
+      | statement_node_statement_document_text            | Funkytime in Funkytown  |
+      | statement_node_external_url_info_url              | http://Ipitythefool.com |
+      And I choose "statement_node_info_type_misc"
+      And I press "Save"
+    Then I should see "Undercova Brotha"
+      And the background info should have 0 siblings in session
+      And there should be a "A better first proposal" breadcrumb
+    Given I go to the improvement
+    Then I should see "Undercova Brotha"
 
 
 
@@ -300,6 +443,66 @@ Feature: Take Part on a question
        | proposal_statement_document_text  | somewhat more to propose at lease |
       And I press "Save"
     Then I should see "my updated proposal"
+
+  ################
+  # ALTERNATIVES #
+  ################
+
+  @ok
+  Scenario: Add 2 contrary statements to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Pile of contradictions         |
+      | statement_node_statement_document_text            | I aquit, I am too legit        |
+      And I press "Save"
+    Then I should see "Pile of contradictions"
+      And I should see "A first proposal!" within ".alternatives"
+      And the proposal should have 1 alternative
+      And I go to the proposal
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Another Pile of contradictions         |
+      | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
+      And I press "Save"
+    Then I should see "Another Pile of contradictions"
+      And I should see "A first proposal!" within ".alternatives"
+      And I should see "Pile of contradictions" within ".alternatives"
+      And the proposal should have 2 alternatives
+
+  @ok
+  Scenario: Add 2 contrary statements to a Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Pile of contradictions         |
+      | statement_node_statement_document_text            | I aquit, I am too legit        |
+      And I press "Save"
+    Then I should see "Pile of contradictions"
+      And I should see "A better first proposal" within ".alternatives"
+      And the improvement should have 1 alternative
+      And I go to the improvement
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Another Pile of contradictions         |
+      | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
+      And I press "Save"
+    Then I should see "Another Pile of contradictions"
+      And I should see "A better first proposal" within ".alternatives"
+      And I should see "Pile of contradictions" within ".alternatives"
+      And the improvement should have 2 alternatives
+
 
 
 # Open Questions:
@@ -448,9 +651,9 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
       And there are hidden proposals for this question
-      And I follow localized "application.general.more" within ".proposals"
+      And I follow localized "application.general.more" within "div.proposals"
       # needed because of the TOP CHILDREN mechanism
-      And I follow localized "application.general.more" within ".proposals"
+      And I follow localized "application.general.more" within "div.proposals"
     Then I should see the hidden proposals
 
   Scenario: User opens question's siblings block
@@ -474,4 +677,4 @@ Feature: Take Part on a question
       And I follow "Proposals" within ".proposal .header_buttons"
     Then I should see "Eighth Proposal"
 
-    
+

@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def insert_separator_line
-    content_tag :span, '', :class => 'shadow_line_separator'
+    content_tag :span, '', :class => 'line_separator_990'
   end
 
   def count_text(key, count)
@@ -47,12 +47,14 @@ module ApplicationHelper
 
   # Inserts text area with the given text and two butt
   # Click-functions are added via jQuery, take a look at application.js
-  def insert_toggle_more(text)
-    concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")
-    concat("<span class='moreButton'>#{I18n.t('application.general.more')}</span>")
-    concat("<div class='toggled_content' style='display: none;'>")
+  def insert_toggle_more(text="")
+    content = ""
+    content << content_tag(:span, I18n.t('application.general.hide'), :class => "hide_button", :style => "display:none;")
+    content << content_tag(:span, I18n.t('application.general.more') ,:class => "more_button")
+    content << content_tag(:div, :class => "toggled_content", :style => "display:none") do
       concat("#{text}")
-    concat("</div>")
+    end if !text.blank?
+    content
   end
 
   # Container is only visible in echologic

@@ -1,9 +1,13 @@
 
 <li class="author">
 	<% if author.active? and author.permits_authorship? %>
-		<%= image_tag(author.avatar.url(:small), :alt => '') %>
-		<%= content_tag :span, author.full_name, :class => 'name' %>
-		<%= content_tag :span, author.first_membership, :class => 'location_orga' %>
+	  <% link_to connect_search_path(:id => author.profile.id),
+               :target => '_blank',
+               :class => 'author_link' do %>
+			<%= image_tag(author.avatar.url(:small), :alt => '') %>
+			<%= content_tag :span, author.full_name, :class => 'name' %>
+			<%= content_tag :span, author.first_membership, :class => 'location_orga' %>
+		<% end %>
 	<% else %>
 		<%= image_tag('/images/default_small_avatar.png', :alt => '') %>
 	  <%= content_tag :span, I18n.t('users.anonym'), :class => 'name' %>

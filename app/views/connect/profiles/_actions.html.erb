@@ -1,9 +1,22 @@
 
-<%= link_to I18n.t('connect.details.actions.report'),
-    url_for(:controller => 'users/reports', :action => 'new', :id => @profile.user), :class => 'ajax action_button report_action' %>
+<% if @profile and !@profile.new_record? %>
 
-<% if show_admin_options? %>
-  <br/><br/><br/>
-  <%= link_to 'Delete User', @profile.user, :method => :delete, :confirm => 'Sure?', :class => 'admin_action',
-              :title  => "User Id: #{@profile.user_id}, Profile Id: #{@profile.id}" %>
+  <% content_tag :div, :class => 'actions_container' do %>
+    <%= link_to I18n.t('connect.details.actions.send_mail'),
+                new_user_mail_path(:id => @profile.user),
+                :class => 'ajax text_button send_mail_button' unless @profile.eql? current_user.profile %>
+    <%= link_to I18n.t('connect.details.actions.report'),
+                url_for(:controller => 'users/reports', :action => 'new', :id => @profile.user),
+                :class => 'ajax text_button report_button' %>
+  <% end %>
+
+
+	<% if show_admin_options? %>
+	  <br/><br/><br/>
+	  <%= link_to 'Delete User', @profile.user,
+                :class => 'admin_action',
+                :title  => "User Id: #{@profile.user_id}, Profile Id: #{@profile.id}",
+                :method => :delete,
+                :confirm => 'Are you sure?' %>
+  <% end %>
 <% end %>

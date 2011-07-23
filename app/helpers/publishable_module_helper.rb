@@ -38,7 +38,6 @@ module PublishableModuleHelper
             :id => 'create_question_teaser_link',
             :class => 'no_results create_first_question_button') do
       content_tag(:span, I18n.t('discuss.search.add'))
-
     end
   end
 
@@ -58,10 +57,11 @@ module PublishableModuleHelper
   # Creates a button link to create a new question (SIDEBAR).
   #
   def add_new_question_button(origin = nil)
-    link_to(I18n.t("discuss.statements.types.question"),
-            new_question_url(:origin => origin, :bids => origin),
-            :class => "create_question_button_32 resource_link ajax ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_question"))
+    content_tag(:a, :href => new_question_url(:origin => origin, :bids => origin),
+                :class => "create_question_button_32 resource_link ajax ttLink no_border",
+                :title => I18n.t("discuss.tooltips.create_question")) do
+      statement_icon_title(I18n.t("discuss.statements.types.question"))
+    end
   end
 
   #
@@ -87,10 +87,8 @@ module PublishableModuleHelper
   def publish_statement_node_link(statement_node, statement_document)
     if current_user and current_user.may_publish?(statement_node)
       link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :statements,
-                :id => statement_node.id,
-                :action => :publish,
-                :in => :summary },
+              publish_statement_url(:id => statement_node.id,
+                                    :in => :summary),
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
@@ -118,7 +116,7 @@ module PublishableModuleHelper
                                         :origin => :mi,
                                         :bids => :mi),
             :class => "statement_link ttLink no_border",
-            :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}"))
+            :title => I18n.t("discuss.tooltips.read_#{question.u_class_name}"))
   end
 
   #
@@ -154,9 +152,7 @@ module PublishableModuleHelper
   def publish_button_or_state(statement_node, opts={})
     if current_user and current_user.may_publish?(statement_node)
       link_to(I18n.t("discuss.statements.publish"),
-              { :controller => :statements,
-                :id => statement_node.id,
-                :action => :publish }.merge(opts),
+              publish_statement_url({:id => statement_node.id}.merge(opts)),
               :class => 'ajax_put publish_button ttLink no_border',
               :title => I18n.t('discuss.tooltips.publish'))
     else
