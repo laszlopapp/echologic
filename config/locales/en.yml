@@ -488,8 +488,8 @@ en:
         proposal: See all proposals belonging to the current question
         improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
-        contra_argument:  See all arguments belonging to the current proposal
-        background_info:  See all background infos belonging to the current statement
+        contra_argument: See all arguments belonging to the current proposal
+        background_info: See all background infos belonging to the current statement
       link_statement: |-
         Enter a part of the title or paste in the URL of a statement.
         Afterwards press this button to reuse the statement in the current context.
