@@ -61,11 +61,9 @@
                                'jquery.jscrollpane.min.js',
                                'jquery.livequery',
                                'jquery.toggleval',
-                               'jquery.jqtransform',
-                               'jquery-iframe-resizer',
                                'jquery.embedly.min',
                                :cache => 'echo_app' %>
-		
+
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 
     <%# TODO remove partially needed files from inclusion. %>
