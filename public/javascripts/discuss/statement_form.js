@@ -53,7 +53,17 @@
         if (form.hasClass('new')) {
 					language_combo = form.find('.statement_language select');
 					statementLinked = form.find('input#statement_node_statement_id');
-					statementParentId = form.find('input#statement_node_parent_id');
+					
+					
+					// Get Id that will be used on the conditions for possible linkable statements
+					var parentForLinking = form.prev();
+					if(parentForLinking.length > 0) {
+						statementParentId = getStatementId(parentForLinking.attr('id'));
+					} else {
+					  statementParentId = form.find('input#statement_node_parent_id').val();	
+					}
+					
+					
           loadDefaultText();
           initFormCancelButton();
 					initLinking();
@@ -132,7 +142,8 @@
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","),
             "bids": bids_to_load.join(','),
-						"origin": $.fragment().origin
+						"origin": $.fragment().origin,
+						"cs" : $.fragment().sids
           }));
         }
       }
@@ -178,7 +189,6 @@
 
 				linkButton.removeAttr('linking_on').removeAttr('linking_off');
 
-
 				// initialize the autocompletion plugin
 				title.autocompletes('../../statements/auto_complete_for_statement_title', {
           minChars: 100,
@@ -186,7 +196,7 @@
           multipleSeparator: "",
           extraParams: {
             code: function(){ return chosenLanguage.val(); },
-            parent_id: function() {return statementParentId.val(); },
+            parent_id: function() {return statementParentId; },
             type: type
           }
         });
@@ -235,7 +245,7 @@
 				var path = '../../statement/' + nodeId + '/link_statement_node/' + type;
         path = $.queryString(path, {
           "code" : chosenLanguage.val(),
-					"parent_id": statementParentId.val()
+					"parent_id": statementParentId
         });
         $.getJSON(path, function(data) {
 					if (data['error']) {

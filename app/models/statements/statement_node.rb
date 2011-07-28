@@ -26,7 +26,7 @@ class StatementNode < ActiveRecord::Base
   # Destroys the statement ONLY if this is the only statement node belonging the statement
   #
   def destroy_statement
-    self.statement.destroy if self.statement and (self.statement.statement_nodes - [self]).empty?
+    statement.destroy if statement and (self.statement.statement_nodes.map(&:id) - [target_id]).empty?
   end
 
   #
@@ -89,8 +89,9 @@ class StatementNode < ActiveRecord::Base
   end
 
   named_scope :by_creator, lambda {|id| {:conditions => ["creator_id = ?", id]}}
-  named_scope :published, lambda {|auth|
-    {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth
+  named_scope :published, lambda {|auth| {
+    :joins => :statement,
+    :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth
   }
 
   # orders
@@ -150,7 +151,7 @@ class StatementNode < ActiveRecord::Base
     doc.statement = self.statement
     attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     self.statement.statement_documents << doc
-    return doc
+    doc
   end
 
   # updates an existing node with a new set of attributes
@@ -173,7 +174,7 @@ class StatementNode < ActiveRecord::Base
   # Checks if there is a document in any of the languages passed as argument
   #
   def translated_document?(lang_ids)
-    return statement_documents.for_languages(lang_ids).nil?
+    statement_documents.for_languages(lang_ids).nil?
   end
 
   #

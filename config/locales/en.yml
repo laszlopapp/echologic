@@ -488,8 +488,8 @@ en:
         proposal: See all proposals belonging to the current question
         improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
-        contra_argument:  See all arguments belonging to the current proposal
-        background_info:  See all background infos belonging to the current statement
+        contra_argument: See all arguments belonging to the current proposal
+        background_info: See all background infos belonging to the current statement
       link_statement: |-
         Enter a part of the title or paste in the URL of a statement.
         Afterwards press this button to reuse the statement in the current context.
@@ -575,17 +575,17 @@ en:
         improvement: 'Addition'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
-        follow_up_question: 'Follow-Up Question'
         alternative: 'Opposition'
         background_info: 'Background Info'
+        follow_up_question: 'Follow-Up Question'
       new:
         question: 'New Question'
         proposal: 'New Proposal'
         improvement: 'New Addition'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
-        follow_up_question: 'New Follow-Up Question'
         background_info: 'New Background Info'
+        follow_up_question: 'New Follow-Up Question'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
@@ -599,11 +599,11 @@ en:
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
-        follow_up_question: 'Questions'
         background_info: 'Backgrounds'
+        follow_up_question: 'Questions'
       siblings:
-        follow_up_question: 'Follow-up Question in the context shown above'
         background_info: 'Background Infos'
+        follow_up_question: 'Follow-up Question in the context shown above'
 
       topic: Topic (Tags / Keywords)
       states:

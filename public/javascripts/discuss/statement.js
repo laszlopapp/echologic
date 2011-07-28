@@ -638,7 +638,7 @@
             url =  "http://" + url;
           }
 					if (isEchoStatementUrl(url)) { // if this link goes to another echo statement => add a jump bid
-						generateJumpLink(link,url);
+						initJumpLink(link,url);
 					} else {
             link.attr("target", "_blank");
           }
@@ -648,21 +648,31 @@
 
 
       /*
-       * Generates a link for the statement with the dorrect breadcrumbs and a new JUMP breadcrumb in the end.
+       * Initiates a link for the statement with the dorrect breadcrumbs and a new JUMP breadcrumb in the end.
        */
-      function generateJumpLink(link, url){
+      function initJumpLink(link, url) {
 				var anchor_index = url.indexOf("#");
         if (anchor_index != -1) {
           url = url.substring(0, anchor_index);
         }
-				$.getJSON(url+'/ancestors', function(data) {
-					var sids = data;
 
-					link.bind("click", function() {
-
+        link.bind("click", function() {
+				  $.getJSON(url+'/ancestors', function(data) {
+            var sids = data['sids'];
+					  var bids = data['bids'];
 						var targetBids = getTargetBids(getParentKey());
-						var bid = 'jp' + statementId;
+
+						// if the jump link is for a statement on the same stack, delete those bids
+						// as they are going to be introduced anyway by the bids parameter
+						if (bids.length > 0) {
+							var index;
+							if ((index = $.inArray(bids[0], targetBids)) != -1) {
+								targetBids = targetBids.splice(0, index);
+							}
+						}
+            var bid = 'jp' + statementId;
 						targetBids.push(bid);
+						$.merge(targetBids, bids);
 
 						$.setFragment({
               "bids": targetBids.join(","),
@@ -671,8 +681,8 @@
               "origin": bid
             });
 
-						return false;
 					});
+          return false;
 				});
 			}
 

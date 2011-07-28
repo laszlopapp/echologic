@@ -267,8 +267,10 @@
 .admin_action {
   background-color: #db4c3d;
   color: #fff !important;
-  margin: 0 3px;
+  margin: 30px 3px 0;
   padding: 3px 9px;
+  display: inline-block;
+  border-radius: 12px;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
 }

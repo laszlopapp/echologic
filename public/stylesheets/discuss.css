@@ -191,13 +191,29 @@ form.statement .header_link .icon {
   position: absolute;
   top: 3px;
 }
+
 form.question .header_link .icon,
 form.follow_up_question .header_link .icon {background-position: 0 0;}
 form.proposal .header_link .icon {background-position: -16px 0;}
 form.improvement .header_link .icon {background-position: -32px 0;}
 form.pro_argument .header_link .icon {background-position: -48px 0;}
 form.contra_argument .header_link .icon {background-position: -64px 0;}
-form.background_info .header_link .icon {background-position: -96px 0;}
+
+form.background_info .header_link .icon {background-image: url(../images/page/discuss/bi_icons_16.png);}
+form.article .header_link .icon {background-position: 0 0;}
+form.paper .header_link .icon {background-position: -16px 0;}
+form.book .header_link .icon {background-position: -32px 0;}
+form.audio .header_link .icon {background-position: -48px 0;}
+form.photo .header_link .icon {background-position: -64px 0;}
+form.video .header_link .icon {background-position: -80px 0;}
+form.law .header_link .icon {background-position: -96px 0;}
+form.document .header_link .icon {background-position: -112px 0;}
+form.misc .header_link .icon {background-position: -128px 0;}
+
+form.background_info.no_type .header_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_16.png);
+  background-position: -96px 0;
+}
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;
@@ -234,7 +250,8 @@ form.statement fieldset ol span.defaultText {
 #statements form.formtastic fieldset.statement_title li,
 #statements form.formtastic fieldset.statement_title input {
   margin-bottom: 0;
-  width: 545px;
+  width: 433px;
+  padding-right: 114px;
 }
 
 #statements form.formtastic fieldset.statement_language {
@@ -331,6 +348,7 @@ form.embeddable .entry_types label {
 	color: #21587F;
 	line-height: 32px;
   padding-left: 40px;
+  cursor: pointer;
 }
 
 form.embeddable .entry_types .entry_type {
@@ -354,36 +372,35 @@ form.embeddable .entry_types {
 form.embeddable .entry_types li {
 	float: left;
 	width: 180px;
+	cursor: pointer;
 }
 
 form.embeddable .entry_types input {display: none;}
 
 form.embeddable .entry_types li:hover label,
-form.embeddable .entry_types label.selected {
+form.embeddable .entry_types li.selected label {
 	color: #7BB031;
 }
 
-form.embeddable .entry_types a {
-	width: 32px;
+
+form.embeddable .entry_types li .icon {
+  background-image: url("../images/page/discuss/bi_icons_32.png");
+	padding-left: 32px;
   height: 32px;
   display: block;
   clear: left;
   float: left;
 }
 
-form.embeddable .entry_types a {
-  background-image: url("../images/page/discuss/bi_icons_32.png");
-}
-
-form.embeddable .entry_types a.article {background-position: 0 0;}
-form.embeddable .entry_types a.paper {background-position: -32px 0;}
-form.embeddable .entry_types a.book {background-position: -64px 0;}
-form.embeddable .entry_types a.audio {background-position: -96px 0;}
-form.embeddable .entry_types a.photo {background-position: -128px 0;}
-form.embeddable .entry_types a.video {background-position: -160px 0;}
-form.embeddable .entry_types a.law {background-position: -192px 0;}
-form.embeddable .entry_types a.document {background-position: -224px 0;}
-form.embeddable .entry_types a.misc {background-position: -256px 0;}
+form.embeddable .entry_types .article .icon {background-position: 0 0;}
+form.embeddable .entry_types .paper .icon {background-position: -32px 0;}
+form.embeddable .entry_types .book .icon {background-position: -64px 0;}
+form.embeddable .entry_types .audio .icon {background-position: -96px 0;}
+form.embeddable .entry_types .photo .icon {background-position: -128px 0;}
+form.embeddable .entry_types .video .icon {background-position: -160px 0;}
+form.embeddable .entry_types .law .icon {background-position: -192px 0;}
+form.embeddable .entry_types .document .icon {background-position: -224px 0;}
+form.embeddable .entry_types .misc  .icon {background-position: -256px 0;}
 
 form.embeddable .entry_url_container li {
   width: 762px;
@@ -1766,9 +1783,9 @@ a.statement_link:hover {
   background: url("../images/page/discuss/cas_arrow.png") no-repeat scroll 0 0;
   display: block;
   width: 47px;
-  height: 36px;
+  height: 38px;
   position: relative;
-  bottom: -48px;
+  bottom: -50px;
   left: 56px;
 }
 
@@ -1944,6 +1961,12 @@ a.statement_link:hover {
   background: url("../images/jquery-ui/ui-bg_gloss-wave_85_9fda58_500x100.gif") repeat-x scroll 50% 50% #7AB031;
 }
 
+form .header .echo_indicator, form .header .no_echo_indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 /******************/
 /* Add new teaser */
 /******************/
@@ -1955,10 +1978,8 @@ a.statement_link:hover {
 /*****************/
 
 #approved_ip {
-  border-top: 1px dashed #CCC;
-  margin-top: 15px;
   padding: 5px 0 0;
-  width: 750px;
+  width: 767px;
 }
 
 #approved_ip.only_text {
@@ -1968,22 +1989,29 @@ a.statement_link:hover {
 }
 
 .incorporate_statement_button_mid {
-  background: transparent url(../images/page/discuss/inc_improvement_mid.png) no-repeat scroll 0 0;
-  width: 55px;
-  height: 55px;
+  background: transparent url(../images/page/discuss/incorporate_button.png) no-repeat scroll 0 0;
+  width: 767px;
+  height: 54px;
   cursor: pointer;
   position: relative;
-  left: 390px;
   top: 0;
   display: block;
 }
 
 .incorporate_statement_button_mid:hover {
- background-position: 0 -55px;
+ background-position: 0 -54px;
 }
 
 #ip_text {
-  margin-top: 10px;
+  margin: 15px 0 25px;
+}
+
+form #approved_ip {
+  width: 750px;
+}
+
+form #ip_text {
+  margin: 15px 0 5px;
 }
 
 /***************/
