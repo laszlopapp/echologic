@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   before_filter :fetch_current_stack, :only => [:show, :add, :new, :cancel]
-  before_filter :fetch_hub, :only => [:show, :add, :cancel]
+  before_filter :fetch_hub, :only => [:show, :add, :new, :create, :cancel]
 
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
@@ -177,7 +177,7 @@ class StatementsController < ApplicationController
       StatementNode.transaction do
 
         # IF ALTERNATIVE
-        @statement_node.move_to_alternatives_hub(node_id) if params[:hub] and params[:hub].eql? 'alternative'
+        @statement_node.send("move_to_#{@hub_type.pluralize}_hub",node_id) if params[:hub]
 
         if @statement_node.save
           # add to tree

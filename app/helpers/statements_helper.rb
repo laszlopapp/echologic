@@ -203,7 +203,6 @@ module StatementsHelper
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
     label_type = opts.delete(:label_type) || child_type
-    opts[:hub] = label_type if !label_type.eql?(child_type)
     link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :class => "#{css} add_new_button text_button create_#{label_type}_button ttLink no_border",
