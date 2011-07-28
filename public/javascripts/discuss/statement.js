@@ -972,6 +972,10 @@
 
 				getType: function() {
 					return statementType;
+				},
+				
+				getStatementsStack: function(statementLink, newLevel) {
+					return getStatementsStack(statementLink, newLevel);
 				}
       });
 	  }

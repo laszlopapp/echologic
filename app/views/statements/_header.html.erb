@@ -7,25 +7,28 @@
                :class => "header #{only_header ? (hide_content ? 'expandable active' : 'expandable') : 'active'}",
                :href => only_header ? statement_node_url(statement_node,
                                                          :expand => true) : nil do %>
-  <% content_tag :div, :class => 'header_buttons' do %>
-	 <%= navigation_buttons statement_node, node_type(statement_node), :origin => params[:origin] %>
-
-	 <%= render :partial => "statements/descendants",
-              :locals => {:child_type => node_type(statement_node), :display => true,
-              :children => @children[statement_type.to_sym]} if @children and @children[statement_type.to_sym] %>
-	<% end %>
-	<% content_tag :div, :class => 'header_link'  do %>
-		<% statement_node_context_link(statement_node,
-                                   statement_document.title,
-                                  (!only_header ? 'current' : 'back_to'),
-                                  :hub => params[:hub],
-                                  :css => 'ajax') %>
-		<% if statement_node.echoable? %>
-			<%= supporter_ratio_bar(statement_node,
-                              @previous_node || statement_node.parent_node,
-                              @previous_type || statement_node.class.name) %>
-			<%= supporters_label(statement_node, !only_header) %>
+  <%= render :partial => 'statements/alternative_header', :locals => {:statement_node => statement_node} if @hub_child %>
+	<% content_tag :div, :class => "main_header" do %>
+		<% content_tag :div, :class => 'header_buttons' do %>
+		 <%= navigation_buttons statement_node, node_type(statement_node), :origin => params[:origin] %>
+	
+		 <%= render :partial => "statements/descendants",
+	              :locals => {:child_type => node_type(statement_node), :display => true,
+	              :children => @children[statement_type.to_sym]} if @children and @children[statement_type.to_sym] %>
 		<% end %>
+		<% content_tag :div, :class => 'header_link'  do %>
+			<% statement_node_context_link(statement_node,
+	                                   statement_document.title,
+	                                  (!only_header ? 'current' : 'back_to'),
+	                                  :hub => params[:hub],
+	                                  :css => 'ajax') %>
+			<% if statement_node.echoable? %>
+				<%= supporter_ratio_bar(statement_node,
+	                              @previous_node || statement_node.parent_node,
+	                              @previous_type || statement_node.class.name) %>
+				<%= supporters_label(statement_node, !only_header) %>
+			<% end %>
+		<% end %>
+	  <%= content_tag :div, '', :class => 'expand_icon' %>
 	<% end %>
-  <%= content_tag :div, '', :class => 'expand_icon' %>
 <% end %>

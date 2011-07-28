@@ -26,15 +26,24 @@
     /*******************/
 
     function Alternative(statement) {
+			// statement has alternatives
       var alternatives = statement.find('.alternatives');
 			var teaser = alternatives.find('.teaser');
+			
+			// statement is an alternative
+			var closeButton = statement.find('.alternative_close');
+			
       initialize();
 
       /*
        * Initializes an echoable statement in a form or in normal mode.
        */
       function initialize() {
+				// statement has alternatives
         //initPanel();
+				
+				// statement is an alternative
+				initCloseButton();
       }
 
 			function initPanel() {
@@ -44,6 +53,34 @@
         alternatives.bind('mouseleave', function(){
 					panelNormal();
         });
+			}
+			
+			function initCloseButton() {
+				closeButton.bind('click', function(){
+					// SIDS
+					var targetStack = statement.data('api').getStatementsStack(this, false);
+					
+					// BIDS
+					var hubChild = targetStack[targetStack.length-1];
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var bidsStatementIds = $.map(bids, function(a){return a.replace(/[^0-9]+/, '');});
+          var level = $.inArray(hubChild, bidsStatementIds); 
+          bids = bids.splice(0, level);
+          
+					$('#breadcrumbs').data('element_clicked', bids[bids.length-1]);
+					
+					// ORIGIN
+					origin = $.fragment().origin;
+										
+					$.setFragment({
+				  	"sids": targetStack.join(','),
+				  	"nl": true,
+				  	"bids": bids.join(','),
+				  	"origin": origin,
+				  	"hub": ''
+				  });
+					return false;
+				});
 			}
 
       function panelHighlight() {

@@ -536,7 +536,7 @@ a.statement_link.active {
 	color: #7bb031;
 }
 
-.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
+.main_header .header_buttons a.statement_link.prev, .main_header .header_buttons a.statement_link.next {
 	padding-left: 0 !important;
 }
 
@@ -1450,6 +1450,11 @@ a.statement_link:hover {
   min-height: 45px;
 }
 
+#statements .alternative_header,
+#statements .main_header {
+	float:left;
+}
+
 #statements .header_buttons {
   width: 170px;
   margin-right: 13px;
@@ -1509,6 +1514,11 @@ a.statement_link:hover {
   color: #7bb031;
 }
 
+#statements .header .alternative_close {
+	left: 137px;
+  position: absolute;
+  top: 11px;
+}
 
 /*******************************/
 /* Prev/Next Statement buttons */

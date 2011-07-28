@@ -597,7 +597,7 @@ module StatementsHelper
     buttons
   end
 
-  def siblings_button(statement_node, type, opts={})
+  def siblings_button(statement_node, type = node_type(statement_node), opts={})
     origin = opts[:origin]
     name = @hub_type || type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.u_class_name != type # ADD TEASERS
@@ -828,6 +828,15 @@ module StatementsHelper
                          :alternatives => children}
   end
 
+  def close_alternative_mode_button(statement_node)
+    bids = params[:bids] || ''
+    bids = bids.split(",")
+    bids.pop
+    bids = bids.join(",")
+    
+    link_to 'X', statement_node_url(statement_node, :bids => bids, :origin => params[:origin]),
+            :class => "alternative_close"
+  end
 
   ####################
   # BACKGROUND INFOS #
