@@ -198,14 +198,20 @@
 				// Get index of the prev/next sibling
 				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
 		    var targetStatementId = new String(siblingIds[targetIndex]);
+				var buttonUrl;
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId));
+					buttonUrl = button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId);
 		    }
 		    else {
-					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
+					buttonUrl = button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId);
 		    }
-
+				
+        button.attr('href', buttonUrl);
+				
+				if ($.fragment().hub.length > 0) {
+					button.attr('hub', $.fragment().hub);
+				}
 		    button.removeAttr('data-id');
 		  }
 
@@ -461,84 +467,6 @@
 		  }
 
 		  /*
-		   * Gets the siblings of the statement and places them in the client for navigation.
-		   */
-		  function storeSiblings() {
-        var key;
-				if (statementLevel > 0) {
-		      // Store siblings with the parent node id
-					var index = statementLevel-1;
-					key = $('#statements .statement:eq(' + index + ')').attr('id');
-		    } else {
-		      // No parent means it's a root node, therefore, store siblings under the key 'roots'
-		      key = 'roots';
-		    }
-		    var siblings = eval(statement.data("siblings"));
-		    if (siblings != null) {
-		      $("#statements").data(key, siblings);
-		    }
-		    statement.removeAttr("data-siblings");
-		  }
-
-		  /*
-		   * Generates the links for the prev/next buttons according to the siblings stored in the session.
-		   * Navigation is circular.
-		   *
-		   * button: the prev or next button
-		   * inc: the statement index relative to the current statement (-1 for prev, 1 for next)
-		   */
-		  function initNavigationButton(button, inc) {
-		    if (!button || button.length == 0) {return;}
-				if (button.attr('href').length == 0) {
-					button.attr('href', window.location.pathname);
-				}
-
-        // Get statement node id to link to
-				var currentStatementId = button.attr('data-id');
-		    if (currentStatementId.match('add')) {
-		      var idParts = currentStatementId.split('_');
-		      currentStatementId = [];
-		      // Get parent id
-          if(idParts[0].match(/\d+/)) {
-            currentStatementId.push(idParts.shift());
-          }
-		      // Get 'add'
-          currentStatementId.push(idParts.shift());
-		      currentStatementId.push(idParts.join('_'));
-          currentStatementId = "/"+currentStatementId.join('/');
-		    } else {
-          currentStatementId = eval(currentStatementId);
-        }
-
-		    // Get parent element (statement)
-		    var parent = statement.prev();
-		    // Get id where the current node's siblings are stored
-        var parentPath, siblingsKey;
-		    if (parent.length > 0) {
-		      parentPath = siblingsKey = parent.attr('id');
-		    } else {
-		      siblingsKey = 'roots';
-		      parentPath = '';
-		    }
-
-		    // Get siblings ids
-		    var siblingIds = $("div#statements").data(siblingsKey);
-				// Get index of the prev/next sibling
-				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
-		    var targetStatementId = new String(siblingIds[targetIndex]);
-				if (targetStatementId.match('add')) {
-          // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId));
-		    }
-		    else {
-					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
-		    }
-
-		    button.removeAttr('data-id');
-		  }
-
-
-		  /*
 		   * Handles the button to toggle the add new panel for creating new statements.
 		   */
 		  function initAddNewButton() {
@@ -741,7 +669,7 @@
 		        "nl": '',
 						"bids": targetBids.join(','),
 						"origin": origin,
-						"hub": ''
+						"hub": ($(this).attr('hub') || '')
 		      });
 
 					var nextStatement = statement.next();
