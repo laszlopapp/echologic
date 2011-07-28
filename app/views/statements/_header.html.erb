@@ -18,6 +18,7 @@
 		<% statement_node_context_link(statement_node,
                                    statement_document.title,
                                   (!only_header ? 'current' : 'back_to'),
+                                  :hub => params[:hub],
                                   :css => 'ajax') %>
 		<% if statement_node.echoable? %>
 			<%= supporter_ratio_bar(statement_node,

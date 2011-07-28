@@ -41,6 +41,7 @@
     function Statement(statement) {
       var domId = statement.attr('id');
 			var domParent = statement.attr('dom-parent');
+			var parentId = domParent ? domParent.replace(/[^0-9]+/, '') : '';
 			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) :
                                                               $.trim(domId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(domId);
@@ -688,7 +689,7 @@
 		    });
 
 	      statement.find('.alternatives').each(function(){
-					initSiblingsLinks($(this), {"nl" : true, "hub" : ("al"+statementId)});
+					initSiblingsLinks($(this), { "nl": true, "hub": ("al" + statementId) });
 				});
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
@@ -736,10 +737,10 @@
 					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
-            var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
-            var level = or_index + (statementLevel+1);
-            bids = bids.splice(0, level);
-            var new_bid = key + statementId;
+            var bidsStatementIds = $.map(bids, function(a){return a.replace(/[^0-9]+/, '');});
+						var level = $.inArray(parentId, bidsStatementIds); 
+						bids = bids.splice(0, level+1);
+						var new_bid = key + statementId;
             bids.push(new_bid);
           }
 					else { // siblings box or maybe alternatives box
@@ -762,7 +763,12 @@
 					}
 
           $('#breadcrumbs').data('element_clicked', getParentKey());
-
+          
+					// so we have the possibility of adding possible breadcrumb entries
+					if (params['hub']) {
+						bids.push(params['hub']);
+					}
+					
           $.setFragment(
 					  $.extend({
 	            "sids": stack.join(','),
@@ -881,7 +887,10 @@
 
 
       function showAnimated() {
-				statement.find('.content').animate(toggleParams, settings['animation_speed']);
+				var content = statement.find('.content');
+				if (!content.is(':visible')) {
+					statement.find('.content').animate(toggleParams, settings['animation_speed']);
+				}
 			}
 
       /***************************/

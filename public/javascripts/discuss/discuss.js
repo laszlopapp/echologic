@@ -154,6 +154,15 @@ function getOriginKeys(array) {
   });
 }
 
+/*
+ * Returns breadcrumb keys representing a new hub (being outside of the scope of a given stack).
+ */
+function getHubKeys(array) {
+  return $.grep(array, function(a, index) {
+    return $.inArray(a.substring(0,2), ['al']) != -1;
+  });
+}
+
 
 /*
  * Returns true if the URL matches the pattern of an echo statement link.

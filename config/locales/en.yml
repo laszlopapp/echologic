@@ -664,6 +664,7 @@ en:
           bi: 'Background Infos for'
           fq: 'Follow-up Questions for'
           jp: 'Following link in'
+          al: 'Oppositions for'
           over:
             ds: 'Back to'
             mi: 'Back to'
@@ -674,6 +675,7 @@ en:
             bi: 'Back to'
             fq: 'Back to'
             jp: 'Back to'
+            al: 'Back to'
 
       upload_image:
         title: Upload Image

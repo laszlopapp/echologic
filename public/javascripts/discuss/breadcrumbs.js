@@ -69,13 +69,20 @@
 				var sids = [];
 
 				var b_gen = breadcrumb.prev();
+				
+				var hub = '';
+				if (b_gen.length > 0 && getHubKeys([b_gen.attr("id")]).length != 0) {
+          hub = b_gen.attr("id");
+        }
 
 				// iterate on the previous breadcrumbs to generate the stack list
 				while (b_gen.length > 0) {
 					var b_id = b_gen.attr("id");
 					// if it's an origin breadcrumb, stack is done
 					if (getOriginKeys([b_id]).length == 0) {
-			   	 sids.unshift(b_id.match(/\d+/));
+						if (getHubKeys([b_id]).length == 0) {
+							sids.unshift(b_id.match(/\d+/));
+						}
 					} else {break;}
 					b_gen = b_gen.prev();
 				}
@@ -101,7 +108,7 @@
           // Getting previous breadcrumb entry, in order to load the proper siblings to session
 					var origin_bids = getOriginKeys(new_bids);
           var origin = origin_bids.length > 0 ? origin_bids[origin_bids.length -1] : '';
-          if (origin == null || origin == "undefined") {
+          if (!origin) {
             origin = '';
           }
 
@@ -116,7 +123,7 @@
 							"sids": sids.join(","),
 							"nl": true,
 							"origin": origin,
-							"hub": ''
+							"hub": hub
 						});
 					}
           return false;
