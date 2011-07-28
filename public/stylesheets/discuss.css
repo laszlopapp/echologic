@@ -781,7 +781,7 @@ a.statement_link:hover {
 /* Action bar in Discuss Search */
 
 .action_panel {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .action_panel_header {
@@ -1211,7 +1211,6 @@ a.statement_link:hover {
   display: block;
   background-image: url(../images/page/discuss/add_new_button.png);
   cursor: pointer;
-	margin-bottom: 20px;
 }
 
 #my_questions .add_new_button:hover,
@@ -1232,13 +1231,12 @@ a.statement_link:hover {
   background-position: 0 42px;
 }
 
-/****************************/
+/****************/
 /* Embed button */
-/****************************/
+/****************/
 
 #statements .action_bar .embed_button_container {
   position: relative;
-  margin-top: 20px;
 }
 
 .action_bar .embed_button {
@@ -1249,32 +1247,32 @@ a.statement_link:hover {
 }
 
 .embed_panel {
-    background: none repeat scroll 0 0 #FEFEFE;
-    border: 3px solid #BBBBBB;
-    bottom: -49px;
-    left: 136px;
-    position: absolute;
-    width: 322px;
-    padding: 15px 30px;
+  top: -75px;
+  left: 140px;
+  position: absolute;
+  width: 400px;
+  padding: 15px 30px;
 }
 
 .search .embed_panel {
-	top:98px;
+	top: 98px;
 	bottom: auto;
 }
 
 .embed_panel .panel_header {
-  width: 280px;
+  width: 350px;
   margin-left: 0 !important;
 }
 
-.action_bar .embed_url {
-  margin-top: 20px;
-  width: 317px !important;
+.action_bar .embed_code {
+  margin-top: 25px;
+  border: 2px solid #7bb031;
+  width: 390px !important;
 	height: 65px !important;
+  padding: 3px;
+  cursor: text;
 }
 
-/****************************/
 
 /*******************************/
 /* Action Panel - More options */
@@ -1318,6 +1316,7 @@ a.statement_link:hover {
   margin-top: 20px;
   padding: 3px;
   width: 320px;
+  cursor: text;
 }
 
 

@@ -92,7 +92,7 @@ module StatementsHelper
       content
     end
   end
-  
+
   def render_discuss_search_embed_button
     link_to('#', :id => 'embed_link', :class => 'add_new_button') do
       link_content = ''
@@ -103,34 +103,8 @@ module StatementsHelper
       link_content
     end
   end
-  
-  #
-  # Creates a link to embed statement node 
-  #
-  def render_embed_area(statement_node)
-     url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
-    content = ""
-    content << render_embed_button
-    content << render_embed_panel(url)
-    content
-  end
-  
-  def render_embed_button
-    link_to(I18n.t("discuss.statements.embed_button"), '#', :class => 'embed_button text_button')
-  end
 
-  def render_embed_panel(url)
-    embedded_code = %Q{<iframe width="800" height="1000" src="#{url}" frameborder="0"></iframe>}
-    content_tag(:div, :class => 'embed_panel popup_panel',
-                           :style => "display:none") do
-      panel = ''
-      panel << content_tag(:div, I18n.t("discuss.statements.embed_button"),:class => 'panel_header')
-      panel << content_tag(:div, I18n.t("discuss.statements.embed_hint"), :class => '')
-      panel << text_area_tag('', embedded_code, :class => 'embed_url')
-      panel
-    end
-  end
-  
+
   #
   # Renders all the actions shown in the action panel on the left.
   #
@@ -145,11 +119,11 @@ module StatementsHelper
 
       actions << content_tag(:div, :class => "actions_container") do
         buttons = ''
+        buttons << content_tag(:div, :class => "embed_button_container") do
+          render_embed_button(statement_node)
+        end
         buttons << content_tag(:div, :class => "copy_url_container") do
           render_copy_url_button(statement_node)
-        end
-        buttons << content_tag(:div, :class => "embed_button_container") do
-          render_embed_area(statement_node)
         end
         buttons
       end
@@ -161,6 +135,37 @@ module StatementsHelper
       actions
     end
   end
+
+
+  #
+  # Creates a link to embed statement node
+  #
+  def render_embed_button(statement_node)
+     url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
+    content = ""
+    content << link_to(I18n.t("discuss.statements.embed_button"), '#',
+                       :class => 'embed_button text_button')
+    content << render_embed_panel(url)
+    content
+  end
+
+
+  #
+  # Renders the embed statement panel to copy the embed code for the currently displayed statement.
+  #
+  def render_embed_panel(url)
+    embedded_code = %Q{<iframe width="100%" height="2000" src="#{url}" frameborder="0"></iframe>}
+    content_tag(:div,
+                :class => 'embed_panel popup_panel',
+                :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_button"),:class => 'panel_header')
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_hint"), :class => '')
+      panel << content_tag(:div, h(embedded_code), :class => 'embed_code')
+      panel
+    end
+  end
+
 
   #
   # Creates the button to pop up the Copy URL panel.
@@ -185,7 +190,7 @@ module StatementsHelper
         I18n.t("discuss.statements.copy_url")
       end
       panel << content_tag(:div, I18n.t('discuss.statements.copy_url_hint'), :class => '')
-      panel << text_field_tag('', url, :class => 'statement_url')
+      panel << content_tag(:div, h(url), :class => 'statement_url')
       panel
     end
   end
@@ -481,7 +486,7 @@ module StatementsHelper
   #
   def cancel_edit_statement_node(statement_node, locked_at)
     link_to I18n.t('application.general.cancel'),
-            cancel_statement_node_url(statement_node, 
+            cancel_statement_node_url(statement_node,
                                       :locked_at => locked_at.to_s,
                                       :cs => params[:cs]),
            :class => "text_button cancel_text_button ajax"

@@ -313,6 +313,27 @@
   }
 
 
+  $.fn.selText = function() {
+    var range, selection;
+    var obj = this[0];
+    if ($.browser.msie) {
+      range = obj.offsetParent.createTextRange();
+      range.moveToElementText(obj);
+      range.select();
+    } else if ($.browser.mozilla || $.browser.opera) {
+      selection = obj.ownerDocument.defaultView.getSelection();
+      range = obj.ownerDocument.createRange();
+      range.selectNodeContents(obj);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    } else if ($.browser.safari) {
+      selection = obj.ownerDocument.defaultView.getSelection();
+      selection.setBaseAndExtent(obj, 0, obj, 1);
+    }
+    return this;
+  };
+
+
   /*
    * Detecting mobile devices.
    */
