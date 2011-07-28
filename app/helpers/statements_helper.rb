@@ -463,7 +463,7 @@ module StatementsHelper
   # Returns the block heading for the siblings of the current statement node.
   #
   def sibling_box_title(type)
-    content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
+    content_tag :span, I18n.t("discuss.statements.headings.#{@hub_type || type}"), :class => 'label'
   end
 
   #
@@ -599,26 +599,28 @@ module StatementsHelper
 
   def siblings_button(statement_node, type, opts={})
     origin = opts[:origin]
-    name = type.classify.constantize.name_for_siblings
+    name = @hub_type || type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.u_class_name != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        parent = @current_stack ? @current_stack[@current_stack.length - 2] : statement_node
-        descendants_statement_node_url(parent, name)
+        parent = @hub_child || (@current_stack ? @current_stack[@current_stack.length - 2] : statement_node)
+        descendants_statement_node_url(parent, name, :hub => params[:hub])
       end
     else  # STATEMENT NODES
 
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        prev = @current_stack ?
+        prev = @hub_child ||
+               (@current_stack ?
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
-               statement_node.parent_node
+               statement_node.parent_node)
 
         descendants_statement_node_url(prev,
-                                       statement_node.class.name_for_siblings,
-                                       :current_node => statement_node)
+                                       @hub_type || statement_node.class.name_for_siblings,
+                                       :current_node => statement_node,
+                                       :hub => params[:hub])
       end
     end
 
@@ -627,7 +629,7 @@ module StatementsHelper
                 :class => 'show_siblings_button expandable') do
       content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
                   :class => 'show_siblings_label ttLink no_border',
-                  :title => I18n.t("discuss.tooltips.siblings.#{type}"))
+                  :title => I18n.t("discuss.tooltips.siblings.#{@hub_type || type}"))
     end
   end
 

@@ -364,7 +364,14 @@ class StatementsController < ApplicationController
     @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
     begin
-      @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
+      if @type.eql? :Alternative
+        @hub_type = "alternative"
+        @type = @statement_node.class.alternative_types.first
+        load_alternatives(@type, 1, -1)
+      else
+        @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
+      end
+      
 
       respond_to do |format|
         format.html{
@@ -528,15 +535,15 @@ class StatementsController < ApplicationController
 
   protected
 
-  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES)
+  def load_alternatives(type = :Alternative, page = 1, per_page = TOP_ALTERNATIVES)
     @children ||= {}
     @children_documents ||= {}
-    @children[:Alternative] = @statement_node.paginated_alternatives(page,
+    @children[type] = @statement_node.paginated_alternatives(page,
                                                                      per_page,
-                                                                       :language_ids => filter_languages_for_children,
-                                                                       :user => current_user)
+                                                                     :language_ids => filter_languages_for_children,
+                                                                     :user => current_user)
     @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
-                                                            :statement_ids => @children[:Alternative].flatten.map(&:statement_id))
+                                                            :statement_ids => @children[type].flatten.map(&:statement_id))
 
   end
 

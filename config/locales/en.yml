@@ -490,6 +490,7 @@ en:
         pro_argument: See all arguments belonging to the current proposal
         contra_argument:  See all arguments belonging to the current proposal
         background_info:  See all background infos belonging to the current statement
+        alternative: See all alternatives from the the previous statement
       link_statement: |-
         Enter a part of the title or paste in the URL of a statement.
         Afterwards press this button to reuse the statement in the current context.
@@ -594,6 +595,7 @@ en:
         alternatives: 'Alternatives'
         background_info: 'Background Infos'
         follow_up_question: 'Follow-up Questions'
+        alternative: 'Alternatives'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'
@@ -601,6 +603,7 @@ en:
         argument: 'Arguments'
         follow_up_question: 'Questions'
         background_info: 'Backgrounds'
+        alternative: 'Alternatives'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
         background_info: 'Background Infos'
