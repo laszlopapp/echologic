@@ -54,6 +54,8 @@
 					language_combo = form.find('.statement_language select');
 					statementLinked = form.find('input#statement_node_statement_id');
 					
+					
+					// Get Id that will be used on the conditions for possible linkable statements
 					var parentForLinking = form.prev();
 					if(parentForLinking.length > 0) {
 						statementParentId = getStatementId(parentForLinking.attr('id'));
