@@ -25,6 +25,7 @@ class StatementsController < ApplicationController
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   before_filter :fetch_current_stack, :only => [:show, :add, :new, :cancel]
+  before_filter :fetch_hub, :only => [:show, :add, :cancel]
 
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
@@ -697,6 +698,23 @@ class StatementsController < ApplicationController
                    StatementNode.find(@current_stack[@current_stack.index(@statement_node.id)-1],
                                       :select => "id, type") : nil
   end
+  
+  #
+  # Gets the hub.
+  #
+  # Loads instance variables:
+  # @hub_type(String) : type of hub we are currently loading
+  # @hub_child(StatementNode) : statement node identifying the hub we are currently loading
+  #
+  def fetch_hub
+    if !params[:hub].blank?
+      @hub_type = case params[:hub][0, 2]
+        when 'al' then 'alternative'
+      end
+      
+      @hub_child = StatementNode.find(params[:hub][2..-1])
+    end
+  end
 
   #
   # Checks if the user can access this very statement
@@ -1099,6 +1117,7 @@ class StatementsController < ApplicationController
   def load_siblings(statement_node)
     return if statement_node.new_record?
     @siblings ||= {}
+    return load_alternative_siblings(statement_node) if @hub_child
     class_name = statement_node.target_statement.u_class_name
 
 
@@ -1114,6 +1133,22 @@ class StatementsController < ApplicationController
       siblings = roots_to_session(statement_node)
     end
     @siblings["#{class_name}_#{statement_node.target_id}"] = siblings
+  end
+  
+  #
+  # Loads alternative node siblings of the current hub.
+  #
+  # statement_node(StatementNode) : the statement node
+  #
+  # Loads instance variables:
+  # @siblings(Hash) : key   : statement node dom id ; ":type_:id" or "add_:type" for teasers (String)
+  #                   value : Array[Integer] : Array of statement ids with teaser path as last element
+  #
+  def load_alternative_siblings(statement_node)
+    siblings = statement_node.siblings_to_session :language_ids => @language_preference_list,
+                                                  :user => current_user,
+                                                  :prev => @hub_child.hub
+    @siblings["#{@hub_type}_#{@hub_child.target_id}"] = siblings - [@hub_child.target_id]
   end
 
   #

@@ -5,8 +5,8 @@
 <% type = [statement_node.class.name_for_siblings, node_type(statement_node)].uniq.join(' ') %>
 
 <% content_tag :div, :id => dom_id(statement_node), 
-               :class => "statement #{type} #{statement_node.echoable? ? 'echoable' : ''}",
-               'data-siblings' => @siblings ? @siblings[dom_id(statement_node)].to_json : '',
+               :class => "statement #{type} #{statement_node.echoable? ? 'echoable' : ''} #{@hub_type}",
+               'data-siblings' => @siblings ? @siblings[@hub_child ? "#{@hub_type}_#{@hub_child.id}" : dom_id(statement_node)].to_json : '',
                'dom-parent' => statement_node.parent_node ? 
                                "#{dom_class(statement_node.parent_node)}_#{statement_node.parent_node.id}" :
                                params[:origin] do %>
