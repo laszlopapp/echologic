@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   before_filter :fetch_current_stack, :only => [:show, :add, :new, :cancel]
-  before_filter :fetch_hub, :only => [:show, :add, :new, :create, :cancel]
+  before_filter :fetch_hub, :only => [:show, :add, :create, :cancel]
 
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
