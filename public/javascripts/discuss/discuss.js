@@ -76,6 +76,7 @@ function initFragmentChangeHandling() {
 				"bids": bids.join(","),
         "nl": $.fragment().nl,
 				"origin": $.fragment().origin,
+				"hub" : $.fragment().hub,
 				"cs": $.fragment().sids
       });
 

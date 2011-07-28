@@ -760,7 +760,7 @@
 		    });
 
 	      statement.find('.alternatives').each(function(){
-					initSiblingsLinks($(this), true);
+					initSiblingsLinks($(this), {"nl" : true, "hub" : ("al"+statementId)});
 				});
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
@@ -800,7 +800,7 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
-				newLevelParam = arguments[2] || (newLevel ? newLevel : '');
+				var params = arguments[2] || {};
 				container.find('a.statement_link').bind("click", function() {
 					var current_stack = getStatementsStack(null, newLevel);
 					var childId = $(this).parent().attr('statement-id');
@@ -835,13 +835,15 @@
 
           $('#breadcrumbs').data('element_clicked', getParentKey());
 
-          $.setFragment({
-            "sids": stack.join(','),
-            "nl": newLevelParam,
-						"bids": bids.join(','),
-						"origin": origin,
-						"hub" : ''
-          });
+          $.setFragment(
+					  $.extend({
+	            "sids": stack.join(','),
+	            "nl": (newLevel ? newLevel : ''),
+							"bids": bids.join(','),
+							"origin": origin,
+							"hub" : ''
+            }, params)
+				  );
           return false;
         });
       }
