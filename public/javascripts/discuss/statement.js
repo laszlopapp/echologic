@@ -101,6 +101,14 @@
         }
       }
 
+      /*
+       * reinitialises statement content without needing to place the statement again
+       */
+      function reinitialise() {
+				settings = $.extend({}, resettings, settings, {'load' : false});
+        initialise();
+			}
+
 
       /*
        * Returns true if the statement is echoable.
@@ -203,7 +211,7 @@
 
 
       /*
-       * Called if the newly added statement might influance the stack (new level or removing some deeper levels).
+       * Inserts the statement in the stack
        */
 			function insertStatement() {
 				if (!settings['insertStatement']) {return;}
@@ -211,6 +219,8 @@
 				collapseStatements();
 
         var element = $('div#statements .statement').eq(settings['level']);
+				
+				// if the statement is going to replace a statement already existing in the stack
 				if(element.length > 0) {
 					// if statement this statement is going to replace is from a different type
 					if (domId.match('new') && element.data('api').getType() != statementType) {
@@ -227,14 +237,28 @@
 							element.data('api').deleteBreadcrumb();
 						}
 				  }
+					statement.find('.content').show();
           element.replaceWith(statement);
         }
-        else
+        else // no statement on this level of the stack, so insert at the bottom
         {
           $('div#statements').append(statement);
+					showAnimated();
         }
+			  removeBelow();
 			}
-
+      
+			
+			/*
+			 * Removes the statements from the lower levels of this statement's stack
+			 */
+			function removeBelow(){
+	  	  statement.nextAll().each(function(){
+	  		  // Delete the session data relative to this statement first
+					$('div#statements').removeData(this.id);
+					$(this).remove();
+				});
+			}
 
       /*
 		   * Collapses all visible statements to focus on the one appearing on new level.
@@ -922,6 +946,10 @@
       }
 
 
+      function showAnimated() {
+				statement.find('.content').animate(toggleParams, settings['animation_speed']);
+			}
+
       /***************************/
       /* Public API of statement */
       /***************************/
@@ -929,8 +957,7 @@
       $.extend(this,
       {
         reinitialise: function(resettings) {
-          settings = $.extend({}, resettings, settings, {'load' : false});
-          initialise();
+          reinitialise();
         },
 
         reinitialiseContainerBlock: function(containerSelector, newLevel) {
@@ -947,20 +974,14 @@
 
         insertContent: function(content) {
           statement.append(content);
+					showAnimated();
+					reinitialise();
           return this;
         },
 
 		    removeBelow: function(){
-		     statement.nextAll().each(function() {
-			     // Delete the session data relative to this statement first
-					 /*if (domId.match('new')) {
-				   	$(this).data('api').deleteBreadcrumb();
-				   }*/
-			     $('div#statements').removeData(this.id);
-			     $(this).remove();
-
-		     });
-				 return this;
+				  removeBelow();
+				  return this;
 		    },
 
 				getBreadcrumbKey: function() {
@@ -971,17 +992,6 @@
 					var key = getParentKey();
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
 				},
-
-        insert: function() {
-		      var element = $('div#statements .statement').eq(settings['level']);
-		      if(element.length > 0) {
-		        element.replaceWith(statement);
-		      } else {
-		        collapseStatements();
-		        $('div#statements').append(statement);
-		      }
-					return this;
-		    },
 
 		    loadAuthors: function (authors) {
 		      authors.insertAfter(statement.find('.summary h2')).animate(toggleParams, settings['animation_speed']);

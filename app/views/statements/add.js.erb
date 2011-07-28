@@ -31,4 +31,3 @@ $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
 <% end %>
 
 var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= @level %>});
-add_teaser.data('api').removeBelow();
