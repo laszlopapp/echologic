@@ -704,6 +704,9 @@ en:
         follow_up_question: |
           This is where YOUR follow-up question could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
+        alternative: |
+          This is where YOUR opposition could appear.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
     summary:
       title: 'Summary'
 
