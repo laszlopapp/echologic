@@ -692,7 +692,8 @@
               "bids": targetBids.join(","),
               "sids": sids.join(","),
               "nl": true,
-              "origin": bid
+              "origin": bid,
+							"hub" : ''
             });
 
 						return false;
@@ -739,7 +740,8 @@
 		        "sids": targetStack.join(','),
 		        "nl": '',
 						"bids": targetBids.join(','),
-						"origin": origin
+						"origin": origin,
+						"hub": ''
 		      });
 
 					var nextStatement = statement.next();
@@ -837,7 +839,8 @@
             "sids": stack.join(','),
             "nl": newLevelParam,
 						"bids": bids.join(','),
-						"origin": origin
+						"origin": origin,
+						"hub" : ''
           });
           return false;
         });

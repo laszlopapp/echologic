@@ -115,7 +115,8 @@
 							"bids": new_bids.join(","),
 							"sids": sids.join(","),
 							"nl": true,
-							"origin": origin
+							"origin": origin,
+							"hub": ''
 						});
 					}
           return false;
