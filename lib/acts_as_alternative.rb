@@ -44,10 +44,9 @@ module ActiveRecord
           class_eval do
             class << self
 
-              def has_alternatives(*klasses)
+              def has_alternatives(klasses)
                 @@alternative_types ||= { }
-                @@alternative_types[self.name] ||= []
-                @@alternative_types[self.name] |= klasses
+                @@alternative_types[self.name] ||= klasses
               end
 
               def has_alternatives?

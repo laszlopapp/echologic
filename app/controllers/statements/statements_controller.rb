@@ -367,7 +367,7 @@ class StatementsController < ApplicationController
       if @type.eql? :Alternative
         @hub_type = "alternative"
         @type = @statement_node.class.alternative_types.first
-        load_alternatives(@type, 1, -1)
+        load_alternatives(1, -1, @type)
       else
         @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
       end
@@ -429,11 +429,11 @@ class StatementsController < ApplicationController
       if @type.eql? :Alternative
         @child_type = @statement_node.class.alternative_types.first.to_s.underscore
         @offset =  TOP_ALTERNATIVES if @offset > 0
-        template = @statement_node.class.alternative_more_template
         load_alternatives @page, @per_page
+        template = @statement_node.class.more_template
       else
-        template = @type.to_s.constantize.more_template
         load_children :type => @type, :page => @page, :per_page => @per_page
+        template = @type.to_s.constantize.more_template
       end
       respond_to do |format|
         format.html{show}
@@ -535,13 +535,13 @@ class StatementsController < ApplicationController
 
   protected
 
-  def load_alternatives(type = :Alternative, page = 1, per_page = TOP_ALTERNATIVES)
+  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES, type = :Alternative)
     @children ||= {}
     @children_documents ||= {}
     @children[type] = @statement_node.paginated_alternatives(page,
-                                                                     per_page,
-                                                                     :language_ids => filter_languages_for_children,
-                                                                     :user => current_user)
+                                                             per_page,
+                                                             :language_ids => filter_languages_for_children,
+                                                             :user => current_user)
     @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
                                                             :statement_ids => @children[type].flatten.map(&:statement_id))
 
