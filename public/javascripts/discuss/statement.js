@@ -482,7 +482,6 @@
        * Initiates a link for the statement with the dorrect breadcrumbs and a new JUMP breadcrumb in the end.
        */
       function initJumpLink(link, url) {
-        alert(url);
 				var anchor_index = url.indexOf("#");
         if (anchor_index != -1) {
           url = url.substring(0, anchor_index);
