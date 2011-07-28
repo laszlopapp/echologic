@@ -241,7 +241,8 @@ form.statement fieldset ol span.defaultText {
 #statements form.formtastic fieldset.statement_title li,
 #statements form.formtastic fieldset.statement_title input {
   margin-bottom: 0;
-  width: 545px;
+  width: 433px;
+  padding-right: 114px;
 }
 
 #statements form.formtastic fieldset.statement_language {
@@ -1903,6 +1904,12 @@ a.statement_link:hover {
 .header.active .echo_indicator .ui-progressbar-value {
   border: 1px solid #A9B6BD !important;
   background: url("../images/jquery-ui/ui-bg_gloss-wave_85_9fda58_500x100.gif") repeat-x scroll 50% 50% #7AB031;
+}
+
+form .header .echo_indicator, form .header .no_echo_indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /******************/

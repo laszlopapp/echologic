@@ -539,7 +539,7 @@ fr:
 
     statements:
       label: 'Voter'
-      echo_link: 'Soutenez ce (echo)'
+      echo_link: 'Soutenir cet (echo)'
       unecho_link: 'Retirer votre vote'
       echo_indicator:
         one: '{{supporter_count}} supporter'
@@ -555,8 +555,8 @@ fr:
       create_alternative_link: Add new opposition
       create_background_info_link: Add new background info
       create_follow_up_question_link: Ajouter une nouvelle question suivie
-      preview_embedded_content: Preview
-      open_embedded_content: Open in new window
+      preview_embedded_content: Aperçu
+      open_embedded_content: Ouvrir une nouvelle fenêtre
 
       statement_language_hint: |
         Veuillez préciser vos connaissances linguistiques et votre niveau respectif dans <a href='{{url}}'>profil</a>.
@@ -622,7 +622,7 @@ fr:
         question: 'Questions'
         proposal: 'Propositions'
         improvement: 'Rajouts'
-        argument: 'Pros & Cons'
+        argument: 'Pro & Contre'
         alternatives: 'Alternatives'
         background_info: 'Background Infos'
         follow_up_question: 'Questions suivie'
@@ -680,7 +680,7 @@ fr:
       cannot_be_edited: |
         Dommage, vous ne pouvez pas éditer ce constat après que les autres membres l'aient approuvé.
         Cette disposition évitera aussi des piratages éventuels.
-      cannot_be_linked: Unfortunately this statement cannot be linked in the current context.
+      cannot_be_linked: Désolé, cette contribution ne peut pas être reliée au context présent.
       echos_label: Support
 
       linking:
@@ -853,7 +853,8 @@ fr:
       subject: Subject
       text: Message
     create:
-      thank_you: Your message has been sent successfully.
+      thank_you: |-
+        Votre message a été envoyé avec succès.
 
   # Model resources
   activerecord:
