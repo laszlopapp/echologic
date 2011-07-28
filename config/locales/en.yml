@@ -503,10 +503,8 @@ en:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
       add_new: New statement
-      copy_url: Link to
-      add_new: Add new...
-      copy_to_clipboard: Copy URL
       embed_button: "Embed"
+      copy_url: Link to
 
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
