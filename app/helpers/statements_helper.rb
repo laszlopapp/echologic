@@ -758,6 +758,7 @@ module StatementsHelper
                                                     :type => opts[:type],
                                                     :bids => params[:bids],
                                                     :origin => params[:origin],
+                                                    :hub => opts[:hub],
                                                     :nl => opts[:new_level]),
             :class => 'more_children'
   end

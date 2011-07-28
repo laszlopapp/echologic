@@ -209,7 +209,7 @@
 				
         button.attr('href', buttonUrl);
 				
-				if ($.fragment().hub.length > 0) {
+				if ($.fragment().hub && $.fragment().hub.length > 0) {
 					button.attr('hub', $.fragment().hub);
 				}
 		    button.removeAttr('data-id');

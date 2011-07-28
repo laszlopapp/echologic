@@ -11,7 +11,8 @@ var more_element = container.find('.more_pagination');
 
 var elements_list = "<%= escape_javascript(render :partial => 'statements/child',
                                                   :locals => {:child_type => @type.to_s.underscore,
-                                                              :new_level => params[:nl]},
+                                                              :new_level => params[:nl],
+                                                              :hub => params[:hub]},
                                                   :collection => @children[@type][@offset, @per_page]) %>";
 var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type],
                                                               :class => 'more_pagination',
@@ -30,6 +31,7 @@ children_list.append(elements_list);
                                                             @child_type || @type.to_s.underscore,
                                                             :label_type => @type.to_s.underscore,
                                                             :nl => true,
+                                                            :hub => params[:hub],
                                                             :bids => params[:bids],
                                                             :origin => params[:origin],
                                                             :css => "ajax" ) %>');

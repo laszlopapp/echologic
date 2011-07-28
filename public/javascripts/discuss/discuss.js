@@ -111,7 +111,7 @@ function initFragmentChangeHandling() {
 
     $.setFragment({
       "nl" : true,
-			"hub" : '',
+			"hub" : $.fragment().hub || '',
       "bids" : bids.join(','),
       "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
