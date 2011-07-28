@@ -758,7 +758,7 @@
 		    });
 
 	      statement.find('.alternatives').each(function(){
-					initSiblingsLinks($(this));
+					initSiblingsLinks($(this), true);
 				});
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
@@ -781,7 +781,7 @@
        * new_level = false
        */
       function initSiblingsLinks(container) {
-        initStatementLinks(container, false)
+				initStatementLinks(container, false, arguments[1]);
 	    }
 
 
@@ -798,6 +798,7 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
+				newLevelParam = arguments[2] || (newLevel ? newLevel : '');
 				container.find('a.statement_link').bind("click", function() {
 					var current_stack = getStatementsStack(null, newLevel);
 					var childId = $(this).parent().attr('statement-id');
@@ -834,7 +835,7 @@
 
           $.setFragment({
             "sids": stack.join(','),
-            "nl": newLevel ? newLevel : '',
+            "nl": newLevelParam,
 						"bids": bids.join(','),
 						"origin": origin
           });
