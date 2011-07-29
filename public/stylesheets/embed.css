@@ -1,0 +1,84 @@
+
+body.embedded_echo {
+  background-position: 0 -62px;
+}
+
+.embedded_echo #header {
+	position: relative;
+  height: 85px;
+  text-align: center;
+}
+
+.embedded_echo #login_container {
+  float: left;
+  padding-top: 12px;
+}
+
+.embedded_echo #logged_in_user_pic {
+  float: left;
+}
+
+.embedded_echo #logged_in_user {
+  text-align: left;
+  margin: 8px 0 0 12px;
+}
+
+.embedded_echo #header #logout_button {
+  background: transparent url(../images/page/icons/small_x_button.png) no-repeat scroll;
+  position: absolute;
+  left: 18px;
+  top: 7px;
+  width: 12px;
+  height: 12px;
+}
+
+.embedded_echo #header #logout_button:hover {
+  background-position: 0 -12px;
+}
+
+.embedded_echo .embedded_echo_logo {
+	float: right;
+  background: transparent url(../images/page/embedded_echo_logo.png) no-repeat scroll;
+  width: 99px;
+  height: 39px;
+  margin-top: 16px;
+}
+
+.embedded_echo .embed_menu {
+  display: inline-block;
+  margin-top: 7px;
+}
+
+.embedded_echo .embed_menu .menu_item {
+  list-style: none;
+  float: left;
+  margin-right: 20px;
+  color: #21587f;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.embedded_echo .embed_menu .menu_item.active {
+  color: #7bb031;
+}
+
+.embedded_echo .embed_menu #echo_language_button {
+  background: none;
+  list-style: none;
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.embedded_echo #language_selector {
+  left: 675px;
+}
+
+.embedded_echo #language_selector a {
+  color: #7691A2;
+  margin: 5px 2px 0 10px;
+}
+
+.embedded_echo #language_selector a:hover {
+  color: #1A4864;
+}

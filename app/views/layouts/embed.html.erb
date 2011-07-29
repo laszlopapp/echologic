@@ -24,6 +24,7 @@
                             'connect',
                             'my_echo',
                             'admin',
+                            'embed',
                             :cache => 'echo_app' %>
 
 
@@ -71,27 +72,24 @@
   </head>
 
 
-  <body>
+  <body class="embedded_echo">
 
     <!-- Info and error messages -->
     <%= render :partial => 'layouts/components/messages' %>
 
     <div id="header">
-      <div class="embed_menu">
-        <%= render :partial => "users/user_sessions/login" %>
-        <%= link_to I18n.t('layouts.outer_menu.logout'),
-                signout_path,
-                :method => :delete,
-                :id => 'logout_button' if current_user_session %>
+      <%= render :partial => "users/user_sessions/login" %>
+      <%= link_to '',
+                  signout_path,
+                  :method => :delete,
+                  :id => 'logout_button',
+                  :class => 'ttLink no_border',
+                  :title => I18n.t('layouts.outer_menu.logout') if current_user_session %>
 
-        <div class="main_logo">
-          <%= link_to(image_tag('page/echo_logo.png'), current_user ? discuss_search_path : root_path) %>
-        </div>
-      </div>
+      <%= content_tag(:a, '', :href => 'http://' + ECHO_HOST, :target => '_blank', :class => 'embedded_echo_logo') %>
+
+      <%= tabnav :embed_main %>
     </div>
-
-    <!-- Main menu in embedded mode -->
-    <%= tabnav :embed_main %>
 
     <div id="application_container">
       <!-- Submenu -->

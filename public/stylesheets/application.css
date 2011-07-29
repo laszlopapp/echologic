@@ -306,7 +306,7 @@
 }
 
 .delete_tag_button {
-  background:transparent url(../images/page/icons/delete_tag_button.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/icons/small_x_button.png) no-repeat scroll 0 0;
   width: 12px;
   height: 12px;
   display: inline-block;
@@ -934,14 +934,6 @@
   height: 10px !important;
 }
 
-/*
- * Embed
- */
-
-.embed_menu {
-	position: relative;
-  min-height: 70px;
-}
 
 /* Action Panels */
 

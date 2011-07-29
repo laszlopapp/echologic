@@ -134,7 +134,7 @@
   function bindLanguageSelectionEvents() {
     $('#echo_language_button').bind("mouseenter", function() {
       var pos = $(this).position();
-      $("#language_selector").css( { "left": (pos.left + 20) + "px", "top": (pos.top + 35) + "px" } );
+      $("#language_selector").css( { "left": (pos.left + 8) + "px", "top": (pos.top + 30) + "px" } );
       $('#language_selector').show();
     });
 

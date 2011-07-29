@@ -988,9 +988,7 @@ a.statement_link:hover {
 /* Popup panels */
 /****************/
 
-
-.statement .popup_panel,
-.search .popup_panel {
+.popup_panel {
   border: 2px solid #777;
 	background: #FEFEFE;
   position: absolute;
