@@ -599,12 +599,16 @@ module StatementsHelper
 
   def siblings_button(statement_node, type = node_type(statement_node), opts={})
     origin = opts[:origin]
-    name = @hub_type || type.classify.constantize.name_for_siblings
+    if @hub_child and @hub_child.has_alternative?(statement_node)
+      hub_child = @hub_child
+      hub_type = @hub_type
+    end
+    name = hub_type || type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.u_class_name != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        parent = @hub_child || (@current_stack ? @current_stack[@current_stack.length - 2] : statement_node)
+        parent = hub_child || (@current_stack ? @current_stack[@current_stack.length - 2] : statement_node)
         descendants_statement_node_url(parent, name, :hub => params[:hub])
       end
     else  # STATEMENT NODES
@@ -612,13 +616,13 @@ module StatementsHelper
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        prev = @hub_child ||
+        prev = hub_child ||
                (@current_stack ?
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
                statement_node.parent_node)
 
         descendants_statement_node_url(prev,
-                                       @hub_type || statement_node.class.name_for_siblings,
+                                       hub_type || statement_node.class.name_for_siblings,
                                        :current_node => statement_node,
                                        :hub => params[:hub])
       end
@@ -836,6 +840,10 @@ module StatementsHelper
     
     link_to 'X', statement_node_url(statement_node, :bids => bids, :origin => params[:origin]),
             :class => "alternative_close"
+  end
+
+  def create_alternative_follow_up_question_link(statement_node)
+    create_new_child_statement_link(statement_node, "alternative_follow_up_question", :css => "ajax")
   end
 
   ####################
