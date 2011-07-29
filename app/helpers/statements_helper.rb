@@ -293,7 +293,7 @@ module StatementsHelper
       if statement_node.class.has_alternatives?
         buttons << content_tag(:a, :href => new_statement_node_url(statement_node.target_id,
                                                                    statement_node.class.alternative_types.first.to_s.underscore,
-                                                                   :hub => 'alternative',
+                                                                   :hub => "al#{statement_node.target_id}",
                                                                    :bids => params[:bids],
                                                                    :origin => origin),
                                :class => "create_alternative_button_32 resource_link ajax ttLink no_border",
