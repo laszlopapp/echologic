@@ -26,7 +26,7 @@ class StatementNode < ActiveRecord::Base
   # Destroys the statement ONLY if this is the only statement node belonging the statement
   #
   def destroy_statement
-    statement.destroy if statement and (self.statement.statement_nodes.map(&:id) - [target_id]).empty?
+    statement.destroy if statement and (statement.statement_nodes.map(&:target_id) - [target_id]).empty?
   end
 
   #
