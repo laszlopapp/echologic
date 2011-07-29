@@ -1,5 +1,4 @@
 class FollowUpQuestion < Question
-  has_linkable_types :Question
 
   belongs_to :question
 
