@@ -4,8 +4,4 @@ class CasHub < StatementNode
 
   belongs_to :alternative_follow_up_question, :foreign_key => 'question_id'
   
-  def target_id
-    parent_id  
-  end
-  
 end
