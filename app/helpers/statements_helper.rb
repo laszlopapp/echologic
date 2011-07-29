@@ -842,6 +842,14 @@ module StatementsHelper
             :class => "alternative_close"
   end
 
+  #
+  # Returns the block heading for the alternative tag on the alternative header
+  #
+  def alternative_header_box_title(type)
+    type_tag = I18n.t("discuss.statements.headings.#{type}")
+    content_tag :span, "#{I18n.t("discuss.statements.types.alternative")}... #{type_tag}", :class => 'label'
+  end
+
   def create_alternative_follow_up_question_link(statement_node)
     create_new_child_statement_link(statement_node, "alternative_follow_up_question", :css => "ajax")
   end

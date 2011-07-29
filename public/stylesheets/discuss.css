@@ -1516,7 +1516,7 @@ a.statement_link:hover {
 }
 
 #statements .header .alternative_close {
-	left: 137px;
+	left: 163px;
   position: absolute;
   top: 11px;
 }
@@ -1527,6 +1527,15 @@ a.statement_link:hover {
 
 #statements .header .alternative_header .add_new_button {
 	margin: 0;
+}
+
+#statements .header .alternative_header .label {
+	float: left;
+	font-size: 11px;
+  font-weight: bold;
+	left: 15px;
+  position: absolute;
+  top: 13px;
 }
 /*******************************/
 /* Prev/Next Statement buttons */
