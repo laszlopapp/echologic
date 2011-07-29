@@ -40,7 +40,7 @@ module ActiveRecord
                                   's.id != #{id} AND ' +
                                   's.type IN (#{self.class.alternative_types.map{|s|"\"#{s.to_s}\""}})'
 
-
+          
           class_eval do
             class << self
 
@@ -68,6 +68,14 @@ module ActiveRecord
 
             def parent_node
               hub.nil? ? parent : hub.parent
+            end
+            
+            def alternative_follow_up_question
+              hub.alternative_follow_up_question
+            end
+            
+            def has_alternative?(node)
+              parent_id == node.parent_id
             end
 
             def paginated_alternatives(page, per_page = nil,opts={})

@@ -585,6 +585,7 @@ a.statement_link:hover {
 .create_pro_argument_button,
 .create_contra_argument_button,
 .create_follow_up_question_button,
+.create_alternative_follow_up_question_button,
 .create_alternative_button,
 .create_background_info_button {
   background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
@@ -1520,6 +1521,13 @@ a.statement_link:hover {
   top: 11px;
 }
 
+#statements .header .alternative_header .header_link {
+  padding-top: 2px;
+}
+
+#statements .header .alternative_header .add_new_button {
+	margin: 0;
+}
 /*******************************/
 /* Prev/Next Statement buttons */
 /*******************************/

@@ -477,6 +477,7 @@ en:
       create_alternative: "Post a new opposition to this statement"
       create_background_info: "Recommend a new piece of background information related to this statement"
       create_follow_up_question: "Post a new new follow-up question concerning this statement"
+      create_alternative_follow_up_question: "Post a new alternative debate concerning this alternative view"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -518,6 +519,7 @@ en:
       create_alternative_link: Add new opposition
       create_background_info_link: Add new background info
       create_follow_up_question_link: Add new follow-up question
+      create_alternative_follow_up_question_link: Open follow-up discussion on the alternatives
       preview_embedded_content: Preview
       open_embedded_content: Open in new window
 

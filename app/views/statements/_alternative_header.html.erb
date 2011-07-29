@@ -4,10 +4,13 @@
   <% content_tag :div, :class => 'header_buttons' do %>
 	 
    <%= siblings_button(statement_node) %>
-   <%= close_alternative_mode_button(@hub_child) %>
+   <%= close_alternative_mode_button(statement_node) %>
    
   <% end %>
 	<% content_tag :div, :class => 'header_link' do %>
-	
+	  <% if statement_node.alternative_follow_up_question.nil? %>
+      <%= create_alternative_follow_up_question_link(statement_node) %>
+		<% else %>
+		<% end %>	
 	<% end %>
 <% end %>
