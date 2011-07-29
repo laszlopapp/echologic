@@ -21,6 +21,7 @@ class Breadcrumb
       when "pro_argument","contra_argument" then 'ar'
       when "background_info" then 'bi'
       when "follow_up_question" then 'fq'
+      when 'discuss_alternatives_question' then 'dq'
     end
   end
 end

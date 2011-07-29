@@ -851,7 +851,7 @@ module StatementsHelper
   end
 
   def create_discuss_alternatives_question_link(statement_node)
-    create_new_child_statement_link(statement_node.hub, "discuss_alternatives_question", :css => "ajax")
+    create_new_child_statement_link(statement_node, "discuss_alternatives_question", :css => "ajax", :nl => true, :origin => params[:origin], :bids => params[:bids])
   end
 
   ####################

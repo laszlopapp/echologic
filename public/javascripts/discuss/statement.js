@@ -788,7 +788,8 @@
        */
       function getParentKey() {
 				if (parentStatement.length > 0) {
-          return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));
+					var parentType = statement.hasClass('alternative') ? 'al' : getTypeKey(statementType); 
+          return parentType + getStatementId(parentStatement.attr('id'));
         } else {
           return $.fragment().origin;
         }
