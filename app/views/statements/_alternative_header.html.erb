@@ -8,8 +8,8 @@
    
   <% end %>
 	<% content_tag :div, :class => 'header_link' do %>
-	  <% if statement_node.alternative_follow_up_question.nil? %>
-      <%= create_alternative_follow_up_question_link(statement_node) %>
+	  <% if statement_node.discuss_alternatives_question.nil? %>
+      <%= create_discuss_alternatives_question_link(statement_node) %>
 		<% else %>
 		<% end %>	
 	<% end %>

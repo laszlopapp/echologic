@@ -585,7 +585,7 @@ a.statement_link:hover {
 .create_pro_argument_button,
 .create_contra_argument_button,
 .create_follow_up_question_button,
-.create_alternative_follow_up_question_button,
+.create_discuss_alternatives_question_button,
 .create_alternative_button,
 .create_background_info_button {
   background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;

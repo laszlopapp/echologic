@@ -1,4 +1,4 @@
-class AlternativeFollowUpQuestion < FollowUpQuestion
+class DiscussAlternativesQuestion < FollowUpQuestion
   has_linkable_types
 
   class << self

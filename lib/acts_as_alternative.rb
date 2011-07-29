@@ -70,8 +70,8 @@ module ActiveRecord
               hub.nil? ? parent : hub.parent
             end
             
-            def alternative_follow_up_question
-              hub.alternative_follow_up_question
+            def discuss_alternatives_question
+              hub.discuss_alternatives_question
             end
             
             def has_alternative?(node)
