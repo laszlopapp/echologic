@@ -80,7 +80,7 @@
 					statementUrl = statement.find('.header_link a.statement_link').attr('href');
 
           // Action menus
-					initAddNewButton();
+					initNewStatementButton();
 					initEmbedButton();
 					initCopyURLButton();
 
@@ -253,10 +253,10 @@
       /**************************/
 
       /*
-		   * Initializes the button for the Add New Statement function in the action panel.
+		   * Initializes the button for the New Statement function in the action panel.
 		   */
-		  function initAddNewButton() {
-		    statement.find(".action_bar .add_new_button").bind("click", function() {
+		  function initNewStatementButton() {
+		    statement.find(".action_bar .new_statement_button").bind("click", function() {
 					$(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
 		      return false;
 
@@ -601,7 +601,7 @@
 
 				// All form requests must nullify the new_level, so that when one clicks the parent button
 				// it triggers one request instead of two.
-				statement.find('.add_new_button').each(function(){
+				statement.find('.add_new_button').each(function() {
 					$(this).bind('click', function(){
 						$.setFragment({
 							"nl" : ''

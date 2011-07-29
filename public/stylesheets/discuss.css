@@ -42,29 +42,33 @@
 }
 
 .action_bar .add_new_question_icon {
+  background-image: url(../images/page/discuss/add_question_32.png);
 	height:   32px;
   width:    32px;
   display:  inline-block;
-  background-image: url(../images/page/discuss/add_question_32.png);
   cursor: pointer;
 	margin-top: 10px;
 }
 
-.action_bar .embed_icon {
-  height:   42px;
-  width:    69px;
-  display:  inline-block;
-  background-image: url(../images/page/discuss/embed_icon_big.png);
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.action_bar .add_new_button:hover .add_new_question_icon {
+.action_bar .big_action_button:hover .add_new_question_icon {
   background-position: 0 -32px;
 }
 
 .action_bar .add_new_button .label {
   top: 5px;
+}
+
+.action_bar .embed_icon {
+  background-image: url(../images/page/discuss/embed_icon_big.png);
+  height:   42px;
+  width:    69px;
+  display:  inline-block;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.action_bar .big_action_button:hover .embed_icon {
+  background-position: 0 -42px;
 }
 
 #question_list a.avatar_holder {
@@ -877,7 +881,6 @@ a.statement_link:hover {
   background: transparent url(../images/page/discuss/breadcrumb_delimiter_small.png) no-repeat scroll 0 0;
   width: 11px;
   height: 23px;
-  font-weight: bold;
   position: absolute;
   left: 12px;
   top: 19px;
@@ -991,20 +994,20 @@ a.statement_link:hover {
   border: 2px solid #777;
 	background: #FEFEFE;
   position: absolute;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-  -moz-box-shadow: 0 5px 25px #999;
-  -webkit-box-shadow: 0 5px 25px #999;
-  box-shadow: 0 5px 25px #999;
   text-align: left;
   z-index: 5;
   cursor: default;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  box-shadow: 0 5px 25px #999;
+  -moz-box-shadow: 0 5px 25px #999;
+  -webkit-box-shadow: 0 5px 25px #999;
 }
 
-.statement .popup_panel .panel_header {
+.popup_panel .panel_header {
   background: none;
-  margin: 0 0 20px 60px;
+  margin-bottom: 20px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -1205,29 +1208,30 @@ a.statement_link:hover {
 	margin-top: 20px;
 }
 
-.action_bar .add_new_button {
-  height: 80px;
+.action_bar .big_action_button {
+  background-image: url(../images/page/discuss/big_action_button.png);
   width: 160px;
+  height: 80px;
   display: block;
-  background-image: url(../images/page/discuss/add_new_button.png);
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
-#my_questions .add_new_button:hover,
-.action_bar .add_new_button:hover {
+#my_questions .big_action_button:hover,
+.action_bar .big_action_button:hover {
   background-position: 0 80px;
 }
 
 .add_new_button_icon {
-	height:   42px;
+	background-image: url(../images/page/discuss/add_new_button_icon.png);
   width:    42px;
+  height:   42px;
   display:  inline-block;
-  background-image: url(../images/page/discuss/add_new_button_icon.png);
   cursor: pointer;
 	margin-top: 9px;
 }
 
-.add_new_button:hover .add_new_button_icon {
+.big_action_button:hover .add_new_button_icon {
   background-position: 0 42px;
 }
 
@@ -1235,7 +1239,7 @@ a.statement_link:hover {
 /* Embed button */
 /****************/
 
-#statements .action_bar .embed_button_container {
+.action_bar .embed_button_container {
   position: relative;
 }
 
@@ -1251,12 +1255,12 @@ a.statement_link:hover {
   left: 140px;
   position: absolute;
   width: 400px;
-  padding: 15px 30px;
+  padding: 21px 30px 25px;
 }
 
 .search .embed_panel {
-	top: 98px;
-	bottom: auto;
+	top: -70px;
+  left: 150px;
 }
 
 .embed_panel .panel_header {
@@ -1279,7 +1283,7 @@ a.statement_link:hover {
 /*******************************/
 
 .statement .action_bar .actions_container {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 /* Copy to clipboard button */

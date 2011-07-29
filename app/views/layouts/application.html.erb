@@ -72,6 +72,10 @@
 
 
   <body>
+
+    <!-- Info and error messages -->
+    <%= render :partial => 'layouts/components/messages' %>
+
     <div id="header">
       <div class="main_logo">
         <%= link_to(image_tag('page/echo_logo.png'), current_user ? discuss_search_path : root_path) %>
@@ -83,10 +87,6 @@
       <%= render :partial => "users/user_sessions/login" %>
     </div>
 
-
-    <!-- Messaging section. -->
-    <%= render :partial => 'layouts/components/messages' %>
-
     <!-- Main menu -->
     <%= tabnav :main %>
 
@@ -96,7 +96,6 @@
 
       <!-- The chosen function -->
       <div id="function_container" class="<%= yield :section %>">
-      	<%#= tabnav :admin if current_user and current_user.has_role? :admin %>
         <%= yield %>
       </div>
 
@@ -108,6 +107,6 @@
     <%= render :partial => "layouts/components/bottom_menu" %>
 
     <!-- Dialog container for outer menu. -->
-    <div id="dialogContent" style="display:none;"></div>
+    <div id="dialogContent" style="display: none;"></div>
   </body>
 </html>

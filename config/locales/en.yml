@@ -561,7 +561,13 @@ en:
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter the link to the external content'
       copy_url_hint: 'Copy the link to this statement and use it to spread the word via your favorite channels.'
-      embed_hint: 'Copy the embedded code pressing Ctrl + C on your keyboard or right clicking on it with your mouse'
+
+      embed_search_title: Embed search results
+      embed_search_hint: |
+        Copy and paste the code below to embed these search results into YOUR website and make an echo in your community.
+      embed_statement_title: Embed statement
+      embed_statement_hint: |
+        Copy and paste the code below to embed this statement into YOUR website and make an echo in your community.
 
       publish: Release
       published: The question has been released successfully.

@@ -93,17 +93,6 @@ module StatementsHelper
     end
   end
 
-  def render_discuss_search_embed_button
-    link_to('#', :id => 'embed_link', :class => 'add_new_button') do
-      link_content = ''
-      link_content << content_tag(:span, '',
-                                  :class => "embed_icon")
-      link_content <<  content_tag(:span, I18n.t("discuss.statements.embed_button"),
-                                   :class => 'label')
-      link_content
-    end
-  end
-
 
   #
   # Renders all the actions shown in the action panel on the left.
@@ -138,14 +127,29 @@ module StatementsHelper
 
 
   #
-  # Creates a link to embed statement node
+  # Renders the embed echo button into the action panel of discuss search.
+  #
+  def render_discuss_search_embed_button
+    content = ""
+    content << content_tag(:a, :id => 'embed_link', :class => 'big_action_button') do
+      link_content = ''
+      link_content << content_tag(:span, '', :class => "embed_icon")
+      link_content <<  content_tag(:span, I18n.t("discuss.statements.embed_button"), :class => 'label')
+      link_content
+    end
+    content << render_embed_panel(discuss_search_url(:mode => :embed, :search_terms => params[:search_terms]), 'search')
+  end
+
+
+  #
+  # Creates a link to embed echo with the given statement node as entry point into the system.
   #
   def render_embed_button(statement_node)
-     url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
+    url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
     content = ""
     content << link_to(I18n.t("discuss.statements.embed_button"), '#',
                        :class => 'embed_button text_button')
-    content << render_embed_panel(url)
+    content << render_embed_panel(url, 'statement')
     content
   end
 
@@ -153,14 +157,14 @@ module StatementsHelper
   #
   # Renders the embed statement panel to copy the embed code for the currently displayed statement.
   #
-  def render_embed_panel(url)
-    embedded_code = %Q{<iframe width="100%" height="2000" src="#{url}" frameborder="0"></iframe>}
+  def render_embed_panel(url, mode)
+    embedded_code = %Q{<iframe width="100%" height="2000px" src="#{url}" frameborder="0"></iframe>}
     content_tag(:div,
                 :class => 'embed_panel popup_panel',
                 :style => "display:none") do
       panel = ''
-      panel << content_tag(:div, I18n.t("discuss.statements.embed_button"),:class => 'panel_header')
-      panel << content_tag(:div, I18n.t("discuss.statements.embed_hint"), :class => '')
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_#{mode}_title"), :class => 'panel_header')
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_#{mode}_hint"))
       panel << content_tag(:div, h(embedded_code), :class => 'embed_code')
       panel
     end
@@ -240,11 +244,11 @@ module StatementsHelper
   end
 
   #
-  # Generates the 'Add New...' statement panel in the action panel.
+  # Generates the 'New Statement' panel in the action panel.
   #
   def render_add_new_button(statement_node, origin = nil, bids = nil)
     content = ''
-    content << content_tag(:div, :class => 'add_new_button') do
+    content << content_tag(:div, :class => 'new_statement_button big_action_button') do
       button = ''
       button << content_tag(:span, '', :class => 'add_new_button_icon')
       button << content_tag(:span, I18n.t('discuss.statements.add_new'),
