@@ -118,7 +118,6 @@ module StatementsHelper
       end
 
       if current_user and current_user.may_delete?(statement_node)
-        actions << "#{tag("br")}#{tag("br")}"
         actions << delete_statement_node_link(statement_node)
       end
       actions
