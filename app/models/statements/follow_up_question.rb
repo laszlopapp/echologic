@@ -1,5 +1,6 @@
 class FollowUpQuestion < Question
-
+  has_linkable_types :Question
+  
   belongs_to :question
 
   delegate :level, :ancestors, :topic_tags, :topic_tags=, :tags, :taggable?, :echoable?, :editorial_state_id,
