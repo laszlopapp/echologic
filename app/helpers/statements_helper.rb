@@ -850,8 +850,8 @@ module StatementsHelper
     content_tag :span, "#{I18n.t("discuss.statements.types.alternative")}... #{type_tag}", :class => 'label'
   end
 
-  def create_alternative_follow_up_question_link(statement_node)
-    create_new_child_statement_link(statement_node, "alternative_follow_up_question", :css => "ajax")
+  def create_discuss_alternatives_question_link(statement_node)
+    create_new_child_statement_link(statement_node.hub, "discuss_alternatives_question", :css => "ajax")
   end
 
   ####################
