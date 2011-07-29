@@ -48,6 +48,7 @@
 			var parentStatement, statementLevel;
 			var statementUrl;
 			var embedPlaceholder = statement.find('.embed_placeholder');
+			var statementSiblings; 
 
       // Initialize the statement
       initialise();
@@ -196,6 +197,7 @@
 
 		    // Get siblings ids
 		    var siblingIds = $("div#statements").data(siblingsKey);
+				statementSiblings = siblingIds;
 				// Get index of the prev/next sibling
 				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
 		    var targetStatementId = new String(siblingIds[targetIndex]);
@@ -210,8 +212,8 @@
 				
         button.attr('href', buttonUrl);
 				
-				if ($.fragment().hub && $.fragment().hub.length > 0) {
-					button.attr('hub', $.fragment().hub);
+				if ($.fragment().al && $.fragment().al.length > 0) {
+					button.attr('al', $.fragment().al);
 				}
 		    button.removeAttr('data-id');
 		  }
@@ -622,7 +624,7 @@
               "sids": sids.join(","),
               "nl": true,
               "origin": bid,
-							"hub" : ''
+							"al" : ''
             });
 
 						return false;
@@ -657,7 +659,7 @@
 					var currentStack = $.fragment().sids;
 		      var targetStack = getStatementsStack(this, false);
 
-          var parentKey = getParentKey();
+          var parentKey = getParentKey(); 
           var targetBids = getTargetBids(parentKey);
 
           // save element after which the breadcrumbs will be deleted while processing the response
@@ -670,7 +672,7 @@
 		        "nl": '',
 						"bids": targetBids.join(','),
 						"origin": origin,
-						"hub": ($(this).attr('hub') || '')
+						"al": ($(this).attr('al') || '')
 		      });
 
 					var nextStatement = statement.next();
@@ -689,7 +691,7 @@
 		    });
 
 	      statement.find('.alternatives').each(function(){
-					initSiblingsLinks($(this), { "nl": true, "hub": ("al" + statementId) });
+					initSiblingsLinks($(this), { "nl": true, "al": ("al" + statementId) });
 				});
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
@@ -735,6 +737,8 @@
 					var childId = $(this).parent().attr('statement-id');
 					var key = getTypeKey($(this).parent().attr('class'));
 					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var al = $.fragment().al || '';
+					var al = al.length > 0 ? al.split(',') : [];
 
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
             var bidsStatementIds = $.map(bids, function(a){return a.replace(/[^0-9]+/, '');});
@@ -763,10 +767,13 @@
 					}
 
           $('#breadcrumbs').data('element_clicked', getParentKey());
-          
 					// so we have the possibility of adding possible breadcrumb entries
-					if (params['hub']) {
-						bids.push(params['hub']);
+					if (params['al']) {
+						bids.push(params['al']);
+						if ($.inArray(statementLevel, al) == -1) {
+							al.push(statementLevel);
+						}
+						params['al'] = al.join(',');
 					}
 					
           $.setFragment(
@@ -775,7 +782,7 @@
 	            "nl": (newLevel ? newLevel : ''),
 							"bids": bids.join(','),
 							"origin": origin,
-							"hub" : ''
+							"al" : al.join(',')
             }, params)
 				  );
           return false;
@@ -788,8 +795,23 @@
        */
       function getParentKey() {
 				if (parentStatement.length > 0) {
-					var parentType = statement.hasClass('alternative') ? 'al' : getTypeKey(statementType); 
-          return parentType + getStatementId(parentStatement.attr('id'));
+					if (statement.hasClass('alternative')) {
+	          var breadcrumbs = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+	          breadcrumbs = $.grep(breadcrumbs, function(a) {
+							return a.substring(0, 2) == 'al';
+						});
+						$.grep(breadcrumbs, function(a) {
+							return $.inArray(a.substring(2,100), statementSiblings) != -1;
+						});
+						if (breadcrumbs.length > 0) {
+							return breadcrumbs[0];
+						} else  {
+							return "al" + getStatementId(parentStatement.attr('id'));
+						}
+						
+					} else {
+					 return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));	
+					}
         } else {
           return $.fragment().origin;
         }

@@ -76,7 +76,7 @@ function initFragmentChangeHandling() {
 				"bids": bids.join(","),
         "nl": $.fragment().nl,
 				"origin": $.fragment().origin,
-				"hub" : $.fragment().hub,
+				"al" : $.fragment().al,
 				"cs": $.fragment().sids
       });
 
@@ -111,7 +111,7 @@ function initFragmentChangeHandling() {
 
     $.setFragment({
       "nl" : true,
-			"hub" : $.fragment().hub || '',
+			"al" : $.fragment().al || '',
       "bids" : bids.join(','),
       "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");

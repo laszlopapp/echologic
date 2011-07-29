@@ -599,32 +599,33 @@ module StatementsHelper
 
   def siblings_button(statement_node, type = node_type(statement_node), opts={})
     origin = opts[:origin]
-    if @hub_child and @hub_child.has_alternative?(statement_node)
-      hub_child = @hub_child
-      hub_type = @hub_type
+    if alternative_mode?(statement_node)
+      sib = statement_node
+      name = "alternative"
+      alternative_type = type.classify.constantize.name_for_siblings
     end
-    name = hub_type || type.classify.constantize.name_for_siblings
+    name ||= type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.u_class_name != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        parent = hub_child || (@current_stack ? @current_stack[@current_stack.length - 2] : statement_node)
-        descendants_statement_node_url(parent, name, :hub => params[:hub])
+        parent = sib || (@current_stack ? @current_stack[@current_stack.length - 2] : statement_node)
+        descendants_statement_node_url(parent, name, :alternative_type => alternative_type)
       end
     else  # STATEMENT NODES
 
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        prev = hub_child ||
+        prev = sib ||
                (@current_stack ?
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
                statement_node.parent_node)
 
         descendants_statement_node_url(prev,
-                                       hub_type || statement_node.class.name_for_siblings,
+                                       name,
                                        :current_node => statement_node,
-                                       :hub => params[:hub])
+                                       :alternative_type => alternative_type)
       end
     end
 
@@ -633,7 +634,7 @@ module StatementsHelper
                 :class => 'show_siblings_button expandable') do
       content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
                   :class => 'show_siblings_label ttLink no_border',
-                  :title => I18n.t("discuss.tooltips.siblings.#{@hub_type || type}"))
+                  :title => I18n.t("discuss.tooltips.siblings.#{name}"))
     end
   end
 
@@ -852,6 +853,11 @@ module StatementsHelper
 
   def create_discuss_alternatives_question_link(statement_node)
     create_new_child_statement_link(statement_node, "discuss_alternatives_question", :css => "ajax", :nl => true, :origin => params[:origin], :bids => params[:bids])
+  end
+  
+  def alternative_mode?(statement_node_or_level)
+    return true if !params[:hub].blank?
+    @alternative_modes and @current_stack and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : @current_stack.index(statement_node_or_level.id))
   end
 
   ####################

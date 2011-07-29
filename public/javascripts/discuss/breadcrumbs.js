@@ -70,9 +70,9 @@
 
 				var b_gen = breadcrumb.prev();
 				
-				var hub = '';
+				var al = '';
 				if (b_gen.length > 0 && getHubKeys([b_gen.attr("id")]).length != 0) {
-          hub = b_gen.attr("id");
+          al = b_gen.attr("id");
         }
 
 				// iterate on the previous breadcrumbs to generate the stack list
@@ -123,7 +123,7 @@
 							"sids": sids.join(","),
 							"nl": true,
 							"origin": origin,
-							"hub": hub
+							"al": al
 						});
 					}
           return false;

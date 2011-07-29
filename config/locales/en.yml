@@ -488,6 +488,7 @@ en:
         question: See all questions in the context shown above
         proposal: See all proposals belonging to the current question
         improvement: See all additions proposed for the current proposal
+        argument: See all arguments belonging to the current proposal
         pro_argument: See all arguments belonging to the current proposal
         contra_argument:  See all arguments belonging to the current proposal
         background_info:  See all background infos belonging to the current statement

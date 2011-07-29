@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   before_filter :fetch_current_stack, :only => [:show, :add, :new, :cancel]
-  before_filter :fetch_hub, :only => [:show, :add, :create, :cancel]
+  before_filter :fetch_alternative_modes, :only => [:show, :add, :create, :cancel]
 
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
@@ -115,7 +115,7 @@ class StatementsController < ApplicationController
     inc = params[:hub].blank? ? 1 : 0
     @level = (@statement_node.parent_node.nil? or @statement_node_type.is_top_statement?) ? 0 : @statement_node.parent_node.level + inc
 
-    if !params[:nl].blank? and params[:hub].blank?
+    if !params[:nl].blank?
       set_parent_breadcrumb
       # set new breadcrumb
       if @statement_node_type.is_top_statement?
@@ -177,7 +177,7 @@ class StatementsController < ApplicationController
       StatementNode.transaction do
 
         # IF ALTERNATIVE
-        @statement_node.send("move_to_#{@hub_type.pluralize}_hub",node_id) if params[:hub]
+        @statement_node.send("move_to_alternatives_hub",node_id) if params[:hub]
 
         if @statement_node.save
           # add to tree
@@ -366,8 +366,8 @@ class StatementsController < ApplicationController
     begin
       if @type.eql? :Alternative
         @hub_type = "alternative"
-        @type = @statement_node.class.alternative_types.first
-        load_alternatives(1, -1, @type)
+        @type = params[:alternative_type].to_s.camelize.to_sym
+        load_alternatives(1, -1, @type, :alternative_ids => [])
       else
         @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
       end
@@ -535,13 +535,13 @@ class StatementsController < ApplicationController
 
   protected
 
-  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES, type = :Alternative)
+  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES, type = :Alternative, opts={})
     @children ||= {}
     @children_documents ||= {}
     @children[type] = @statement_node.paginated_alternatives(page,
                                                              per_page,
-                                                             :language_ids => filter_languages_for_children,
-                                                             :user => current_user)
+                                                             {:language_ids => filter_languages_for_children,
+                                                             :user => current_user}.merge(opts))
     @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
                                                             :statement_ids => @children[type].flatten.map(&:statement_id))
 
@@ -707,20 +707,13 @@ class StatementsController < ApplicationController
   end
   
   #
-  # Gets the hub.
+  # Gets the levels of the statements that need to be rendered in alternative mode.
   #
   # Loads instance variables:
-  # @hub_type(String) : type of hub we are currently loading
-  # @hub_child(StatementNode) : statement node identifying the hub we are currently loading
+  # @alternative_modes(Integer) : Array that stores the levels descrived above
   #
-  def fetch_hub
-    if !params[:hub].blank?
-      @hub_type = case params[:hub][0, 2]
-        when 'al' then 'alternative'
-      end
-      
-      @hub_child = StatementNode.find(params[:hub][2..-1])
-    end
+  def fetch_alternative_modes
+    @alternative_modes = !params[:al].blank? ? params[:al].split(',').map(&:to_i) : [] 
   end
 
   #
@@ -817,14 +810,14 @@ class StatementsController < ApplicationController
     parent_node = @statement_node.parent_node
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
     parent_node.document_in_original_language
-    key = Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
+    key = params[:hub] ? params[:hub][0,2] : Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
     #[id, classes, url, title, label, over]
-    @breadcrumb = {:key => "#{key}#{parent_node.id}",
+    @breadcrumb = {:key => params[:hub] || "#{key}#{parent_node.id}",
                    :css => "statement statement_link #{parent_node.u_class_name}_link",
                    :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
                    :title => Breadcrumb.instance.decode_terms(statement_document.title),
-                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
-                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{key}"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")}
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[:key]
@@ -1124,15 +1117,16 @@ class StatementsController < ApplicationController
   def load_siblings(statement_node)
     return if statement_node.new_record?
     @siblings ||= {}
-    return load_alternative_siblings(statement_node) if @hub_child
     class_name = statement_node.target_statement.u_class_name
 
 
     # if has parent then load siblings
     if statement_node.parent_id
-      prev = @current_stack ?
-             StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
-             statement_node.parent_node
+      prev = @current_stack ? # if there's a current stack, load the results from the stack
+               (@alternative_modes and @alternative_modes.include?(@current_stack.index(statement_node.id)) ? # if statement is currently rendered as an alternative
+               statement_node.hub : # then prev must be the hub
+               StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id")) : # if not, it's the previous statement in the current stack
+             statement_node.parent_node # no current stack, so just load the damn parent
       siblings = statement_node.siblings_to_session :language_ids => @language_preference_list,
                                                     :user => current_user,
                                                     :prev => prev
@@ -1142,21 +1136,6 @@ class StatementsController < ApplicationController
     @siblings["#{class_name}_#{statement_node.target_id}"] = siblings
   end
   
-  #
-  # Loads alternative node siblings of the current hub.
-  #
-  # statement_node(StatementNode) : the statement node
-  #
-  # Loads instance variables:
-  # @siblings(Hash) : key   : statement node dom id ; ":type_:id" or "add_:type" for teasers (String)
-  #                   value : Array[Integer] : Array of statement ids with teaser path as last element
-  #
-  def load_alternative_siblings(statement_node)
-    siblings = statement_node.siblings_to_session :language_ids => @language_preference_list,
-                                                  :user => current_user,
-                                                  :prev => @hub_child.hub
-    @siblings["#{@hub_type}_#{@hub_child.target_id}"] = siblings - [@hub_child.target_id]
-  end
 
   #
   # Loads Add Question Teaser siblings (Only for HTTP and add question teaser).
