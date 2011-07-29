@@ -105,7 +105,7 @@
       /*
        * reinitialises statement content without needing to place the statement again
        */
-      function reinitialise() {
+      function reinitialise(resettings) {
 				settings = $.extend({}, resettings, settings, {'load' : false});
         initialise();
 			}
@@ -900,7 +900,7 @@
       $.extend(this,
       {
         reinitialise: function(resettings) {
-          reinitialise();
+          reinitialise(resettings);
         },
 
         reinitialiseContainerBlock: function(containerSelector, newLevel) {
