@@ -145,6 +145,16 @@ span.publish_button {
   margin-top: 30px;
 }
 
+
+/****************/
+/* echo Discuss */
+/****************/
+
+#echo_discuss.function_container {
+  margin-top: 5px;
+}
+
+
 /*********************************/
 /* New and Edit Statements forms */
 /*********************************/
@@ -1797,7 +1807,6 @@ a.statement_link:hover {
 }
 
 
-
 /***********************/
 /* Children statements */
 /***********************/
@@ -2092,7 +2101,6 @@ form.translation .rte-panel {
 /* Translation form */
 /********************/
 
-
 .translation form {
   margin-top: 15px;
 }
@@ -2165,6 +2173,7 @@ form.statement fieldset ol li.tags_container {
   position: relative;
   top: -2px;
 }
+
 
 /*************/
 /*  Authors  */
@@ -2251,6 +2260,7 @@ form.statement fieldset ol li.tags_container {
   width: 810px;
   margin: 15px 0 0 -20px;
 }
+
 
 /**************/
 /* Expandable */
