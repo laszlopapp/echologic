@@ -116,7 +116,7 @@ ActionController::Routing::Routes.draw do |map|
   # ACT routes #
   ##############
 
-  map.act '/act/roadmap', :controller => :act, :action => :roadmap
+  map.act_roadmap '/act/roadmap', :controller => :act, :action => :roadmap
 
 
   ##################
@@ -130,7 +130,7 @@ ActionController::Routing::Routes.draw do |map|
   map.settings 'settings',
                :controller => 'my_echo',
                :action => 'settings'
-  map.my_echo '/my_echo/roadmap',
+  map.my_echo_roadmap '/my_echo/roadmap',
               :controller => :my_echo,
               :action => :roadmap
   map.welcome 'welcome',
