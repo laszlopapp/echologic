@@ -918,11 +918,18 @@
 .jspHorizontalBar .jspDrag {
   position: absolute;
 	background: #97b0bf;
-	cursor: pointer;
 	overflow: hidden;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+}
+
+.jspVerticalBar .jspDrag {
+  cursor: ns-resize;
+}
+
+.jspHorizontalBar .jspDrag {
+  cursor: ew-resize;
 }
 
 .jspVerticalBar .jspDrag {
