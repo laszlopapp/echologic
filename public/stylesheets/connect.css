@@ -16,7 +16,7 @@
 
 .segments ul {
   margin: 0;
-  padding: 0;
+  padding: 0 0 7px;
 }
 
 .segments li {

@@ -53,13 +53,12 @@
     <!-- Main menu -->
     <%= tabnav :main %>
 
-    <div id="application_container">
+    <div id="app_container">
       <!-- Submenu -->
       <%= yield :submenu %>
 
       <!-- The chosen function -->
-      <div id="function_container">
-        <%#= tabnav :admin if current_user and current_user.has_role? :admin %>
+      <div id="admin_area" class="function_container">
         <%= yield %>
       </div>
 

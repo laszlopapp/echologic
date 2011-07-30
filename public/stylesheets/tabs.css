@@ -35,7 +35,7 @@
 }
 
 .main_menu_tabs ul {
-  margin: 4px 0 7px;
+  margin: 0;
   padding: 0;
 }
 
@@ -49,6 +49,7 @@ li.main_menu_item {
   font-size: 15px;
   position: relative;
   z-index: 10;
+  cursor: pointer;
 }
 
 a.main_menu_item, a.main_menu_item.active {
@@ -75,7 +76,7 @@ a.main_menu_item.active {
 /* My echo tab */
 .applicationTabs #my_echo_tab_container {
   position: absolute;
-  right: 55px;
+  right: 10px;
   top: 0;
 }
 
@@ -132,21 +133,20 @@ a.main_menu_item.active {
 .main_menu_item .dropdown {
   display: none;
   padding: 0 3px;
-  background: #fff;
+  background: #F8F9FA;
   width: 150px;
   position: absolute;
-  top: 46px;
+  top: 51px;
   left: -16px;
   list-style: none outside none;
-  border: 3px solid #b5c0c9;
+  border: 3px solid #7bb031; /* #b5c0c9; */
   border-top: none;
   border-radius: 20px 20px 12px 12px;
   -moz-border-radius: 20px 20px 12px 12px;
   -webkit-border-radius: 20px 20px 12px 12px;
-  box-shadow: 0 7px 35px #CAD3DB;
-  -moz-box-shadow: 0 7px 35px #CAD3DB;
-  -webkit-box-shadow: 0 7px 35px #CAD3DB;
-  z-index: -1;
+  box-shadow: 0 10px 25px #CAD3DB;
+  -moz-box-shadow: 0 10px 25px #CAD3DB;
+  -webkit-box-shadow: 0 10px 25px #CAD3DB;
 }
 
 .main_menu_item .dropdown li {
