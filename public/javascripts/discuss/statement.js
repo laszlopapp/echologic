@@ -66,6 +66,7 @@
 
 					// Navigation through siblings
 	        storeSiblings();
+					loadSiblings();
 					initNavigationButton(statement.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(statement.find(".header a.next"),  1); /* Next */
 				}
@@ -152,6 +153,26 @@
         $("#statements").data(key, siblings);
         statement.removeAttr("data-siblings");
 		  }
+			
+			
+			/*
+       * Loads the siblings from the current statement being loaded
+       */
+			function loadSiblings() {
+				// Get parent element (statement)
+        var parent = statement.prev();
+        // Get id where the current node's siblings are stored
+        var parentPath, siblingsKey;
+        if (parent.length > 0) {
+          parentPath = siblingsKey = parent.attr('id');
+        } else {
+          siblingsKey = 'roots';
+          parentPath = '';
+        }
+
+        // Get siblings ids
+        statementSiblings = $("div#statements").data(siblingsKey);
+			}
 
 
 		  /*
@@ -183,24 +204,10 @@
 		    } else {
           currentStatementId = eval(currentStatementId);
         }
-
-		    // Get parent element (statement)
-		    var parent = statement.prev();
-		    // Get id where the current node's siblings are stored
-        var parentPath, siblingsKey;
-		    if (parent.length > 0) {
-		      parentPath = siblingsKey = parent.attr('id');
-		    } else {
-		      siblingsKey = 'roots';
-		      parentPath = '';
-		    }
-
-		    // Get siblings ids
-		    var siblingIds = $("div#statements").data(siblingsKey);
-				statementSiblings = siblingIds;
+		    
 				// Get index of the prev/next sibling
-				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
-		    var targetStatementId = new String(siblingIds[targetIndex]);
+				var targetIndex = ($.inArray(currentStatementId,statementSiblings) + inc + statementSiblings.length) % statementSiblings.length;
+		    var targetStatementId = new String(statementSiblings[targetIndex]);
 				var buttonUrl;
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
