@@ -663,23 +663,37 @@
       function initAllStatementLinks() {
         statement.find('.header a.statement_link').bind("click", function() {
 
+          // SIDS
 					var currentStack = $.fragment().sids;
 		      var targetStack = getStatementsStack(this, false);
 
+          // BIDS
           var parentKey = getParentKey(); 
           var targetBids = getTargetBids(parentKey);
 
           // save element after which the breadcrumbs will be deleted while processing the response
           $('#breadcrumbs').data('element_clicked', parentKey);
 
+          // ORIGIN
 					var origin = $.fragment().origin;
-
+					
+					// AL
+					var al = $.fragment().al || '';
+					al = al.length > 0 ? al.split(',') : [];
+					// eliminate levels below the one we're returning to
+					al = $.grep(al, function(a){
+						return a <= statementLevel;
+					});
+					
+					var statAl = $(this).attr('al');
+					if (statAl && $.inArray(statAl,al) == -1) { al.push(statAl); }
+					
 		      $.setFragment({
 		        "sids": targetStack.join(','),
 		        "nl": '',
 						"bids": targetBids.join(','),
 						"origin": origin,
-						"al": ($(this).attr('al') || '')
+						"al": al.join(',')
 		      });
 
 					var nextStatement = statement.next();
@@ -748,11 +762,18 @@
 					var al = al.length > 0 ? al.split(',') : [];
 
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
-            var bidsStatementIds = $.map(bids, function(a){return a.replace(/[^0-9]+/, '');});
-						var level = $.inArray(parentId, bidsStatementIds); 
+            var bidsStatementIds = $.map(bids, function(bid){
+							if(getOriginKeys([bid]).length == 0)
+							{return bid.replace(/[^0-9]+/, '');}
+							else {return bid;}
+						});
+						var level = $.inArray(parentId, bidsStatementIds);
 						bids = bids.splice(0, level+1);
 						var new_bid = key + statementId;
             bids.push(new_bid);
+						al = $.grep(al, function(a) {
+							return a <= statementLevel;
+						});
           }
 					else { // siblings box or maybe alternatives box
 						var parentKey = getParentKey();
@@ -774,6 +795,7 @@
 					}
 
           $('#breadcrumbs').data('element_clicked', getParentKey());
+					
 					// so we have the possibility of adding possible breadcrumb entries
 					if (params['al']) {
 						bids.push(params['al']);
@@ -782,7 +804,6 @@
 						}
 						params['al'] = al.join(',');
 					}
-					
           $.setFragment(
 					  $.extend({
 	            "sids": stack.join(','),
