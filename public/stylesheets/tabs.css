@@ -74,14 +74,14 @@ a.main_menu_item.active {
 
 
 /* My echo tab */
-.applicationTabs #my_echo_tab_container {
+#my_echo_tab_container {
   position: absolute;
   right: 10px;
   top: 0;
 }
 
 /* Admin tab */
-.applicationTabs #admin_tab_container {
+#admin_tab_container {
   position: absolute;
   left: 4px;
   top: 0;
