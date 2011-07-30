@@ -652,7 +652,16 @@
         if (index != -1) { // if parent breadcrumb exists, then delete everything after it
           targetBids = targetBids.splice(0, index + 1);
         } else { // if parent breadcrumb doesn't exist, it means top stack statement
-          targetBids = targetBids.splice(0, currentBids.length - currentBids.length % 3);
+          //find all origin breadcrumbs
+					var originBids = getOriginKeys(currentBids);
+					// get last of them, if it exists
+					if (originBids.length > 0) {
+						var lastOriginBid = originBids.pop();
+						var index = $.inArray(lastOriginBid, currentBids);
+				  	targetBids = targetBids.splice(0, index + 1);
+				  } else { // if it doesn't, it means there should be no breadcrumbs
+						targetBids = [];
+					}
         }
         return targetBids;
       }
@@ -669,7 +678,7 @@
 		      var targetStack = getStatementsStack(this, false);
 
           // BIDS
-          var parentKey = getParentKey(); 
+          var parentKey = getParentKey();
           var targetBids = getTargetBids(parentKey);
 
           // save element after which the breadcrumbs will be deleted while processing the response
@@ -762,27 +771,20 @@
 					var al = $.fragment().al || '';
 					var al = al.length > 0 ? al.split(',') : [];
 
+          var parentKey = getParentKey();
+					var level = $.inArray(parentKey, bids);
+					if (level != -1) { // if parent breadcrumb exists, then delete everything after it
+            bids = bids.splice(0, level+1);
+					}
+					
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
-            var bidsStatementIds = $.map(bids, function(bid){
-							if(getOriginKeys([bid]).length == 0)
-							{return bid.replace(/[^0-9]+/, '');}
-							else {return bid;}
-						});
-						var level = $.inArray(parentId, bidsStatementIds);
-						bids = bids.splice(0, level+1);
 						var new_bid = key + statementId;
             bids.push(new_bid);
 						al = $.grep(al, function(a) {
 							return a <= statementLevel;
 						});
           }
-					else { // siblings box or maybe alternatives box
-						var parentKey = getParentKey();
-						var index = $.inArray(parentKey, bids);
-	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
-	            bids = bids.splice(0, index + 1);
-	          }
-					}
+					
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
