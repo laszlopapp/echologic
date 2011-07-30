@@ -577,7 +577,8 @@
 			function reinitialiseSiblings(siblingsContainerSelector) {
 	      var container = statement.find(siblingsContainerSelector);
         initContainerMoreButton(container);
-        initSiblingsLinks(container);
+				var opts = container.hasClass('alternatives') ? {"nl" : true, "al" : ("al" + statementId)} : {}
+        initSiblingsLinks(container, opts);
         if (isEchoable) {
           statement.data('echoableApi').loadRatioBars(container);
         }
