@@ -3,6 +3,9 @@ class Users::ActivationsController < ApplicationController
   skip_before_filter :require_user
   before_filter :require_no_user
 
+  #
+  # Setup basic profile after registering for an echo account with an E-Mail address.
+  #
   def basic_profile
     later_call_with_info(root_path, request.url) do |format|
       format.js {

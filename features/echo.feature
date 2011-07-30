@@ -49,8 +49,8 @@ Feature: Echo
       And I choose the first Question
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
-        | proposal_statement_document_title | proposal title |
-        | proposal_statement_document_text  | proposal text. |
+        | statement_node_statement_document_title | proposal title |
+        | statement_node_statement_document_text  | proposal text. |
       And I press "Save"
       And I have the "proposal title" proposal
     Then the proposal should have 1 visitors
@@ -131,3 +131,57 @@ Feature: Echo
       Given I follow "echo_button"
     Then I am supporter of the improvement
       And the state of the improvement must be "ready"
+
+
+
+    #####################
+    # DELETE STATEMENTS #
+    #####################
+
+  Scenario: User deletes improvement
+    Given I am logged in as "admin" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "echo_button"
+      And I follow localized "discuss.statements.create_improvement_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Main Improve   |
+      | statement_node_statement_document_text            | improve, biatx |
+      And I press "Save"
+      And I go to the proposal
+      And I choose the "Main Improve" Improvement
+    Then I should have 3 subscriptions
+      And the improvement should have a "created" event
+    When I follow localized "application.general.delete"
+      And I go to the proposal
+    Then I should not see "Main Improve"
+      #And the improvement should not have a "created" event
+      And I should have 2 subscriptions
+
+  Scenario: User deletes proposal, subsequently deleting children and all related objects
+    Given I am logged in as "admin" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "echo_button"
+      And I follow localized "discuss.statements.create_improvement_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Main Improve   |
+      | statement_node_statement_document_text            | improve, biatx |
+      And I press "Save"
+      And I go to the proposal
+      And I choose the "Main Improve" Improvement
+    Then I should have 3 subscriptions
+      And the improvement should have a "created" event
+    When I go to the proposal
+      And I follow localized "application.general.delete"
+      And I go to the question
+    Then I should not see "A first proposal!"
+      #And the improvement should not have a "created" event
+      And I should have 1 subscription
+

@@ -16,6 +16,7 @@
                             'jquery.autocomplete',
                             'jquery.rte',
                             'jScrollPane',
+                            'jquery-ui-1.7.2.custom',
                             'formtastic',
                             'formtastic_changes',
                             'application',
@@ -23,6 +24,7 @@
                             'connect',
                             'my_echo',
                             'admin',
+                            'embed',
                             :cache => 'echo_app' %>
 
 
@@ -35,20 +37,23 @@
                                'discuss/statement',
                                'discuss/statement_form',
                                'discuss/echoable',
+                               'discuss/alternative',
                                'discuss/taggable',
                                'discuss/expandable',
                                'discuss/breadcrumbs',
                                'discuss/statement_search',
                                'discuss/placeholder',
+                               'discuss/embeddable',
                                'connect',
                                'my_echo',
                                'history',
+                               'jquery.color',
                                'jquery.simplyCountable',
                                'jquery.event-filter.min',
                                'jquery.getUrlParam',
                                'jquery.ba-url.min',
                                'jquery.autogrow',
-                               'jquery.autocomplete.min',
+                               'jquery.autocomplete',
                                'jquery.forms',
                                'jquery.tooltip.min',
                                'jquery.scrollTo.min',
@@ -60,12 +65,15 @@
                                'jquery.jscrollpane.min.js',
                                'jquery.livequery',
                                'jquery.toggleval',
+                               'jquery.embedly.min',
                                :cache => 'echo_app' %>
 
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   </head>
 
   <% content_tag :body do %>
+
+    <%= render :partial => 'layouts/components/messages' %>
 
     <% content_tag :div, :id => 'header' do %>
       <% content_tag :div, :class => 'main_logo' do %>
@@ -75,8 +83,6 @@
       <%= render :partial => "layouts/components/top_menu" %>
       <%= render :partial => "users/user_sessions/login" %>
     <% end %>
-
-    <%= render :partial => 'layouts/components/messages' %>
 
     <%= tabnav :main %>
     <% content_tag :div, :id => 'app_container' do %>
@@ -94,4 +100,5 @@
 
     <%= content_tag :div, '', :id => 'dialog_container' %>
   <% end %>
+
 </html>

@@ -4,7 +4,7 @@ module EchoableModuleHelper
   # (The support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community.)
   def supporter_ratio_bar(statement_node,
-                          previous_statement = statement_node.parent,
+                          previous_statement = statement_node.parent_node,
                           type = statement_node.class.name)
     # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
     label = supporters_number(statement_node)
@@ -30,7 +30,7 @@ module EchoableModuleHelper
 
   # Returns the right line that shows up below the ratio bar (1 supporter, 2 supporters...)
   def supporters_number(statement_node)
-    I18n.t("discuss.statements.echo_indicator.#{statement_node.class.support_tag}.#{ statement_node.supporter_count == 1 ? 'one' : 'many'}",
+    I18n.t("discuss.statements.echo_indicator.#{statement_node.supporter_count == 1 ? 'one' : 'many'}",
            :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
@@ -79,8 +79,8 @@ module EchoableModuleHelper
   def echo_button_label(statement_node)
     content_tag(:span, '',
                 :class => 'label',
-                'data-not-supported' => I18n.t("discuss.statements.#{statement_node.class.support_tag}_link"),
-                'data-supported' => I18n.t("discuss.statements.#{statement_node.class.unsupport_tag}_link"))
+                'data-not-supported' => I18n.t("discuss.statements.echo_link"),
+                'data-supported' => I18n.t("discuss.statements.unecho_link"))
   end
 
   def social_echo_container(statement_node, echoed=false)

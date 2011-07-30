@@ -41,7 +41,7 @@ class Users::UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-    session[:redirect_url] = request.referer
+    session[:redirect_url] = last_url
     render_signinup :signup
   end
 
@@ -52,7 +52,7 @@ class Users::UsersController < ApplicationController
 
   # modified users_controller.rb
   def create
-    redirect_url = session[:redirect_url] || root_path
+    redirect_url = session.delete(:redirect_url) || my_profile_path
     @user = User.new
     begin
       if @user.signup!(params[:user])

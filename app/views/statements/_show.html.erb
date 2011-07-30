@@ -2,12 +2,14 @@
 <% statement_document ||= @statement_document %>
 <% only_header ||= false %>
 <% hide_content ||= false %>
-<% type = [statement_node.class.name_for_siblings, dom_class(statement_node)].uniq.join(' ') %>
+<% type = [statement_node.class.name_for_siblings, node_type(statement_node)].uniq.join(' ') %>
 
-
-<div id="<%=dom_id(statement_node)%>"
-     class="statement <%= type %> <%=statement_node.echoable? ? 'echoable' : ''%>"
-     data-siblings=<%= @siblings ? @siblings[dom_id(statement_node)].to_json : '' %>>
+<% content_tag :div, :id => dom_id(statement_node), 
+               :class => "statement #{type} #{statement_node.echoable? ? 'echoable' : ''}",
+               'data-siblings' => @siblings ? @siblings[dom_id(statement_node)].to_json : '',
+               'dom-parent' => statement_node.parent_node ? 
+                               "#{dom_class(statement_node.parent_node)}_#{statement_node.parent_node.id}" :
+                               params[:origin] do %>
   <%= render :partial => 'statements/header',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document,
@@ -18,4 +20,4 @@
              :locals => {:statement_node => statement_node,
                          :hide_content => hide_content} %>
 	<% end %>
-</div>
+<% end %>

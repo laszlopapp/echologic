@@ -1,49 +1,46 @@
-/*
- * Contains the styling information for top and bottom menu.
- */
 
 /* Top menu */
 
-#topMenuContainer {
+#top_menu_container {
   position:    relative;
 }
 
-#topMenuContainer a, #topMenuContainer a:visited {
-  color:       #7691A2;
+#top_menu_container a, #top_menu_container a:visited {
+  color: #7691A2;
   font-family: arial,Helvetica,sans-serif;
-  margin:      5px 2px 0 10px;
+  margin: 5px 2px 0 10px;
   padding-left: 20px;
-  text-decoration:none;
-  float:       right;
-  font-size:   12px;
+  text-decoration: none;
+  float: right;
+  font-size: 12px;
 }
 
-#topMenuContainer a img {
-  border:      0px;
+#top_menu_container a img {
+  border: 0;
 }
 
-#topMenuContainer a:hover {
-  color:       #1A4864;
+#top_menu_container a:hover {
+  color: #1A4864;
 }
 
 #blog_button {
-  background:  transparent url(../images/page/icons/blog.png) no-repeat scroll;
+  background: transparent url(../images/page/icons/blog.png) no-repeat scroll;
 }
 
 #feedback_button {
-  background:  transparent url(../images/page/icons/feedback.png) no-repeat scroll;
+  background: transparent url(../images/page/icons/feedback.png) no-repeat scroll;
 }
 
 #about_echo_button {
-  background:  transparent url(../images/page/icons/about.png) no-repeat scroll;
+  background: transparent url(../images/page/icons/about.png) no-repeat scroll;
 }
 
 #echo_language_button {
-  background:  transparent url(../images/page/icons/babelfish.png) no-repeat scroll;
+  background: transparent url(../images/page/icons/babelfish.png) no-repeat scroll;
 }
 
 #logout_button {
-  background:  transparent url(../images/page/icons/logout.png) no-repeat scroll;
+  background: transparent url(../images/page/icons/logout.png) no-repeat scroll;
 }
 
 #echo_language_button, #blog_button:hover, #feedback_button:hover, #about_echo_button:hover, #logout_button:hover {
@@ -51,9 +48,12 @@
 }
 
 #language_selector {
-  position:    absolute;
-  min-width:   100px;
-  z-index:     510;
+  position: absolute;
+  min-width: 100px;
+  z-index: 510;
+  left: 572px;
+  top: 30px;
+  padding: 10px;
 }
 
 #language_selector ul {
@@ -82,7 +82,7 @@
 
 /* Buttom menu */
 
-#bottomMenuContainer {
+#bottom_menu_container {
   width:       945px;
   margin:      2px auto 10px;
   text-align:  center;
@@ -90,13 +90,14 @@
   padding-top: 8px;
 }
 
-#bottomMenuContainer a, #bottomMenuContainer a:visited {
+#bottom_menu_container a, #bottom_menu_container a:visited {
   padding:     0 0 0 5px;
   color:       #21587f;
   font-family: arial,Helvetica,sans-serif;
   text-decoration: none;
 }
 
-#bottomMenuContainer a:hover {
+#bottom_menu_container a:hover {
   color:       #FFF;
 }
+

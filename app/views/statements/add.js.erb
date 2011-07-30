@@ -7,26 +7,28 @@
 
 /* history handling */
 <% if !params[:sids].blank? and @ancestors %>
+  <% inc = @level - @ancestors.length %>
   var stack = "<%= params[:sids] %>".split(",");
   <% @ancestors.each_with_index do |ancestor, index| %>
     var ancestor = stack[<%= index %>];
     var ancestor_element = $('#statements .statement').eq(<%= index %>);
     /* if not rendered, than render */
     if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
-      var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor, @ancestor_documents[ancestor.statement_id])) %>").statement({'level': <%= index %>});
+      var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor, @ancestor_documents[ancestor.statement_id])) %>").statement({'level': <%= inc + index %>});
     } else {
       ancestor_element.data('api').hide();
     }
   <% end %>
 <% end %>
 
-<% level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>
 
 /* breadcrumb */
 $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+<% else %>
+  $('#breadcrumbs').data('breadcrumbApi').hideContainer();
 <% end %>
 
-var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= level %>});
+var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= @level %>});
 add_teaser.data('api').removeBelow();

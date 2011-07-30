@@ -12,4 +12,26 @@ namespace :create_shortcuts do
                                           :language => "de"
     end
   end
+
+  task :apold => :environment do
+    %w(allam-polgari-dialogus apold).each do |shortcut|
+      ShortcutUrl.discuss_search_shortcut :title => shortcut,
+                                          :params => {:search_terms => "Állam-POLgári-Dialógus, ÁPOLD-Kezdőlap"},
+                                          :language => "hu"
+    end
+  end
+
+  task :szocikon => :environment do
+    %w(szocialis-konzultacio szocikon).each do |shortcut|
+      ShortcutUrl.statement_shortcut :title => shortcut,
+                                     :params => { :id => 1555 },
+                                     :language => "hu"
+    end
+    %w(vonalkod kakaostej).each do |shortcut|
+      ShortcutUrl.discuss_search_shortcut :title => shortcut,
+                                          :params => {:search_terms => "vonalkód, kakaóstej"},
+                                          :language => "hu"
+    end
+  end
+
 end

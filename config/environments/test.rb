@@ -44,3 +44,4 @@ ECHOSOCIAL_HOST = 'localhost:3001'
 # Number of children statements shown
 TOP_CHILDREN = 7
 MORE_CHILDREN = 7
+TOP_ALTERNATIVES = 7

@@ -6,13 +6,18 @@ pt:
       follow_echo: Siga o echo
     greeting: 'Caro/a {{name}},'
     echo_community: 'comunidade echo'
+    echo_member: 'membro echo'
+    bye: |
+      Os melhores cumprimentos,
+
+      A sua equipa echo
     bye_as_html: |-
       Os melhores cumprimentos,
       <br/><br/>
       A sua equipa echo
     signature: |
       --
-      echo - Democracia Viva 
+      echo - Democracia Viva
 
       Web: http://echo.to
       Blog: http://blog.echo.to
@@ -47,6 +52,11 @@ pt:
       sent: |-
         Your newsletter mails are being delivered...
 
+    user_mail:
+      subject: "[Mensagem echo] {{subject}}"
+      prefix: "{{sender}} enviou-lhe uma mensagem via echo:"
+      suffix: "Pode responder a {{sender}} diretamente respondendo ao email ou pela ligação disponível no seu perfil na echo aqui: {{url}}"
+
     activity_tracking:
       subject: echo - Notificações de Actividade
       title: Notificações de Actividade
@@ -57,6 +67,7 @@ pt:
         created_improvements: 'Novo conteúdo na proposta "<strong>{{title}}</strong>":'
         created_pro_arguments: 'Novo conteúdo na proposta "<strong>{{title}}</strong>":'
         created_contra_arguments: 'Novo conteúdo na proposta "<strong>{{title}}</strong>":'
+        created_background_infos: 'Novo conteúdo para "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'Novas questões complementares de "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

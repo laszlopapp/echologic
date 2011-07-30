@@ -1,9 +1,11 @@
+
 .wysiwyg {
   margin: 0;
   padding: 0;
   clear: both;
   font: 14px "Lucida Sans",Arial,Helvetica,sans-serif;
   color: #21587f;
+  overflow-x: hidden;
 }
 
 .wysiwyg a, .wysiwyg a:visited:hover, .wysiwyg a:visited {
@@ -11,6 +13,9 @@
   font: 14px "Lucida Sans",Arial,Helvetica,sans-serif !important;
 }
 
+.wysiwyg.linked {
+  color: #555 !important;
+}
 
 .rte-zone {
     margin: 0;

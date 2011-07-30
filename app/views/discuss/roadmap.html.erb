@@ -12,30 +12,30 @@
   <br/><br/>
   <h2><%= I18n.t('application.roadmap.vision') %></h2>
   <%= I18n.t('static.echo.discuss.text') %>
-  <ul class="spreadedList">
+  <ul class="spreaded_list">
     <li>
       <strong><%= I18n.t('static.echo.discuss.clarity') %></strong>
-      <% insert_toggle_more(I18n.t('static.echo.discuss.clarity_more')) %>
+      <%= insert_toggle_more(I18n.t('static.echo.discuss.clarity_more')) %>
     </li>
 
     <li>
       <strong><%= I18n.t('static.echo.discuss.transparency') %></strong>
-      <% insert_toggle_more(I18n.t('static.echo.discuss.transparency_more')) %>
+      <%= insert_toggle_more(I18n.t('static.echo.discuss.transparency_more')) %>
     </li>
 
     <li>
       <strong><%= I18n.t('static.echo.discuss.detailed') %></strong>
-      <% insert_toggle_more(I18n.t('static.echo.discuss.detailed_more')) %>
+      <%= insert_toggle_more(I18n.t('static.echo.discuss.detailed_more')) %>
     </li>
 
     <li>
       <strong><%= I18n.t('static.echo.discuss.democratic') %></strong>
-      <% insert_toggle_more(I18n.t('static.echo.discuss.democratic_more', :tooltip => I18n.t('static.echo.discuss.democratic_tooltip'))) %>
+      <%= insert_toggle_more(I18n.t('static.echo.discuss.democratic_more', :tooltip => I18n.t('static.echo.discuss.democratic_tooltip'))) %>
     </li>
 
     <li>
       <strong><%= I18n.t('static.echo.discuss.glocal') %></strong>
-      <% insert_toggle_more(I18n.t('static.echo.discuss.glocal_more')) %>
+      <%= insert_toggle_more(I18n.t('static.echo.discuss.glocal_more')) %>
     </li>
   </ul>
 </div>

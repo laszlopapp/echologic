@@ -16,10 +16,9 @@ Feature: Report unseemly behaving users
       And I follow the "Show" link for the profile of "user test"
       And I follow "Report"
       And I fill in "reason" with "User has red hair."
-    # Problem with jquery-ui modal dialog.
-    #  And I press "Send"
-    #Then I should see "Thank you for your message."
-    #  And "Joe" should be reported with a reason
+      And I press "Send"
+    Then I should see "Thank you for your message."
+      And "User Test" should be reported with a reason
 
   # With user access you can't view reports.
   Scenario: Users cannot see reports

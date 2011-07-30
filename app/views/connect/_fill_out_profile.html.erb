@@ -3,8 +3,17 @@
 <p class="text_for_function_button"><%= I18n.t('connect.fill_out_profile.text',
                                                :percentage => (Profile::COMPLETENESS_THRESHOLD * 100).to_i) %></p>
 <br/>
-<%= render :partial => 'my_echo/entry', :locals => {:id => 'profile_teaser',
-                                                    :entry => 'my_profile',
-                                                    :function_code => 'function_1'}%>
+
+<div id="profile_teaser" class="function_button_holder">
+  <span class="function_button">
+    <%= link_to image_tag("../images/page/functions/my_profile.png", :border => 0),
+                :url => my_profile_path,
+                :href => my_profile_path %>
+  </span>
+  <% link_to my_profile_path, {:class => 'function_name'} do %>
+    <%= I18n.t("connect.fill_out_profile.name") %>
+  <% end %>
+  <span class="function_description"><%= I18n.t("connect.fill_out_profile.description") %></span>
+</div>
 
 <%= insert_separator_line %>

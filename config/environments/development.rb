@@ -16,11 +16,11 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 # For using link_to and url_for in ActionMailer, hostname has to be given.
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+config.action_mailer.default_url_options = { :host => 'echo.local:3000' }
 
 # Hosts
-ECHO_HOST = 'localhost:3000'
-ECHOSOCIAL_HOST = 'localhost:3001'
+ECHO_HOST = 'echo.local:3000'
+ECHOSOCIAL_HOST = 'echo.local:3001'
 
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'
@@ -28,3 +28,4 @@ FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'
 # Number of children statements shown
 TOP_CHILDREN = 3
 MORE_CHILDREN = 7
+TOP_ALTERNATIVES = 2

@@ -48,7 +48,7 @@ function setSearchHistory() {
 	$("#search_form").data('placeholderApi').cleanDefaultValues();
   var search_terms = $("#search_terms").val();
   if (search_terms.length > 0) {
-    search_terms = search_terms.trim();
+    search_terms = $.trim(search_terms);
   }
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
@@ -86,7 +86,7 @@ function initFragmentChange() {
 }
 
 function triggerSearchQuery(){
-  $.getScript($.queryString(document.location.href, {
+  $.getScript($.queryString(document.location.href.split('?')[0], {
     "page_count": $.fragment().page_count,
     "page": $.fragment().page,
     "sort": $.fragment().sort,
@@ -101,8 +101,8 @@ function triggerSearchQuery(){
 function loadSearchAutoComplete() {
 	var path = $('.function_container').is('#echo_discuss_search') ? '../../discuss/auto_complete_for_tag_value' : '../users/users/auto_complete_for_tag_value';
 
-  $('#search_form .tag_value_autocomplete').autocomplete(path, {minChars: 3,
-                                                                selectFirst: false,
-                                                                multiple: true});
+  $('#search_form .tag_value_autocomplete').autocompletes(path, {minChars: 3,
+                                                                 selectFirst: false,
+                                                                 multiple: true});
 }
 

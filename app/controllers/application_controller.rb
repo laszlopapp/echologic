@@ -3,9 +3,29 @@
 
 class ApplicationController < ActionController::Base
 
+  layout :layout_mode
+
+  ##########
+  # LAYOUT #
+  ##########
+  private
+  
+  def layout_mode
+    params[:mode] || 'application'
+  end
+
+
   ###########
   # ROUTING #
   ###########
+
+  before_filter :set_mode
+  
+  private
+  def set_mode
+    RoutingFilter::Mode.current_mode = params[:mode]
+  end
+
 
   #
   # Initialize the locale of the application
@@ -98,16 +118,22 @@ class ApplicationController < ActionController::Base
   def require_user
     @user_required = true
     unless current_user
-      redirect_url = request.url == last_url ? root_url : last_url
-      session[:redirect_url] = redirect_url
-      later_call_with_info(redirect_url, signin_url) do |format|
-        format.js{render_signinup_js(:signin)}
-      end
+      current_url = request.url == last_url ? root_url : last_url
+      open_signin(current_url, request.url)
       return false
     end
   end
 
-    # Checks that the user is NOT logged in.
+  def open_signin(current_url, target_url)
+    later_call_with_info(current_url, signin_url(:redirect_url => target_url)) do |format|
+      format.js{
+        session[:redirect_url] = current_url
+        render_signinup_js(:signin)
+      }
+    end
+  end
+
+  # Checks that the user is NOT logged in.
   def require_no_user
     if current_user
       redirect_to_url root_url, 'authlogic.error_messages.must_be_logged_out'
@@ -249,14 +275,20 @@ class ApplicationController < ActionController::Base
     elsif object.class.kind_of?(ActiveRecord::Base.class) && object.errors.count > 0
       value = I18n.t('activerecord.errors.template.body')
       value += "<ul>"
+      errors_number = 0
       object.errors.each do |attr_name, message|
-        value += "<li>#{message}</li>"
+        if options[:only].nil? or options[:only].map(&:to_s).include? attr_name
+          value += "<li>#{message}</li>"
+          errors_number += 1
+        end
       end
       value += "</ul>"
-      if @error.nil?
-        @error = value
-      else
-        @error << value
+      if errors_number > 0
+        if @error.nil?
+          @error = value
+        else
+          @error << value
+        end
       end
     end
   end
@@ -395,7 +427,7 @@ class ApplicationController < ActionController::Base
   def render_signinup_js(type)
     load_signinup_data(type)
     render :template => 'users/components/users_form',
-               :locals => {:partial => "users/#{@controller_name}/new"}
+           :locals => {:partial => "users/#{@controller_name}/new"}
   end
 
   def redirect_or_render_with_info(url, message_or_object, opts={})

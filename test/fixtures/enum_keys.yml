@@ -68,3 +68,11 @@ about_category_<%= code %>:
   key: <%= index+1 %>
   description: about_category
 <% end %>
+
+<% %w(article paper book audio photo video law document misc).each_with_index do |code, index| %>
+info_type_<%= code %>:
+  code: <%= code %>
+  type: InfoType
+  key: <%= index+1 %>
+  description: info_type
+<% end %>

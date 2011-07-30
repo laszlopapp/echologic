@@ -29,7 +29,7 @@ class MyEchoController < ApplicationController
       @current_user.update_social_accounts
       render
     rescue RpxService::RpxServerException
-      redirect_or_render_with_error(redirect_url, "application.remote_error")
+      redirect_or_render_with_error(root_path, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error showing settings")
     end

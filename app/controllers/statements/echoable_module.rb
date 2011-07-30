@@ -16,7 +16,7 @@ module EchoableModule
   def echo
     begin
       return if !@statement_node.echoable?
-      if !@statement_node.incorporable? or @statement_node.parent.supported?(current_user)
+      if !@statement_node.incorporable? or @statement_node.parent_node.supported?(current_user)
         @statement_node.supported!(current_user)
         set_statement_info('discuss.statements.statement_supported')
         respond_to_js :redirect_to => statement_node_url(@statement_node), :template_js => 'statements/echo'
@@ -164,7 +164,7 @@ module EchoableModule
   # Loads the echo/unecho messages as JSON data to handled on the client
   #
   def load_echo_info_messages
-    type = I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
+    type = I18n.t("discuss.statements.types.#{@statement_node_type.name.underscore}")
     @messages = {:supported => I18n.t('discuss.statements.statement_supported', :type => type),
                  :not_supported => I18n.t('discuss.statements.statement_unsupported', :type => type)}.to_json
   end

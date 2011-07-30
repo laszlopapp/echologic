@@ -15,6 +15,10 @@ module ActiveRecord
       end
 
       module ClassMethods
+        def echoable?
+          false
+        end
+
         def acts_as_echoable
 
           class_eval do
@@ -35,6 +39,10 @@ module ActiveRecord
           class_eval do
             # All echoable objects return true by default.
             def echoable?
+              true
+            end
+
+            def self.echoable?
               true
             end
 
@@ -135,7 +143,7 @@ module ActiveRecord
 
             # Records the creator's support for the statement.
             def author_support
-              if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
+              if (!self.incorporable? or self.parent_node.supported?(self.creator)) # and self.echoable? SHOULD I????
                 self.supported!(self.creator)
               end
             end
@@ -168,19 +176,6 @@ module ActiveRecord
             def supporters
               User.find(self.user_echos.supported.all.map(&:user_id))
             end
-
-            ##################
-            # string helpers #
-            ##################
-
-            def self.support_tag
-              "support"
-            end
-
-            def self.unsupport_tag
-              "unsupport"
-            end
-
 
           end # --- class_eval
 

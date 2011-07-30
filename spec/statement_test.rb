@@ -32,19 +32,19 @@ describe Statement do
     end
     
     it "should not save without a valid parent (Question or none)" do
-      @statement_node.parent = Question.first
+      @statement_node.parent_node = Question.first
       @statement_node.should be_valid
-      @statement_node.parent = Proposal.first
+      @statement_node.parent_node = Proposal.first
       @statement_node.should_not be_valid
-      @statement_node.parent = Improvement.first
+      @statement_node.parent_node = Improvement.first
       @statement_node.should_not be_valid
     end
     
     it "should not save without a root when it has a parent" do
       @statement_node.root_id = nil
-      @statement_node.parent = nil
+      @statement_node.parent_node = nil
       @statement_node.should be_valid
-      @statement_node.parent = Question.first
+      @statement_node.parent_node = Question.first
       @statement_node.should_not be_valid
       @statement_node.root_id_ = Question.first.id
       @statement_node.should be_valid
@@ -68,9 +68,9 @@ describe Statement do
     end
     
     it "should not save without a valid parent (a question)" do
-      @statement_node.parent = nil
+      @statement_node.parent_node = nil
       @statement_node.should_not be_valid
-      @statement_node.parent = Proposal.first
+      @statement_node.parent_node = Proposal.first
       @statement_node.should_not be_valid
     end
   end
@@ -91,9 +91,9 @@ describe Statement do
     end
     
     it "should not save without a valid parent (a proposal)" do
-      @statement_node.parent = nil
+      @statement_node.parent_node = nil
       @statement_node.should_not be_valid
-      @statement_node.parent = Improvement.first
+      @statement_node.parent_node = Improvement.first
       @statement_node.should_not be_valid
     end
     

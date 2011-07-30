@@ -15,6 +15,10 @@ module ActiveRecord
       end
 
       module ClassMethods
+        
+        def taggable?
+          false
+        end
 
         def acts_as_extaggable(*args)
           tag_types = args.to_a.flatten.compact.map(&:to_sym)
@@ -36,6 +40,9 @@ module ActiveRecord
               true
             end
 
+            def self.taggable?
+              true
+            end
 
             #
             # SQL Queries Helpers

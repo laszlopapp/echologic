@@ -44,50 +44,55 @@ en:
         text_1: |
           <p>
           echo is a joint <a href="{{github_url}}" target="_blank">Open Source</a> project for
-          <strong>active citizen participation</strong> -
+          <strong>active citizen participation</strong> - available
           <span title="{{subsidiarity_tooltip}}" class="ttLink">worldwide</span> and for all people.
           Its comprehensive approach is designed to address a core problem of our time: the political resignation
-          and feeling of powerlessness of the individual.
+          and feelings of powerlessness of the individual.
           </p><p>
           "Discuss - Connect - Act!“ - The social software facilitates <strong>constructive, cross-language
           public dialogs</strong> for opinion formation and collective solution finding. It connects people
-          sharing the same purposes and supports them in creating <strong>joint actions</strong> for social and
-          political impact.<br/>
-          Wherever we are in the virtual or real world, echo gives us the proof: we are no longer alone with our
-          opinion and convictions - the echo of our voice can <strong>turn idea(l)s into reality</strong>.
+          sharing common purposes and supports them in creating <strong>joint actions</strong> for social and
+          political impact. Wherever we are in the virtual or real world, echo gives us the proof: we are no longer
+          alone with our opinion and convictions - the echo of our voice can <strong>turn idea(l)s into reality</strong>.
           </p>
         gender_tooltip: ''
-        subsidiarity_tooltip: According to the principles of subsidiarity
+        subsidiarity_tooltip: According to the principles of gloCality, decentralization and subsidiarity
         text_2:
-          title: Collective solution finding
+          title: Collective solution finding - everywhere
           more: |
             <p>
-            Newspaper articles, blogs, videos and any kind of Internet content become the gateways into well
-            structured echo discussions, which can be embedded in any website. Wherever on the web they are,
-            people can elaborate their ideas and solutions by writing the same drafts together - in a democratic
-            process without moderators or admins.
-            In this way, echo <strong>summarizes knowledge, opinions and their advocates
-            beyond the borders of websites, communities and languages.</strong>
+            echo is <strong>NOT yet another platform</strong>! Its content will be embeddable in arbitrary webpages:
+            e.g. in websites of political or non-governmental organizations, news portals, companies or in private blogs.
+            Wherever they are, people can elaborate their ideas and solutions by writing the same drafts together -
+            in a democratic process without moderators or admins. In this way, echo brings together all splinters
+            of knowledge, opinions and their advocates beyond the borders of isolated websites, communities
+            and languages – <strong>throughout the whole Internet</strong>.
             </p><p>
-            echo discussions give a <strong>fast and clear overview</strong> on alternative proposals, pro/contra
+            echo's structured debates remain <strong>clear and comprehensible</strong> even with a nearly
+            unlimited number of participants. They provide us with a rapid overview of alternative views, pro/contra
             arguments and multimedia background information. They make interrelations of topics easily comprehensible
-            and provide a <strong>clearly structured "opinion base"</strong>. E.g. which parts of society and how many
-            people are really against Genfood? What are the arguments of biotechnologists and ecologists? What is the
-            position of political parties, NGOs and other organisations?
+            and make the <strong>position and argumentation of different social groups</strong> transparent: e.g.
+            which parts of society and how many people are really against Genfood? What are the arguments of
+            biotechnologists and ecologists? What is the position of political parties, NGOs and other organisations?
             </p>
         text_3:
           title: Participatory democracy
           more: |
             <p>
-            In order to achieve noticeable results in everyday life, echo actively motivates like-minded participants of
-            discussions to create <strong>joint projects</strong> and utilize direct democractic instruments (e.g. European Citizens'
-            Initiative, ePetition, referenda, carrot mob). echo helps to <strong>finance these projects</strong> with
-            cost-neutral fundraising and a user-driven, democratic redistribution of all its surpluses
+            In order to achieve noticeable results in our everyday life, echo actively motivates like-minded people
+            from the discussions to create <strong>joint actions</strong>. The range of these actions covers
+            general projects, founding of NGOs and social businesses, as well as the organized utilization of
+            <strong>direct democratic instruments</strong> (e.g. European Citizens' Initiative, ePetition, referendum,
+            demonstration, boycott). By bundling all sorts of local, regional and global actions for a common goal,
+            echo boosts the influence power of civil engagement.
+            </p><p>
+            Furthermore, echo helps to <strong>finance these projects</strong> with cost-neutral fundraising and a
+            user-driven, democratic redistribution of all its surpluses generated by multiple scalable business models
             (<strong>“Your-Profit” business philosophy</strong>).
             </p><p>
             Through the promotion of <strong>constructive collaboration between citizens, states and their
             organizations</strong>, echo helps to avoid destructive confrontation and enables us to
-            <strong>jointly develop innovative responses</strong> to the challenges of our time.
+            jointly develop innovative responses to the challenges of our time.
             </p>
         text_4:
           title: Your echo
@@ -96,12 +101,16 @@ en:
             Your voice needs an echo. echo needs your voice. Be part of creating a future democracy where <strong>every
             voice counts</strong> the same – all over the world.
             </p><p>
-            Although echo is still in its embryonic stage, you can already:
+            echo as a “society operating system” of politically mature world citizens of future generations is still
+            in its embryonic stage. However, you can already here and now <strong>mobilize your friends for YOUR
+            issues</strong> and start shaping your family's and humanities common future.
+            </p><p>
+            Speak up your mind! Make an echo!
             </p>
 
         action: |-
           Check out prototype »<br/>
-          echo 0.15 is online
+          echo 0.16 is online
 
 
       #About
@@ -657,7 +666,7 @@ en:
           at any given time.
           </p><p>
           In this way, echo becomes the quasi <strong>property of humanity</strong>:
-          They decide what happens on echo. They define how echo works. They are echo!
+          You decide what happens on echo. You define how echo works. You are echo!
           </p>
 
         tooltip: |

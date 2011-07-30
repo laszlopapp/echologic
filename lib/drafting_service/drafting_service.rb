@@ -181,7 +181,7 @@ class DraftingService
   #
   def select_approved(incorporable)
     incorporable.reload
-    if incorporable.parent.approved_children.empty?
+    if incorporable.parent_node.approved_children.empty?
       siblings = incorporable.sibling_statements(:language_ids => [incorporable.drafting_language.id]).select(&:staged?)
       approve(siblings.first) if !siblings.empty?
     end
@@ -293,7 +293,7 @@ class DraftingService
     end
 
     # Send approval notification to the rest of the supporters of the proposal
-    p_recipients = notified_supporters(incorporable.parent) - ip_recipients
+    p_recipients = notified_supporters(incorporable.parent_node) - ip_recipients
     if !p_recipients.blank?
       email = DraftingMailer.create_approval_notification(p_recipients, mail_data)
       DraftingMailer.deliver(email)
@@ -356,7 +356,7 @@ class DraftingService
 
     # Thank you mail to the author
     ip_recipient = []
-    draftable_document = incorporable.parent.document_in_drafting_language
+    draftable_document = incorporable.parent_node.document_in_drafting_language
     if draftable_document.author.drafting_notification == 1
       ip_recipient << draftable_document.author
       email = DraftingMailer.create_incorporated(mail_data)
@@ -364,7 +364,7 @@ class DraftingService
     end
 
     # Notification mail to the rest of the supporters of the proposal
-    p_recipients = notified_supporters(incorporable.parent) - ip_recipient
+    p_recipients = notified_supporters(incorporable.parent_node) - ip_recipient
     if !p_recipients.blank?
       email = DraftingMailer.create_incorporation_notification(p_recipients, mail_data)
       DraftingMailer.deliver(email)
@@ -384,9 +384,9 @@ class DraftingService
     # Generating the mail data
     {
       :incorporable => incorporable,
-      :draftable => incorporable.parent,
+      :draftable => incorporable.parent_node,
       :incorporable_document => incorporable.document_in_drafting_language,
-      :draftable_document => incorporable.parent.document_in_drafting_language,
+      :draftable_document => incorporable.parent_node.document_in_drafting_language,
       :language => incorporable.drafting_language.code
     }
   end

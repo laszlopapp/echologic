@@ -29,31 +29,31 @@ hu:
           <p>
           Az echo egy a közösségből fakadó <a href="{{github_url}}" target="_blank">nyílt forrású</a> projekt egy
           <strong>élő demokráciáért</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">világszerte</span>,
-          minden ember egyenrangú, aktív részvételével.
-          Átfogó koncepciója korunk egyik kulcsproblémájának megoldását célozza:
-          a politikai rezignáció és az egyedüli ember tehetetlenség érzetének leküzdését.
+          minden ember egyenrangú, aktív részvételével. Átfogó koncepciója korunk egyik kulcsproblémájának megoldását
+          célozza: a politikai rezignáció és az egyedüli ember tehetetlenség érzetének leküzdését.
           </p><p>
           "Megvitatjuk - Összefogunk - Cselekszünk!" - A szociális szoftver lehetőséget nyújt <strong>konstruktív,
           többnyelvű nyílt viták</strong> folytatására véleményformálás és közös megoldáskeresés céljából.
-          Az echo összeköti a vitákban azonos álláspontokat képviselő embereket és támogatja őket a
-          <strong>közös cselekvésben</strong> a társadalmi és politikai érdekérvényesítés sikeréért.<br/>
-          Bármerre is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
+          Az echo összeköti a vitákban azonos álláspontokat kialakító embereket és támogatja őket a
+          <strong>közös cselekvésben</strong> a társadalmi és politikai befolyásgyakorlás sikeréért.
+          Bárhol is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
           egyedül véleményünkkel és céljainkkal - hangunk visszhangja <strong>átformálja a világot</strong>.
           </p>
         gender_tooltip: ''
-        subsidiarity_tooltip: A glokalitás, dezentralizáció és szubszidiaritás elve mentén
+        subsidiarity_tooltip: A gloKalitás, dezentralizáció és szubszidiaritás elvei mentén
         text_2:
-          title: Közös megoldáskeresés
+          title: Közös megoldáskeresés - mindenütt
           more: |
             <p>
             Az echo <strong>NEM egy újabb platform</strong>. Tartalmai tetszőleges weblapokba ágyazva
             megjelenhetnek majd: így pl. társadalmi és politikai szereplők weboldalain, hírportálokon, cégek honlapján
-            vagy éppen privát blogokban.<br/>
+            vagy éppen privát blogokban. Bármely weboldalon is legyünk, az echo segítségével együtt alakíthatjuk ki és
+            fejleszthetjük tovább javaslatainkat - demokratikus úton, adminisztrátorok és moderátorok nélkül.
             Kollektív tudásunk szilánkjai, vélemények és ezek támogatói ezáltal az egymástól elszigetelt weblapok,
             közösségek és különböző beszélt nyelvek határain túl <strong>az Internet teljes egészére kiterjedően</strong>
             összeköttetnek egymással.
             </p><p>
-            Az echo többnyelvű dialógusai <strong>bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
+            Az echo struktúrált dialógusai <strong>bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
             Elénk tárják a különböző alternatívákat, a mellettük és ellenük szóló érveket valamint a velük kapcsolatos
             multimediális háttérinformációkat. A témák közötti összefüggések illetve a különböző
             <strong>társadalmi csoportok álláspontja</strong> és érvelése könnyen átláthatóvá válik.<br/>
@@ -69,11 +69,13 @@ hu:
             képviselő összes embert motiválja <strong>közös akciók</strong> megszervezésére. Ezen akciók spektruma az
             általános projektektől kezdve, a
             "<a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a>"
-            cégek és civil szervezetek alapításán át, felöleli a különböző direkt demokratikus eszközök szervezett
-            használatát (pl. Európai Polgári Kezdeményezés, e-Petíció, népszavazás, carrot mob, demonstráció, bojkott).<br/>
-            Az akciók finanszírozását az echo költségsemleges pénzgyűjtéssel valamint több
+            cégek és civil szervezetek alapításán át, felöleli a különböző <strong>direkt demokratikus eszközök</strong>
+            szervezett használatát (pl. Európai Polgári Kezdeményezés, e-Petíció, népszavazás, carrot mob,
+            demonstráció, bojkott).<br/>
+            </p><p>
+            Az <strong>akciók finanszírozását</strong> az echo költségsemleges pénzgyűjtéssel valamint több
             skálázható üzleti modellből származó teljes nyereségének demokratikus, az echo közösség által történő
-            elosztásával segíti (Non-profit helyett <strong>"Your-profit" üzleti filozófia</strong>).
+            elosztásával segíti (<strong>"Your-profit" üzleti filozófia</strong>).
             </p><p>
             <strong>Az állampolgárok, az állam és ezek különböző szervezetei közötti konstruktív együttműködés</strong>
             támogatásával az echo segít elkerülni a destruktív konfrontációt, és lehetőséget teremt arra, hogy korunk
@@ -87,14 +89,14 @@ hu:
             egyformán számít</strong> - mindenütt a világon.
             </p><p>
             Az echo mint a jövő generációk értő világpolgárainak "társadalmi motorja" egyelőre még gyerekcipőben jár.
-            De belépve már itt és most lehetőséged van, hogy <strong>SAJÁT témáid</strong> kapcsán mobilizáld ismerőseid és kezedbe
-            vedd családod és közös jövőnk alakulását.
+            De belépve már itt és most lehetőséged van, hogy <strong>SAJÁT témáid</strong> kapcsán mobilizáld ismerőseid
+            és kezedbe vedd családod és közös jövőnk alakítását.
             </p><p>
             <strong>Hallasd a hangod! Kelts visszhangot!</strong>
             </p>
 
         action: |-
-          Próbald ki a prototípust »<br/>
+          Próbáld ki a prototípust »<br/>
           Kövesd a fejlődést
 
 

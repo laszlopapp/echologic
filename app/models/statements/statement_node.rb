@@ -1,7 +1,7 @@
 class StatementNode < ActiveRecord::Base
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set :scope => :root_id
+  acts_as_nested_set :scope => :root_id, :base_conditions => "type != 'CasHub'"
 
   alias_attribute :target_id, :id
 
@@ -9,11 +9,40 @@ class StatementNode < ActiveRecord::Base
     self
   end
 
-  after_destroy :destroy_statement
-
-  def destroy_statement
-    self.statement.destroy if (self.statement.statement_nodes - [self]).empty?
+  def u_class_name
+    self.class.name.underscore
   end
+
+  # Deletion handling
+  after_destroy :destroy_associated_objects
+
+  def destroy_associated_objects
+    destroy_statement
+    destroy_shortcuts
+    destroy_descendants
+  end
+
+  #
+  # Destroys the statement ONLY if this is the only statement node belonging the statement
+  #
+  def destroy_statement
+    statement.destroy if statement and (self.statement.statement_nodes.map(&:id) - [target_id]).empty?
+  end
+
+  #
+  # Destroys the shortcuts referencing this statement node
+  #
+  def destroy_shortcuts
+    ShortcutCommand.destroy_all("command LIKE '%\"operation\":\"statement_node\"%' AND command LIKE '%\"id\":#{self.id}%'")
+  end
+
+  #
+  # Destroys the children of this statement node, that in any other way can't be seen anymore
+  #
+  def destroy_descendants
+    descendants.destroy_all
+  end
+
 
   ##
   ## ASSOCIATIONS
@@ -22,7 +51,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?, 
+  delegate :original_language, :document_in_language, :authors, :has_author?,
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
@@ -37,6 +66,7 @@ class StatementNode < ActiveRecord::Base
     end
   end
 
+
   ##
   ## VALIDATIONS
   ##
@@ -45,6 +75,7 @@ class StatementNode < ActiveRecord::Base
   validates_presence_of :statement
   validates_associated :creator
   validates_associated :statement
+
 
   ##
   ## NAMED SCOPES
@@ -58,8 +89,9 @@ class StatementNode < ActiveRecord::Base
   end
 
   named_scope :by_creator, lambda {|id| {:conditions => ["creator_id = ?", id]}}
-  named_scope :published, lambda {|auth|
-    {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth
+  named_scope :published, lambda {|auth| {
+    :joins => :statement,
+    :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth
   }
 
   # orders
@@ -81,10 +113,29 @@ class StatementNode < ActiveRecord::Base
   ######### ACTIONS ############
   ##############################
 
+  def self.taggable?
+    true
+  end
+
   def publishable?
     false
   end
 
+  def self.publishable?
+    false
+  end
+
+  def publish_descendants
+    descendants.each do |node|
+      if !node.published?
+        node.publish
+        node.statement.save
+        EchoService.instance.published(node)
+      end
+    end
+  end
+
+#  handle_asynchronously :publish_descendants
 
 
   # Initializes this statement node's statement
@@ -100,7 +151,19 @@ class StatementNode < ActiveRecord::Base
     doc.statement = self.statement
     attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     self.statement.statement_documents << doc
-    return doc
+    doc
+  end
+
+  # updates an existing node with a new set of attributes
+  def update_node(attrs={})
+    update_attributes(attrs)
+  end
+
+  #
+  # Helper function to load the tags from the root
+  #
+  def load_root_tags
+    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags
   end
 
   ########################
@@ -111,7 +174,7 @@ class StatementNode < ActiveRecord::Base
   # Checks if there is a document in any of the languages passed as argument
   #
   def translated_document?(lang_ids)
-    return statement_documents.for_languages(lang_ids).nil?
+    statement_documents.for_languages(lang_ids).nil?
   end
 
   #
@@ -161,8 +224,17 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check child_statements documentation
   #
   def sibling_statements(opts={})
+    opts[:prev] ||= self.parent_node
     opts[:type] ||= self.class.to_s
-    self.parent.nil? ? [] : self.parent.child_statements(opts)
+    if opts[:prev].nil?
+      []
+    else
+      opts[:lft] = opts[:prev].lft
+      opts[:rgt] = opts[:prev].rgt
+      opts[:filter_drafting_state] = self.incorporable?
+      opts[:parent_id] = opts[:prev].target_id
+      self.child_statements(opts)
+    end
   end
 
   #
@@ -216,8 +288,11 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check statements_for_parent documentation
   #
   def child_statements(opts={})
-    opts[:parent_id] = self.target_id
-    opts[:filter_drafting_state] = self.draftable?
+    opts[:root_id] = self.root_id
+    opts[:parent_id] ||= self.target_id
+    opts[:lft] ||= self.lft
+    opts[:rgt] ||= self.rgt
+    opts[:filter_drafting_state] ||= self.draftable?
     opts[:type] ? opts[:type].to_s.constantize.statements_for_parent(opts) : children
   end
 
@@ -233,7 +308,9 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check count_statements_for_parent documentation
   #
   def count_child_statements(opts={})
-    opts[:parent_id] = self.target_id
+    opts[:root_id] = self.root_id
+    opts[:lft] = self.lft
+    opts[:rgt] = self.rgt
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ? opts[:type].to_s.constantize.count_statements_for_parent(opts) : children.count
   end
@@ -246,14 +323,25 @@ class StatementNode < ActiveRecord::Base
 
   class << self
 
-    # Aux Function: generates new instance (overwritten in follow up question)
+    # Aux Function: generates new instance
     def new_instance(attributes = {})
-      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes = filter_editorial_state(attributes)
       editorial_state = attributes.delete(:editorial_state)
       node = self.new(attributes)
-      node.set_statement(:editorial_state => editorial_state)
+      node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
+
+    def filter_editorial_state(attributes={})
+      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes
+    end
+
+    # Aux Function: Checks if node has more data to show or load
+    def has_embeddable_data?
+      false
+    end
+
 
     # Aux Function: GUI Helper (overwritten in follow up question)
     def is_top_statement?
@@ -335,6 +423,8 @@ class StatementNode < ActiveRecord::Base
       fields[:joins] << "LEFT JOIN #{Echo.table_name} e ON #{table_name}.echo_id = e.id"
       fields[:joins] << children_joins
       fields[:conditions] = children_conditions(opts)
+      fields[:conditions] << state_conditions(opts)
+      fields[:conditions] << alternative_conditions(opts) if opts[:alternative_ids]
       fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
       fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id"
@@ -345,6 +435,10 @@ class StatementNode < ActiveRecord::Base
       ''
     end
 
+    def state_conditions(opts)
+      ''
+    end
+
     #
     # returns a string of sql conditions representing getting statement nodes of certain types filtered by parent
     # opts attributes:
@@ -352,18 +446,13 @@ class StatementNode < ActiveRecord::Base
     # parent_id (Integer) : id of parent statement node
     #
     def children_conditions(opts)
-      sanitize_sql(["#{table_name}.type IN (?) AND #{table_name}.parent_id = ? ",
-                    opts[:types] || [self.name], opts[:parent_id]])
+      sanitize_sql(["#{table_name}.type IN (?) AND
+                     #{table_name}.root_id = ? AND
+                     #{table_name}.lft >= ? AND #{table_name}.rgt <= ? ",
+                    opts[:types] || [self.name], opts[:root_id], opts[:lft], opts[:rgt]])
     end
 
     public
-
-
-    def search_discussions(opts={})
-      opts.delete(:type)
-      search_statement_nodes(opts)
-    end
-
 
     #
     # gets a set of statement nodes given an hash of arguments
@@ -371,7 +460,7 @@ class StatementNode < ActiveRecord::Base
     # opts attributes:
     #
     # search_term (string : optional) : value we ought to search for on title, text and statement tags
-    # only_id (boolean : optional) : if true, returns a hash of the statements only with the id attribute filled
+    # param (string : optional) : specifies the attribute which we should search
     # type (string : optional) : defines the type of statement to look for ("Question" in most of the cases)
     # show_unpublished (boolean : optional) : if false or nil, only get the published statements (see user as well)
     # user (User : optional) : only used if show_unpublished is false or nil; gets the statements belonging to the user regardless of state (published or new)
@@ -381,114 +470,99 @@ class StatementNode < ActiveRecord::Base
     # Called with no attributes filled: returns all published questions
     #
     def search_statement_nodes(opts={})
-      aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
-      
+      aggregator_field = opts[:types].nil? ? 'root_id' : 'id'
+
       # Constant criteria
       document_conditions = []
-      
+
       # Languages
       if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
         document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
       end
-      
-      node_conditions = []
-      # Access permissions
-      access_conditions = []
-      access_conditions << "s.closed_statement IS NULL"
-      access_conditions << sanitize_sql(["s.granted_user_id = ?", opts[:user].id]) if opts[:user]
-      node_conditions << "(#{access_conditions.join(' OR ')})"
+
+      # Permissions
+      opts[:node_conditions] ||= []
+      opts[:node_conditions].map!{|cond|sanitize_sql(cond)}
+      opts[:node_conditions] << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
 
       # Statement type
-      if opts[:type]
-        node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
+      if opts[:types]
+        opts[:node_conditions] << sanitize_sql(["s.type IN (?)", opts[:types]])
       end
-      
+
       # Published state
       unless opts[:show_unpublished]
         publish_condition = []
         publish_condition << sanitize_sql(["s.editorial_state_id = ?",StatementState['published'].id])
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
-        node_conditions << "(#{publish_condition.join(' OR ')})"
+        opts[:node_conditions] << "(#{publish_condition.join(' OR ')})"
       end
-      
+
       # Drafting state
       if opts[:drafting_states]
-        node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
+        opts[:node_conditions] << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
-      
+
+      # Limit
+      limit = "LIMIT #{opts[:limit]}" if opts[:limit]
+
+
+      opts[:joins] ||= ""
 
       # Search terms
       search_term = opts.delete(:search_term)
       if !search_term.blank?
         term_query = "SELECT DISTINCT statement_id AS id FROM search_statement_text d "
         term_query << "WHERE "
-      
+
         term_queries = []
         if search_term.include? ','
           terms = search_term.split(',')
         else
           terms = search_term.split(/[\s]+/)
         end
-        
+
         terms.map(&:strip).each do |term|
-          or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
-          if (term.length > 3)
-            or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
-          end
+          or_conditions = StatementDocument.term_conditions(term)
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
-        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
-                           "FROM (#{term_queries}) statement_ids " +
-                           "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
-                           "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
-                           "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
-                           "WHERE #{node_conditions.join(" AND ")} " +
+
+        joins = "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
+                "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
+                "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id "
+        joins << opts[:joins]
+        statements_query = "SELECT #{table_name}.#{opts[:param] || '*'} " +
+                           "FROM (#{term_queries}) statement_ids " + joins +
+                           "WHERE #{opts[:node_conditions].join(" AND ")} " +
                            "GROUP BY s.#{aggregator_field} " +
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
-                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
+                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id #{limit};"
       else
         document_conditions << "d.current = 1"
-        
-        node_conditions << "s.type = 'Question'" if opts[:type].nil?
-        
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
-                           "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
-                           Statement.extaggable_joins_clause("s.statement_id") +
-                           "WHERE " + (node_conditions + document_conditions).join(' AND ') +
-                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
+
+        opts[:node_conditions] << "s.type = 'Question'" if opts[:types].nil?
+
+        joins = "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
+                Statement.extaggable_joins_clause("s.statement_id")
+        joins << opts[:joins]
+
+        statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " + joins +
+                           "WHERE " + (opts[:node_conditions] + document_conditions).join(' AND ') +
+                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
       end
       find_by_sql statements_query
     end
-
 
     def default_scope
       { :include => :echo,
         :order => "echos.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id" }
     end
 
+
     ###################################
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
-
-    #
-    # visibility = false: returns an array of symbols of the possible children types
-    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
-    # default: whether we should take out from or let the default children types in the array
-    # expand: whether we should replace a children type for it's sub-types
-    #
-    def children_types(opts={})
-      types = @@children_types[self.name] || @@children_types[self.superclass.name]
-      types -= @@default_children_types if opts[:no_default]
-      if opts[:expand]
-        array = []
-        types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
-        types = array
-      end
-      return types.map{|c|c[0]} if !opts[:visibility]
-      types
-    end
-
 
     # PARTIAL PATHS #
     def children_list_template
@@ -507,19 +581,64 @@ class StatementNode < ActiveRecord::Base
       "statements/descendants"
     end
 
+    # TYPE-RELATIONS
+
+    #
+    # visibility = false: returns an array of symbols of the possible children types
+    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
+    # expand: whether we should replace a children type for it's sub-types
+    #
+    def children_types(opts={})
+      format_types @@children_types[self.name] || @@children_types[self.superclass.name], opts
+    end
+
+    #
+    # visibility = false: returns an array of symbols of the possible children types
+    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
+    # expand: whether we should replace a children type for it's sub-types
+    #
+    def default_children_types(opts={})
+      format_types @@default_children_types, opts
+    end
+
+    def all_children_types(opts={})
+      children_types(opts) + default_children_types(opts)
+    end
+
+    def format_types(types, opts={})
+      if opts[:expand]
+        array = []
+        types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
+        types = array
+      end
+      return types.map{|c|c[0]} if !opts[:visibility]
+      types
+    end
+
+
+    # gets the statement node types this content can be linked with
+    def linkable_types
+      @@linkable_types[self.name]
+    end
+
     def sub_types
       [self.name.to_sym]
     end
 
-    def default_children_types(*klasses)
+    def has_default_children_of_types(*klasses)
       @@default_children_types = klasses
     end
 
     def has_children_of_types(*klasses)
       @@children_types ||= { }
-      @@children_types[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
-      @@children_types[self.name] = klasses + @@children_types[self.name]
+      @@children_types[self.name] ||= []
+      @@children_types[self.name] += klasses
+    end
+
+    def has_linkable_types(*klasses)
+      @@linkable_types ||= { }
+      @@linkable_types[self.name] ||= klasses
     end
   end
-  default_children_types [:FollowUpQuestion,true]
+  has_default_children_of_types [:FollowUpQuestion,true]
 end

@@ -118,14 +118,14 @@
   /* Toggle more text on click, use toggleParams. */
   /* IE7 compatibility through IE8.js plugin. */
   function moreHideButtonEvents() {
-    $('.moreButton').live('click', (function() {
-      $(this).next().animate(toggleParams, 300);
+    $('.more_button').live('click', (function() {
+      $(this).siblings('.toggled_content').animate(toggleParams, 300);
       $(this).hide();
       $(this).prev().show();
     }));
 
-    $('.hideButton').live('click', (function() {
-      $(this).next().next().animate(toggleParams, 300);
+    $('.hide_button').live('click', (function() {
+      $(this).siblings('.toggled_content').animate(toggleParams, 300);
       $(this).hide();
       $(this).next().show();
     }));
@@ -134,8 +134,8 @@
   /* Show and hide language selection on mouse enter and mouse leave. */
   function bindLanguageSelectionEvents() {
     $('#echo_language_button').bind("mouseenter", function() {
-      var pos = $("#echo_language_button").position();
-      $("#language_selector").css( { "left": (pos.left + 20) + "px", "top": (pos.top + 35) + "px" } );
+      var pos = $(this).position();
+      $("#language_selector").css( { "left": (pos.left + 8) + "px", "top": (pos.top + 30) + "px" } );
       $('#language_selector').show();
     });
 
@@ -147,8 +147,6 @@
   /* Remove all activeMenu classes and give it to the static menu item specified
    * through the given parameter. */
   function changeMenuImage(item) {
-    $('#staticMenu .menuImage').removeClass('activeMenu');
-    $('#staticMenu #'+item+' .menuImage').toggleClass('activeMenu');
     $('#static_menu a').removeClass('active');
     $('#static_menu #'+item+'_button').toggleClass('active');
   }
@@ -197,17 +195,17 @@
 
   /* Show error or info messages in messagesContainer and hide it with delay. */
   function info(text) {
-    $('#infoBox').stop().hide();
-    $('#errorBox').stop().hide();
-    $('#messageContainer #infoBox .message').html(text);
-    $('#messageContainer #infoBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+    $('#info_box').stop().hide();
+    $('#error_box').stop().hide();
+    $('#message_container #info_box .message').html(text);
+    $('#message_container #info_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
   function error(text) {
-    $('#infoBox').stop().hide();
-    $('#errorBox').stop().hide();
-    $('#messageContainer #errorBox .message').html(text);
-    $('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+    $('#info_box').stop().hide();
+    $('#error_box').stop().hide();
+    $('#message_container #error_box .message').html(text);
+    $('#message_container #error_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
 
@@ -343,13 +341,34 @@
     });
   }
 
+  $.fn.selText = function() {
+    var range, selection;
+    var obj = this[0];
+    if ($.browser.msie) {
+      range = obj.offsetParent.createTextRange();
+      range.moveToElementText(obj);
+      range.select();
+    } else if ($.browser.mozilla || $.browser.opera) {
+      selection = obj.ownerDocument.defaultView.getSelection();
+      range = obj.ownerDocument.createRange();
+      range.selectNodeContents(obj);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    } else if ($.browser.safari) {
+      selection = obj.ownerDocument.defaultView.getSelection();
+      selection.setBaseAndExtent(obj, 0, obj, 1);
+    }
+    return this;
+  };
+
+
   /*
    * Detecting mobile devices.
    */
 	function isMobileDevice() {
     var userAgent = navigator.userAgent.toLowerCase();
 		return userAgent.match(/android/i) ||
-           userAgent.match(/iphone/i)  ||
+           userAgent.match(/iphone/i) ||
            userAgent.match(/ipod/i) ||
            userAgent.match(/ipad/i) ||
            userAgent.match(/webos/i) ||
