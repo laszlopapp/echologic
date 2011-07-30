@@ -18,16 +18,6 @@ module ApplicationHelper
     val
   end
 
-  def load_submenu(key)
-    content_for :submenu, tabnav(key)
-    if block_given?
-      yield
-    else
-      content_for :section, key
-    end
-  end
-
-
   # Return a progressbar
   def insert_progressbar(percent)
     tooltip = I18n.t('application.roadmap.progress_tooltip', :progress => percent)

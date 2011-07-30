@@ -42,20 +42,16 @@
 }
 
 .action_bar .add_new_question_icon {
-  background-image: url(../images/page/discuss/add_question_32.png);
-	height:   32px;
-  width:    32px;
+	background-image: url(../images/page/discuss/add_question_42.png);
+  height:   42px;
+  width:    42px;
   display:  inline-block;
   cursor: pointer;
 	margin-top: 10px;
 }
 
 .action_bar .big_action_button:hover .add_new_question_icon {
-  background-position: 0 -32px;
-}
-
-.action_bar .add_new_button .label {
-  top: 5px;
+  background-position: 0 -42px;
 }
 
 .action_bar .embed_icon {
@@ -645,6 +641,7 @@ a.statement_link:hover {
 
 #questions_container {
   display: inline-block;
+  margin-top: 7px;
 }
 
 .questions_container .header {
@@ -1642,7 +1639,7 @@ a.statement_link:hover {
   clear: right;
 }
 
-#function_container .simple_header_block h2 {
+.function_container .simple_header_block h2 {
   color: #21587f !important;
   border-bottom: 1px solid #a8a8a8;
   padding-bottom: 6px;
@@ -2195,7 +2192,8 @@ form.statement fieldset ol li.tags_container {
 
 .statement .authors li.author {
   width: 229px;
-	height: 55px;
+	height: 52px;
+  overflow: hidden;
   margin: 4px 15px 0 0;
 	display: inline-block;
   position: relative;

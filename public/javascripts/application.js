@@ -5,6 +5,7 @@
   $(function() {
 
     $.fragmentChange(true);
+    positionMainMenuDropdowns();
     makeTooltips();
     roundCorners();
     bindLanguageSelectionEvents();
@@ -134,7 +135,7 @@
   function bindLanguageSelectionEvents() {
     $('#echo_language_button').bind("mouseenter", function() {
       var pos = $(this).position();
-      $("#language_selector").css( { "left": (pos.left + 8) + "px", "top": (pos.top + 30) + "px" } );
+      $("#top_menu_container #language_selector").css( { "left": (pos.left + 8) + "px", "top": (pos.top + 30) + "px" } );
       $('#language_selector').show();
     });
 
@@ -162,6 +163,13 @@
     toggleParams = {
       'height' : 'toggle'
     };
+  }
+
+  function positionMainMenuDropdowns() {
+    $('li.main_menu_item').each(function () {
+      var menuItem = $(this);
+      menuItem.find('.dropdown').css('left', -(160 - menuItem.innerWidth())/2);
+    });
   }
 
   /* Lightweight tooltip plugin initialization to create fancy tooltips
