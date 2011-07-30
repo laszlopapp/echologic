@@ -17,7 +17,7 @@ class StatementNode < ActiveRecord::Base
   after_destroy :destroy_associated_objects
 
   def destroy_associated_objects
-    destroy_statement
+    #destroy_statement
     destroy_shortcuts
     destroy_descendants
   end
