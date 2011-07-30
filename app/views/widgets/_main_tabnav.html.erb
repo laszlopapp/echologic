@@ -1,9 +1,9 @@
 
 <% render_tabnav :main,
                  :generate_css => false,
-                 :html => { :class => 'applicationTabs' } do |tn|
+                 :html => { :class => 'main_menu_tabs' } do |tn|
 
-  tn.add_tab :html => { :id => 'discuss_tab' } do |t|
+  tn.add_tab :html => { :id => 'discuss_tab', :class => 'main_menu_item' } do |t|
     t.named I18n.t('layouts.tabs.discuss')
     t.links_to hash_for_discuss_search_path
     t.highlights_on :controller => 'discuss'
@@ -11,21 +11,21 @@
     t.drops_down render :partial => 'widgets/dropdown_discuss'
   end
 
-  tn.add_tab :html => { :id => 'connect_tab' } do |t|
+  tn.add_tab :html => { :id => 'connect_tab', :class => 'main_menu_item' } do |t|
     t.named I18n.t('layouts.tabs.connect')
     t.links_to hash_for_connect_search_path
     t.highlights_on :controller => 'connect'
     t.drops_down render :partial => 'widgets/dropdown_connect'
   end
 
-  tn.add_tab :html => { :id => 'act_tab' } do |t|
+  tn.add_tab :html => { :id => 'act_tab', :class => 'main_menu_item' } do |t|
     t.named I18n.t('layouts.tabs.act')
     t.links_to hash_for_act_roadmap_path
     t.highlights_on :controller => 'act'
     t.drops_down render :partial => 'widgets/dropdown_act'
   end
 
-  tn.add_tab :html => { :id => 'my_echo_tab' } do |t|
+  tn.add_tab :html => { :id => 'my_echo_tab', :class => 'main_menu_item' } do |t|
     t.named I18n.t('layouts.tabs.my_echo')
     t.links_to hash_for_my_profile_path
     t.highlights_on :controller => 'users/profiles'
@@ -33,7 +33,7 @@
     t.drops_down render :partial => 'widgets/dropdown_my_echo'
   end
 
-  tn.add_tab :html => { :id => 'admin_tab' } do |t|
+  tn.add_tab :html => { :id => 'admin_tab', :class => 'main_menu_item'} do |t|
     t.named I18n.t('layouts.tabs.admin')
     t.links_to admin_path
     t.highlights_on :controller => 'i18n/locales'
