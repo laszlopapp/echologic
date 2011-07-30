@@ -4,6 +4,7 @@ class StatementNode < ActiveRecord::Base
   acts_as_nested_set :scope => :root_id, :base_conditions => "type != 'CasHub'"
 
   alias_attribute :target_id, :id
+  alias_attribute :target_root_id, :root_id
 
   def target_statement
     self
@@ -288,7 +289,7 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check statements_for_parent documentation
   #
   def child_statements(opts={})
-    opts[:root_id] = self.root_id
+    opts[:root_id] = self.target_root_id
     opts[:parent_id] ||= self.target_id
     opts[:lft] ||= self.lft
     opts[:rgt] ||= self.rgt
