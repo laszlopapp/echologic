@@ -184,7 +184,9 @@ class StatementsController < ApplicationController
           if node_id.blank? or @statement_node.class.is_top_statement?
             @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
           end
-
+          
+          @statement_node.transpose_mirror_tree if @statement_node.class.is_mirror_discussion?
+          
           if @statement_node.echoable?
             echo = params.delete(:echo)
             @statement_node.author_support if echo=='true'
@@ -507,7 +509,7 @@ class StatementsController < ApplicationController
   #
   def redirect_to_statement
     options = {}
-      %w(origin bids).each{|s| options[s.to_sym] = params[s.to_sym]}
+      %w(origin bids al).each{|s| options[s.to_sym] = params[s.to_sym]}
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
   
@@ -1041,6 +1043,7 @@ class StatementsController < ApplicationController
     @previous_node = @statement_node.parent_node
     @previous_type = case @statement_node_type.name
       when "FollowUpQuestion" then "fq"
+      when "DiscussAlternativesQuestion" then "dq"
     end
   end
 

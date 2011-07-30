@@ -1,4 +1,5 @@
 class FollowUpQuestion < Question
+  has_children_of_types [:Proposal,true],[:BackgroundInfo,true]
   has_linkable_types :Question
   
   belongs_to :question

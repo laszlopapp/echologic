@@ -141,6 +141,7 @@ function getTypeKey(type) {
 	else if (type == 'pro_argument' || type == 'contra_argument') {return 'ar';}
   else if (type == 'background_info') {return 'bi';}
 	else if (type == 'follow_up_question') {return 'fq';}
+	else if (type == 'discuss_alternatives_question') {return 'dq';}
 	else {return '';}
 }
 
@@ -150,7 +151,7 @@ function getTypeKey(type) {
  */
 function getOriginKeys(array) {
   return $.grep(array, function(a, index) {
-    return $.inArray(a.substring(0,2), ['sr','ds','mi','fq','jp']) != -1;
+    return $.inArray(a.substring(0,2), ['sr','ds','mi','fq','jp','dq']) != -1;
   });
 }
 

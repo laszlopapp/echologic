@@ -347,6 +347,12 @@ class StatementNode < ActiveRecord::Base
       false
     end
 
+    # Aux Function: Function that says if this statement mirrors a sub tree somewhere
+    def is_mirror_discussion?
+      false
+    end
+
+
     # Aux Function: Get Siblings Helper (overwritten in doubles)
     def name_for_siblings
       self.name.underscore

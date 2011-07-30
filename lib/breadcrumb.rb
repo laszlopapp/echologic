@@ -11,7 +11,7 @@ class Breadcrumb
   end
 
   def origin_keys
-    ["sr","ds","mi","fq","jp"]
+    ["sr","ds","mi","fq","jp","dq"]
   end
   
   def generate_key(name)

@@ -271,8 +271,10 @@ module StatementsHelper
       if statement_node.parent_node
         buttons << add_new_sibling_button(statement_node)
       else
-        if origin.blank? or %w(ds mi sr jp).include? origin[0,2] # create new question
+        if origin.blank?
           buttons << add_new_question_button(!origin.blank? ? origin : nil)
+        elsif %w(ds mi sr jp dq).include? origin[0,2] # create new question
+          buttons << add_new_question_button(!origin.blank? ? origin : nil) if !origin[0,2].eql? 'dq'
         else # create sibling follow up question
           context_type = ''
           context_type << case origin[0,2]
