@@ -5,7 +5,7 @@ body.embedded_echo {
 
 .embedded_echo #header {
 	position: relative;
-  height: 85px;
+  height: 78px;
   text-align: center;
 }
 
@@ -46,20 +46,26 @@ body.embedded_echo {
 
 .embedded_echo .embed_menu {
   display: inline-block;
-  margin-top: 7px;
+  margin-top: 13px;
 }
 
-.embedded_echo .embed_menu .menu_item {
+.embedded_echo .embed_menu .main_menu_item {
+  height: 30px;
   list-style: none;
   float: left;
-  margin-right: 20px;
+  margin: 0 10px;
   color: #21587f;
   font-size: 15px;
   font-weight: bold;
+  position: relative;
 }
 
-.embedded_echo .embed_menu .menu_item.active {
+.embedded_echo .embed_menu .main_menu_item.active {
   color: #7bb031;
+}
+
+.embedded_echo .embed_menu .main_menu_item .dropdown {
+  top: 25px;
 }
 
 .embedded_echo .embed_menu #echo_language_button {
@@ -71,7 +77,7 @@ body.embedded_echo {
 }
 
 .embedded_echo #language_selector {
-  left: 675px;
+  left: -10px;
 }
 
 .embedded_echo #language_selector a {

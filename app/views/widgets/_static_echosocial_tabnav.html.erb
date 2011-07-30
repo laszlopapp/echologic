@@ -3,19 +3,19 @@
 
 render_tabnav :main,
               :generate_css => false,
-              :html => { :class => 'main_menu_tabs' } do |tn|
+              :html => { :class => 'app_menu' } do |tn|
 
-  tn.add_tab :html => { :class => 'ajaxLink' } do |t|
+  tn.add_tab :html => { :class => 'ajaxLink main_menu_item' } do |t|
     t.named I18n.t('static.echosocial.show.title')
     t.links_to hash_for_echosocial_path
   end
 
-  tn.add_tab :html => { :class => 'ajaxLink' } do |t|
+  tn.add_tab :html => { :class => 'ajaxLink main_menu_item' } do |t|
     t.named I18n.t('static.echosocial.features.title')
     t.links_to :controller => 'static/echosocial', :action => 'features'
   end
 
-#  tn.add_tab :html => { :class => 'ajaxLink' } do |t|
+#  tn.add_tab :html => { :class => 'ajaxLink main_menu_item' } do |t|
 #    t.named I18n.t('static.echosocial.extensions.title')
 #    t.links_to :controller => 'static/echosocial', :action => 'extensions'
 #  end

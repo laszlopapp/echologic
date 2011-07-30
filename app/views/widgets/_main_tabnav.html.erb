@@ -1,7 +1,7 @@
 
 <% render_tabnav :main,
                  :generate_css => false,
-                 :html => { :class => 'main_menu_tabs' } do |tn|
+                 :html => { :class => 'app_menu' } do |tn|
 
   tn.add_tab :html => { :id => 'discuss_tab', :class => 'main_menu_item' } do |t|
     t.named I18n.t('layouts.tabs.discuss')
