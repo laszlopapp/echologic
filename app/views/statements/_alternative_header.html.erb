@@ -8,9 +8,14 @@
    
   <% end %>
 	<% content_tag :div, :class => 'header_link' do %>
-	  <% if statement_node.discuss_alternatives_question.nil? %>
+	  <% if @discuss_alternatives_question.nil? %>
       <%= create_discuss_alternatives_question_link(statement_node) %>
 		<% else %>
+		  <% content_tag :div, :class => dom_class(@discuss_alternatives_question), 'statement-id' => @discuss_alternatives_question.target_id do %>
+			  <%= link_to_child(@discuss_alternatives_document.title,
+	                        @discuss_alternatives_question,
+	                        :new_level => true) %>
+		  <% end %>
 		<% end %>	
 	<% end %>
 <% end %>

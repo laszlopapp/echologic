@@ -64,6 +64,8 @@ class StatementsController < ApplicationController
         redirect_to_url discuss_search_url, 'discuss.statements.no_document_in_language'
         return
       end
+      
+      load_discuss_alternatives_question if alternative_mode?(@statement_node)
 
       # Record visited
       @statement_node.visited!(current_user) if current_user
@@ -868,7 +870,7 @@ class StatementsController < ApplicationController
         when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
         breadcrumb[:url] = my_questions_url
         breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
-        when "pr", "im", "ar", "bi", "fq", "jp", "al"
+        when "pr", "im", "ar", "bi", "fq", "jp", "al", "dq"
         then statement_node = StatementNode.find(bid[2..-1])
         statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
         statement_node.document_in_original_language
@@ -1025,8 +1027,21 @@ class StatementsController < ApplicationController
   end
 
 
+  ####################
+  # ALTERNATIVE MODE #
+  ####################
+
+  def alternative_mode?(statement_node_or_level)
+    return true if !params[:hub].blank?
+    @alternative_modes and @current_stack and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : @current_stack.index(statement_node_or_level.id))
+  end
 
 
+  def load_discuss_alternatives_question
+    @discuss_alternatives_question = @statement_node.hub.discuss_alternatives_question 
+    return if @discuss_alternatives_question.nil?
+    @discuss_alternatives_document ||= @discuss_alternatives_question.document_in_preferred_language(@language_preference_list)
+  end
 
   ############################
   # SESSION HANDLING HELPERS #

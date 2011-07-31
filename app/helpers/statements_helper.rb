@@ -716,17 +716,14 @@ module StatementsHelper
       bids = bids.join(",")
     end
 
-    content_tag :li, :class => opts[:type], 'statement-id' => statement_node.target_id do
-      content = link_to(statement_node_url(statement_node.target_id,
-                                           :bids => bids,
-                                           :origin => params[:origin],
-                                           :nl => opts[:nl]),
-                        :class => "statement_link #{opts[:type]}_link #{opts[:css]}") do
-        statement_icon_title(title)
-      end
-      content += supporter_ratio_bar(statement_node)
-      content
-    end
+    content = link_to(statement_icon_title(title),
+                      statement_node_url(statement_node.target_id,
+                                         :bids => bids,
+                                         :origin => params[:origin],
+                                         :nl => opts[:nl]),
+                      :class => "statement_link #{opts[:type]}_link #{opts[:css]}")
+    content += supporter_ratio_bar(statement_node)
+    content
   end
 
 

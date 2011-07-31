@@ -671,7 +671,7 @@
        * Initializes all statement link apart from the inline content (jump) links handled separately.
        */
       function initAllStatementLinks() {
-        statement.find('.header a.statement_link').bind("click", function() {
+        statement.find('.header .main_header a.statement_link').bind("click", function() {
 
           // SIDS
 					var currentStack = $.fragment().sids;
@@ -720,6 +720,9 @@
 
 		      return false;
 		    });
+				
+				// DAQ Link
+				initChildrenLinks(statement.find('.header .alternative_header'));
 
 	      statement.find('.alternatives').each(function(){
 					initSiblingsLinks($(this), { "nl": true, "al": ("al" + statementId) });
@@ -788,6 +791,7 @@
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
+						case 'dq':
 						  stack = [childId];
 							origin = bids.length == 0 ? '' : bids[bids.length - 1];
 						  break;
