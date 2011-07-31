@@ -794,6 +794,7 @@
 						case 'dq':
 						  stack = [childId];
 							origin = bids.length == 0 ? '' : bids[bids.length - 1];
+							al = [];
 						  break;
 						default :
 						  stack.push(childId);
