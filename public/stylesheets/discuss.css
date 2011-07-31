@@ -1378,6 +1378,7 @@ a.statement_link:hover {
   background-position: -224px 0;
   left: -5px;
 }
+.create_discuss_alternatives_question_32 .icon{background-position: -224px 0;}
 
 
 /******************/
@@ -1496,7 +1497,7 @@ a.statement_link:hover {
   margin-bottom: 4px;
 }
 
-#statements .header .header_link .statement_link {
+#statements .header .main_header .header_link .statement_link {
   display: inline-block;
   color: #21587F;
   font-size: 18px;
@@ -1511,7 +1512,7 @@ a.statement_link:hover {
 }
 
 #statements .header .header_link .statement_link:hover,
-#statements .header.active .header_link .statement_link {
+#statements .header.active .main_header .header_link .statement_link {
   color: #7bb031;
 }
 
@@ -1537,6 +1538,8 @@ a.statement_link:hover {
   position: absolute;
   top: 13px;
 }
+
+
 /*******************************/
 /* Prev/Next Statement buttons */
 /*******************************/
