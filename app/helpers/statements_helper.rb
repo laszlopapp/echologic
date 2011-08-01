@@ -583,7 +583,7 @@ module StatementsHelper
   #
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
-    if statement_node and (statement_node.new_record? or opts[:origin] and opts[:origin][0,2].eql?('dq') and statement_node.level.eql?(0))
+    if statement_node and (statement_node.new_record? or (!opts[:origin].blank? and opts[:origin][0,2].eql?('dq') and statement_node.level.eql?(0)))
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
                              I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"),
@@ -859,7 +859,11 @@ module StatementsHelper
   
   def alternative_mode?(statement_node_or_level)
     return true if !params[:hub].blank?
-    @alternative_modes and @current_stack and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : @current_stack.index(statement_node_or_level.id))
+    return false if statement_node_or_level.nil?
+    index = statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : 
+            (@current_stack ? @current_stack.index(statement_node_or_level.id) : statement_node_or_level.level)
+    @alternative_modes and 
+    @alternative_modes.include?(index)
   end
 
   ####################

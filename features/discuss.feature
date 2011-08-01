@@ -313,6 +313,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I like to alternativate |
       And I press "Save"
     Then I should see "Alternativating"
+      And I should not see "A first proposal!"
       And the proposal should have 1 alternative
 
   Scenario: Add an Alternative to an Improvement
@@ -350,6 +351,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I like to alternativate |
       And I press "Save"
     Then I should see "Alternativating part 1"
+      And I should not see "Pro 4 life"
       And I go to the proposal
       And I choose the "Alternativating part 1" Contra Argument
       And the contra argument should have 1 alternative

@@ -511,7 +511,7 @@ class StatementsController < ApplicationController
   #
   def redirect_to_statement
     options = {}
-      %w(origin bids al).each{|s| options[s.to_sym] = params[s.to_sym]}
+      %w(origin bids al hub).each{|s| options[s.to_sym] = params[s.to_sym]}
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
   
