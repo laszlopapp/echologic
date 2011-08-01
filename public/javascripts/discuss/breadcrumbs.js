@@ -70,10 +70,7 @@
 
 				var b_gen = breadcrumb.prev();
 				
-				var al = '';
-				if (b_gen.length > 0 && getHubKeys([b_gen.attr("id")]).length != 0) {
-          al = b_gen.attr("id");
-        }
+				var al = [];
 
 				// iterate on the previous breadcrumbs to generate the stack list
 				while (b_gen.length > 0) {
@@ -81,12 +78,20 @@
 					// if it's an origin breadcrumb, stack is done
 					if (getOriginKeys([b_id]).length == 0) {
 						if (getHubKeys([b_id]).length == 0) {
-							sids.unshift(b_id.match(/\d+/));
+							sids.unshift(b_id.match(/\d+/)[0]); // get id to the stack list
+						} else {
+							al.push(b_gen.prev().attr("id").match(/\d+/)[0]); // get id of the previous breadcrumb to the al list
 						}
 					} else {break;}
 					b_gen = b_gen.prev();
 				}
 				sids.push(breadcrumb.attr('id').match(/\d+/));
+				
+				// load al with the levels. logic: since we stored the levels of the previous statements before 
+				// the alternative mode statement, we have to add 1 to the levels from the stack we get
+				al = $.map(al, function(a){
+					return $.inArray(a, sids) + 1;
+				});
 
 				breadcrumb.bind("click", function() {
           // Getting bids from fragment
@@ -123,7 +128,7 @@
 							"sids": sids.join(","),
 							"nl": true,
 							"origin": origin,
-							"al": al
+							"al": al.join(",")
 						});
 					}
           return false;
