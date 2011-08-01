@@ -1141,7 +1141,7 @@ class StatementsController < ApplicationController
     # if has parent then load siblings
     if statement_node.parent_id
       prev = @current_stack ? # if there's a current stack, load the results from the stack
-               (@alternative_modes and @alternative_modes.include?(@current_stack.index(statement_node.id)) ? # if statement is currently rendered as an alternative
+               (alternative_mode(statement_node) ? # if statement is currently rendered as an alternative
                statement_node.hub : # then prev must be the hub
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id")) : # if not, it's the previous statement in the current stack
              statement_node.parent_node # no current stack, so just load the damn parent
