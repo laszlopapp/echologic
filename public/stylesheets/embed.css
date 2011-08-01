@@ -2,6 +2,7 @@
 body.embedded_echo {
   background-position: 0 -62px;
   overflow-y: auto;
+  position: relative;
 }
 
 .embedded_echo #header {
@@ -12,7 +13,7 @@ body.embedded_echo {
 
 .embedded_echo #login_container {
   float: left;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .embedded_echo #logged_in_user_pic {
@@ -50,6 +51,10 @@ body.embedded_echo {
   margin-top: 13px;
 }
 
+.embedded_echo .embed_menu ul {
+  padding: 0;
+}
+
 .embedded_echo .embed_menu .main_menu_item {
   height: 40px;
   list-style: none;
@@ -78,4 +83,10 @@ body.embedded_echo {
   font-size: 14px;
   font-weight: normal;
   cursor: pointer;
+}
+
+
+.embedded_echo .ui-dialog {
+  position: absolute;
+  top: 100px !important;
 }
