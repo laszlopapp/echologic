@@ -1,6 +1,7 @@
 
 body.embedded_echo {
   background-position: 0 -62px;
+  overflow-y: auto;
 }
 
 .embedded_echo #header {

@@ -157,7 +157,7 @@ module StatementsHelper
   # Renders the embed statement panel to copy the embed code for the currently displayed statement.
   #
   def render_embed_panel(url, mode)
-    embedded_code = %Q{<iframe width="100%" height="2000px" src="#{url}" frameborder="0"></iframe>}
+    embedded_code = %Q{<iframe src="#{url}" width="100%" height="4000px" frameborder="0"></iframe>}
     content_tag(:div,
                 :class => 'embed_panel popup_panel',
                 :style => "display:none") do
