@@ -109,7 +109,7 @@ module StatementsHelper
       actions << content_tag(:div, :class => "actions_container") do
         buttons = ''
         buttons << content_tag(:div, :class => "embed_button_container") do
-          render_embed_button(statement_node)
+          render_statement_embed_button(statement_node)
         end
         buttons << content_tag(:div, :class => "copy_url_container") do
           render_copy_url_button(statement_node)
@@ -143,7 +143,7 @@ module StatementsHelper
   #
   # Creates a link to embed echo with the given statement node as entry point into the system.
   #
-  def render_embed_button(statement_node)
+  def render_statement_embed_button(statement_node)
     url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
     content = ""
     content << link_to(I18n.t("discuss.statements.embed_button"), '#',
