@@ -583,7 +583,7 @@ module StatementsHelper
   #
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
-    if statement_node and (statement_node.new_record? or opts[:origin] and opts[:origin][0,2].eql?('dq'))
+    if statement_node and (statement_node.new_record? or opts[:origin] and opts[:origin][0,2].eql?('dq') and statement_node.level.eql?(0))
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
                              I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"),
