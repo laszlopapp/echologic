@@ -268,8 +268,8 @@ module StatementsHelper
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       buttons = ''
-      if statement_node.parent_node
-        buttons << add_new_sibling_button(statement_node)
+      if statement_node.parent_node 
+        buttons << add_new_sibling_button(statement_node) if !alternative_mode?(statement_node)
       else
         if origin.blank?
           buttons << add_new_question_button(!origin.blank? ? origin : nil)
@@ -301,6 +301,9 @@ module StatementsHelper
                                :class => "create_alternative_button_32 resource_link ajax ttLink no_border",
                                :title => I18n.t("discuss.tooltips.create_alternative")) do
           statement_icon_title(I18n.t("discuss.statements.types.alternative"))
+        end
+        if alternative_mode?(statement_node)
+          buttons << add_new_child_link(statement_node, "discuss_alternatives_question", :nl => true, :bids => params[:bids], :origin => params[:origin]) 
         end
       end
       buttons
