@@ -13,6 +13,10 @@ body.embedded_echo {
 
 .embedded_echo #login_container {
   float: left;
+  padding-top: 12px;
+}
+
+.embedded_echo #login_container.logged_out {
   padding-top: 8px;
 }
 
@@ -59,7 +63,8 @@ body.embedded_echo {
   height: 40px;
   list-style: none;
   float: left;
-  margin: 0 10px;
+  margin: 0;
+  padding: 0 10px;
   color: #21587f;
   font-size: 15px;
   font-weight: bold;
