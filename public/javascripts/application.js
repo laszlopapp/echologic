@@ -8,7 +8,6 @@
     positionMainMenuDropdowns();
     makeTooltips();
     roundCorners();
-    bindLanguageSelectionEvents();
     moreHideButtonEvents();
     staticMenuClickEvents();
     ajaxClickEvents();
@@ -131,19 +130,6 @@
     }));
   }
 
-  /* Show and hide language selection on mouse enter and mouse leave. */
-  function bindLanguageSelectionEvents() {
-    $('#echo_language_button').bind("mouseenter", function() {
-      var pos = $(this).position();
-      $("#top_menu_container #language_selector").css( { "left": (pos.left + 8) + "px", "top": (pos.top + 30) + "px" } );
-      $('#language_selector').show();
-    });
-
-    $('#language_selector').bind("mouseleave", function() {
-      $('#language_selector').hide();
-    });
-  }
-
   /* Remove all activeMenu classes and give it to the static menu item specified
    * through the given parameter. */
   function changeMenuImage(item) {
@@ -167,15 +153,19 @@
 
   function positionMainMenuDropdowns() {
     $('li.main_menu_item').each(function () {
-      var menuItem = $(this);
-      menuItem.find('.dropdown').css('left', -(160 - menuItem.innerWidth())/2);
+      setDropdownPosition($(this));
     });
+    setDropdownPosition($('#echo_language_button_container'));
   }
 
-  /* Lightweight tooltip plugin initialization to create fancy tooltips
-   * all over our site.
-   * Options and documentation:
-   *   http://bassistance.de/jquery-plugins/jquery-plugin-tooltip */
+  function setDropdownPosition(menuItem) {
+    menuItem.find('.dropdown').css('left', -(160 - menuItem.innerWidth())/2);
+  }
+
+  /*
+   * Initializing all tooltips.
+   * For docu see http://bassistance.de/jquery-plugins/jquery-plugin-tooltip
+   */
   function makeTooltips() {
     $(".ttLink[title]").livequery(function() {
       $(this).tooltip({

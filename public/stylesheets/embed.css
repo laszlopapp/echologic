@@ -75,16 +75,3 @@ body.embedded_echo {
   font-weight: normal;
   cursor: pointer;
 }
-
-.embedded_echo #language_selector {
-  left: -10px;
-}
-
-.embedded_echo #language_selector a {
-  color: #7691A2;
-  margin: 5px 2px 0 10px;
-}
-
-.embedded_echo #language_selector a:hover {
-  color: #1A4864;
-}
