@@ -50,7 +50,7 @@ body.embedded_echo {
 }
 
 .embedded_echo .embed_menu .main_menu_item {
-  height: 30px;
+  height: 40px;
   list-style: none;
   float: left;
   margin: 0 10px;
@@ -65,7 +65,10 @@ body.embedded_echo {
 }
 
 .embedded_echo .embed_menu .main_menu_item .dropdown {
-  top: 25px;
+  top: 35px;
+  box-shadow: 0 -15px 19px #F8F9FA;
+  -moz-box-shadow: 0 -15px 19px #F8F9FA;
+  -webkit-box-shadow: 0 -15px 19px #F8F9FA;
 }
 
 .embedded_echo .embed_menu #echo_language_button {
