@@ -152,14 +152,17 @@
   }
 
   function positionMainMenuDropdowns() {
-    $('li.main_menu_item').each(function () {
-      setDropdownPosition($(this));
+    $('.app_menu li.main_menu_item').each(function () {
+      setDropdownPosition($(this), 160);
     });
-    setDropdownPosition($('#echo_language_button_container'));
+    $('.embed_menu li.main_menu_item').each(function () {
+      setDropdownPosition($(this), 154);
+    });
+    setDropdownPosition($('#echo_language_button_container'), 154);
   }
 
-  function setDropdownPosition(menuItem) {
-    menuItem.find('.dropdown').css('left', -(160 - menuItem.innerWidth())/2);
+  function setDropdownPosition(menuItem, offset) {
+    menuItem.find('.dropdown').css('left', -(offset - menuItem.innerWidth())/2);
   }
 
   /*
