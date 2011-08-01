@@ -66,9 +66,9 @@ body.embedded_echo {
 
 .embedded_echo .embed_menu .main_menu_item .dropdown {
   top: 35px;
-  box-shadow: 0 -15px 19px #F8F9FA;
-  -moz-box-shadow: 0 -15px 19px #F8F9FA;
-  -webkit-box-shadow: 0 -15px 19px #F8F9FA;
+  box-shadow: 0 -17px 20px -3px #F8F9FA; /* 0 -15px 19px #F8F9FA;*/
+  -moz-box-shadow: 0 -17px 20px -3px #F8F9FA;
+  -webkit-box-shadow: 0 -17px 20px -3px #F8F9FA;
 }
 
 .embedded_echo .embed_menu #echo_language_button {
