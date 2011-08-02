@@ -15,7 +15,7 @@ module NavigationHelpers
     when /my settings/
       settings_path
     when /the start page/
-      base_path
+      root_path
     when /the sign in page/
       signin_path
     when /the connect page/
