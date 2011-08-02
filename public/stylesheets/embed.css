@@ -71,6 +71,10 @@ body.embedded_echo {
   position: relative;
 }
 
+.embedded_echo.lang_hu .embed_menu .main_menu_item {
+  padding: 0 6.5px;
+}
+
 .embedded_echo .main_menu_item a,
 .embedded_echo .main_menu_item a:visited,
 .embedded_echo .embed_menu #echo_language_button {
