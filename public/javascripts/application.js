@@ -5,17 +5,20 @@
   $(function() {
 
     $.fragmentChange(true);
-    positionMainMenuDropdowns();
-    makeTooltips();
-    roundCorners();
-    moreHideButtonEvents();
-    staticMenuClickEvents();
-    ajaxClickEvents();
-    loadTabsContainer();
-    loadAjaxForms();
-    uploadFormSubmit();
-    loadAboutUs();
-		initSigninupButtons();
+    initMainMenu();
+    initStaticMenu();
+
+    initAjaxClickEvents();
+    initLoadAjaxForms();
+    initUploadFormSubmit();
+
+    initMoreHideButtons();
+    initTabsContainers();
+    initTooltips();
+    addRoundedCorners();
+
+    initSigninupButtons();
+    initAboutUs();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -24,15 +27,109 @@
         + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN);
       }
     });
-
-    $('#user_session_email').focus();
-    $('.autogrow').autogrow();
   });
 
 
-  /* TODO optimize splitting of url! */
-  /* TODO action set checking */
-  /* Sets the fragment to the controller and action of the anchors href attribute. */
+  /*********************/
+  /* Global parameters */
+  /*********************/
+
+  var toggleParams;
+  if (jQuery.support.opacity) {
+    toggleParams = {
+      'height' : 'toggle',
+      'opacity': 'toggle'
+    };
+  } else {
+    toggleParams = {
+      'height' : 'toggle'
+    };
+  }
+
+
+  /*****************/
+  /* Menu handling */
+  /*****************/
+
+  /*
+   * Sets up main menu behaviour and dropdown positioning.
+   */
+  function initMainMenu() {
+    positionMainMenuDropdowns();
+    if (isMobileDevice()) {
+      $('a.main_menu_item').click(function() {
+        var dropdown = $(this).siblings('.dropdown');
+        if (!dropdown.isVisible()) {
+          return false;
+        }
+      });
+    }
+  }
+
+  /*
+   * Calculates the positions for the main menu dropdowns.
+   */
+  function positionMainMenuDropdowns() {
+    $('.app_menu li.main_menu_item').each(function () {
+      setDropdownPosition($(this), 160);
+    });
+    $('.embed_menu li.main_menu_item').each(function () {
+      setDropdownPosition($(this), 154);
+    });
+    setDropdownPosition($('#echo_language_button_container'), 154);
+  }
+
+  /*
+   * Does the actual positioning.
+   */
+  function setDropdownPosition(menuItem, offset) {
+    menuItem.find('.dropdown').css('left', -(offset - menuItem.innerWidth())/2);
+  }
+
+  /*
+   * If JS is enabled hijack staticMenuButtons to do AJAX requests.
+   */
+  function initStaticMenu() {
+    $(".staticMenuButton").live("click", function() {
+      setActionControllerFragment(this.href);
+      return false;
+    });
+
+    $(".outerMenuItem").live("click", function() {
+      $.getScript(this.href);
+      return false;
+    });
+
+    $(".prevNextButton").live("click", function() {
+      setActionControllerFragment(this.href);
+      return false;
+    });
+
+    $(".illustrationHolder a").live("click", function() {
+      setActionControllerFragment(this.href);
+      return false;
+    });
+  }
+
+  /*
+   * Remove all activeMenu classes and give it to the static menu item specified
+   * through the given parameter.
+   */
+  function changeMenuImage(item) {
+    $('#static_menu a').removeClass('active');
+    $('#static_menu #'+item+'_button').toggleClass('active');
+  }
+
+
+  /**********************/
+  /* Fragement handling */
+  /**********************/
+
+  /*
+   * Sets the fragment to the controller and action of the anchors href attribute.
+   * TODO: optimize splitting of url!
+   * TODO: action set checking
+   */
   function setActionControllerFragment(href) {
     var controller = href.toString().split('/')[4];
     var action = href.toString().split('/')[5];
@@ -43,8 +140,14 @@
     }
   }
 
-  /* TODO: unobtrusive check */
-  function ajaxClickEvents() {
+  /*************************/
+  /* Ajax requests & forms */
+  /*************************/
+
+  /*
+   * Handles Ajax requests.
+   */
+  function initAjaxClickEvents() {
     $(".ajaxLink").live("click", function() {
       setActionControllerFragment(this.href);
       return false;
@@ -80,144 +183,29 @@
       return false;
     });
 
-    /*special newsletter submission tag*/
+    // Special newsletter submission tag
     $(".newsletter_submit_tag").live("click", function() {
       $("#newsletter_test").val($(this).attr("value"));
       $("#new_newsletter_form").submit();
       return false;
     });
-
-  }
-
-  /* If JS is enabled hijack staticMenuButtons to do AJAX requests. */
-  function staticMenuClickEvents() {
-    $(".staticMenuButton").live("click", function() {
-      setActionControllerFragment(this.href);
-      return false;
-    });
-
-    $(".outerMenuItem").live("click", function() {
-      $.getScript(this.href);
-      return false;
-    });
-
-    $(".prevNextButton").live("click", function() {
-      setActionControllerFragment(this.href);
-      return false;
-    });
-
-    $(".illustrationHolder a").live("click", function() {
-      setActionControllerFragment(this.href);
-      return false;
-    });
-  }
-
-
-
-  /* Toggle more text on click, use toggleParams. */
-  /* IE7 compatibility through IE8.js plugin. */
-  function moreHideButtonEvents() {
-    $('.more_button').live('click', (function() {
-      $(this).siblings('.toggled_content').animate(toggleParams, 300);
-      $(this).hide();
-      $(this).prev().show();
-    }));
-
-    $('.hide_button').live('click', (function() {
-      $(this).siblings('.toggled_content').animate(toggleParams, 300);
-      $(this).hide();
-      $(this).next().show();
-    }));
-  }
-
-  /* Remove all activeMenu classes and give it to the static menu item specified
-   * through the given parameter. */
-  function changeMenuImage(item) {
-    $('#static_menu a').removeClass('active');
-    $('#static_menu #'+item+'_button').toggleClass('active');
-  }
-
-  /* Use this parameters to render toggle effects.
-   * Checks if browser uses opacity. */
-  var toggleParams;
-  if (jQuery.support.opacity) {
-    toggleParams = {
-      'height' : 'toggle',
-      'opacity': 'toggle'
-    };
-  } else {
-    toggleParams = {
-      'height' : 'toggle'
-    };
-  }
-
-  function positionMainMenuDropdowns() {
-    $('.app_menu li.main_menu_item').each(function () {
-      setDropdownPosition($(this), 160);
-    });
-    $('.embed_menu li.main_menu_item').each(function () {
-      setDropdownPosition($(this), 154);
-    });
-    setDropdownPosition($('#echo_language_button_container'), 154);
-  }
-
-  function setDropdownPosition(menuItem, offset) {
-    menuItem.find('.dropdown').css('left', -(offset - menuItem.innerWidth())/2);
   }
 
   /*
-   * Initializing all tooltips.
-   * For docu see http://bassistance.de/jquery-plugins/jquery-plugin-tooltip
+   * Initializes loading Ajax forms.
    */
-  function makeTooltips() {
-    $(".ttLink[title]").livequery(function() {
-      $(this).tooltip({
-        track:  true,
-        showURL: false
-      });
-    });
-  }
-
-  /* Add rounded corners to all div elements with class "rounded-box" */
-  function roundCorners() {
-    var str = '<b class="lr l"></b><b class="lr r"></b><b class="tb t"></b><b class="tb b"></b><b class="cn tl"></b><b class="cn tr"></b><b class="cn bl"></b><b class="cn br"></b>';
-    $('.rounded-box').livequery(function() {
-      $(this).append(str);
-    });
-  }
-
-  /* Show error or info messages in messagesContainer and hide it with delay. */
-  function info(text) {
-    $('#info_box').stop().hide();
-    $('#error_box').stop().hide();
-    $('#message_container #info_box .message').html(text);
-    $('#message_container #info_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
-  }
-
-  function error(text) {
-    $('#info_box').stop().hide();
-    $('#error_box').stop().hide();
-    $('#message_container #error_box .message').html(text);
-    $('#message_container #error_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
-  }
-
-
-
-  function loadTabsContainer() {
-    $('.tab_details_container').livequery(function() {
-     $(this).tabs();
-    });
-  }
-
-  /* loads form ajaxs */
-  function loadAjaxForms() {
+  function initLoadAjaxForms() {
     $('form.ajax_form').livequery(function () {
       $(this).ajaxForm({ dataType : 'script' });
     });
   }
 
-  /* TODO: Load the upload picture forms here */
-  function uploadFormSubmit(){
+  /*
+   * Initializes handlers for submitting upload Ajax forms.
+   *
+   * TODO: Load the upload picture forms here
+   */
+  function initUploadFormSubmit(){
     $('#dialogContent .upload_form').livequery(function(){
       var element = $(this);
       element.submit(function(){
@@ -242,8 +230,108 @@
     })
   }
 
-  function loadAboutUs() {
-    $('#about_container').livequery(function(){
+
+  /*****************************/
+  /* Handling general elements */
+  /*****************************/
+
+  /*
+   * Toggles some detailed information and the More/Less buttons controlling it.
+   */
+  function initMoreHideButtons() {
+    $('.more_button').live('click', (function() {
+      $(this).siblings('.toggled_content').animate(toggleParams, 300);
+      $(this).hide();
+      $(this).prev().show();
+    }));
+
+    $('.hide_button').live('click', (function() {
+      $(this).siblings('.toggled_content').animate(toggleParams, 300);
+      $(this).hide();
+      $(this).next().show();
+    }));
+  }
+
+  /*
+   * Initizalize tab containers.
+   */
+  function initTabsContainers() {
+    $('.tab_details_container').livequery(function() {
+     $(this).tabs();
+    });
+  }
+
+  /*
+   * Initializing all tooltips.
+   * For docu see http://bassistance.de/jquery-plugins/jquery-plugin-tooltip
+   */
+  function initTooltips() {
+    $(".ttLink[title]").livequery(function() {
+      $(this).tooltip({
+        track:  true,
+        showURL: false
+      });
+    });
+  }
+
+  /*
+   * Adds rounded corners to all elements with class 'rounded-box'.
+   */
+  function addRoundedCorners() {
+    var str = '<b class="lr l"></b><b class="lr r"></b><b class="tb t"></b><b class="tb b"></b><b class="cn tl"></b><b class="cn tr"></b><b class="cn bl"></b><b class="cn br"></b>';
+    $('.rounded-box').livequery(function() {
+      $(this).append(str);
+    });
+  }
+
+
+  /*****************************/
+  /* General user interactions */
+  /*****************************/
+
+  /*
+   * Shows and info message and hides it with a length-dependent delay.
+   */
+  function info(text) {
+    $('#info_box').stop().hide();
+    $('#error_box').stop().hide();
+    $('#message_container #info_box .message').html(text);
+    $('#message_container #info_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+  }
+
+  /*
+   * Shows an error message and hides it with a length-dependent delay.
+   */
+  function error(text) {
+    $('#info_box').stop().hide();
+    $('#error_box').stop().hide();
+    $('#message_container #error_box .message').html(text);
+    $('#message_container #error_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+  }
+
+
+  /**************************************/
+  /* Handling specific functional units */
+  /**************************************/
+
+  /*
+   * Initializes the Login and Register buttons in the SignInUp panel.
+   */
+  function initSigninupButtons() {
+		$('.signinup_container .signinup_toggle_button').live('click', function() {
+			var to_show = $(this).attr('href');
+			$(to_show).show();
+			$(this).parents('.signinup_container').hide();
+			return false;
+		});
+    $('#user_session_email').focus();
+	}
+
+  /*
+   * Initializes the About us function.
+   */
+  function initAboutUs() {
+    $('#about_container').livequery(function() {
       $('#about_team_link').click(function() {
         $('#about_container').tabs('select', 1);
         return false;
@@ -260,7 +348,13 @@
   }
 
 
-  /* REDIRECTION AFTER SESSION EXPIRE */
+  /*****************************************/
+  /* Redirection and browsers interactions */
+  /*****************************************/
+
+  /*
+   * Redirects to the given URL after session expire.
+   */
   function redirectToUrl(controller, url) {
     switch(controller) {
       case 'statements': redirectToStatementUrl();
@@ -269,43 +363,38 @@
     }
   }
 
-  function initSigninupButtons() {
-		$('.signinup_container .signinup_toggle_button').live('click', function() {
-			var to_show = $(this).attr('href');
-			$(to_show).show();
-			$(this).parents('.signinup_container').hide();
-			return false;
-		});
-	}
-
-
-  function popup(mylink, windowname) {
+  /*
+   * Opens a popup browser window with the given URL and window name.
+   * Currently it is used to call 3rd party authentication services.
+   */
+  function popup(url, windowname) {
     if (!window.focus) {
       return true;
     }
     var href;
-    if (typeof(mylink) == 'string') {
-      href = mylink;
+    if (typeof(url) == 'string') {
+      href = url;
     }
     else {
-      href = mylink.href;
+      href = url.href;
     }
     window.open(href, windowname, 'width=800,height=450,scrollbars=yes');
     return false;
   }
 
 
-  function targetopener(mylink, closeme, closeonly) {
+  /*
+   * Opens the given target URL in the parent window and closes the popup window.
+   */
+  function openUrlInParentWindow(targetUrl, closeme) {
     if (!(window.focus && window.opener)) {
       return true;
     }
     window.opener.focus();
-    if (!closeonly) {
-      if (typeof(mylink) == 'string') {
-        window.opener.location.href = mylink;
-      } else {
-        window.opener.location.href = mylink.href;
-      }
+    if (typeof(targetUrl) == 'string') {
+      window.opener.location.href = targetUrl;
+    } else {
+      window.opener.location.href = targetUrl.href;
     }
     if (closeme) {
       window.close();
@@ -314,6 +403,33 @@
   }
 
 
+  /***************************/
+  /* General utility methods */
+  /***************************/
+
+  /*
+   * Returns true if the application is currently being run on a mobile device.
+   */
+	function isMobileDevice() {
+    var userAgent = navigator.userAgent.toLowerCase();
+		return userAgent.match(/android/i) ||
+           userAgent.match(/iphone/i) ||
+           userAgent.match(/ipod/i) ||
+           userAgent.match(/ipad/i) ||
+           userAgent.match(/webos/i) ||
+           userAgent.match(/palm/i) ||
+           userAgent.match(/blackberry/i) ||
+           userAgent.match(/windows ce/i);
+	}
+
+
+  /*****************************/
+  /* Applied jQuery extensions */
+  /*****************************/
+
+  /*
+   * Selects the text of a given DOM element with browser-specific logic.
+   */
   $.fn.selText = function() {
     var range, selection;
     var obj = this[0];
@@ -333,19 +449,3 @@
     }
     return this;
   };
-
-
-  /*
-   * Detecting mobile devices.
-   */
-	function isMobileDevice() {
-    var userAgent = navigator.userAgent.toLowerCase();
-		return userAgent.match(/android/i) ||
-           userAgent.match(/iphone/i) ||
-           userAgent.match(/ipod/i) ||
-           userAgent.match(/ipad/i) ||
-           userAgent.match(/webos/i) ||
-           userAgent.match(/palm/i) ||
-           userAgent.match(/blackberry/i) ||
-           userAgent.match(/windows ce/i);
-	}
