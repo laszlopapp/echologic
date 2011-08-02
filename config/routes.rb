@@ -275,9 +275,11 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
-  # Root URL
+  # Root and application's home URLs
   map.root :controller => 'static/echologic',
            :action => 'show'
+  map.app_home '/discuss/search', :controller => :statements, :action => :category
+
 
   # Shortcut URLs
   map.shortcut ':shortcut',

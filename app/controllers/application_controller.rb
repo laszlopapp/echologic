@@ -8,8 +8,9 @@ class ApplicationController < ActionController::Base
   ##########
   # LAYOUT #
   ##########
+
   private
-  
+
   def layout_mode
     params[:mode] || 'application'
   end
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
   ###########
 
   before_filter :set_mode
-  
+
   private
   def set_mode
     RoutingFilter::Mode.current_mode = params[:mode]
@@ -72,10 +73,18 @@ class ApplicationController < ActionController::Base
 
   private
   def last_url
-    request.referer || root_url
+    request.referer || base_url
   end
 
   protected
+
+  #
+  # Returns the root URL in normal mode and the app home URL (discuss search for now) in embed mode.
+  #
+  def base_url
+    params[:mode] == 'embed' ? app_home_url : root_url
+  end
+
   def redirect_to_url(url, message)
     respond_to do |format|
       set_info message
@@ -118,9 +127,9 @@ class ApplicationController < ActionController::Base
   def require_user
     @user_required = true
     unless current_user
-      current_url = request.url == last_url ? root_url : last_url
+      current_url = request.url == last_url ? base_url : last_url
       open_signin(current_url, request.url)
-      return false
+      false
     end
   end
 
@@ -136,9 +145,9 @@ class ApplicationController < ActionController::Base
   # Checks that the user is NOT logged in.
   def require_no_user
     if current_user
-      redirect_to_url root_url, 'authlogic.error_messages.must_be_logged_out'
+      redirect_to_url base_url, 'authlogic.error_messages.must_be_logged_out'
     end
-    return false
+    false
   end
 
 
@@ -156,7 +165,7 @@ class ApplicationController < ActionController::Base
       expire_session!
     end
     session[:expiry_time] = MAX_SESSION_PERIOD.hours.from_now
-    return true
+    true
   end
 
   # Expires and cleans up the user session.
@@ -166,7 +175,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.signout.messages.success'
+      redirect_to_url base_url, 'users.signout.messages.success'
     else
       # Not logout
       @user_required ||= false

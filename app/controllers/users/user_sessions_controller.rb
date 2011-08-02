@@ -78,7 +78,7 @@ class Users::UserSessionsController < ApplicationController
     current_user_session.destroy
     reset_session
     set_info 'users.signout.messages.success'
-    flash_info and redirect_to root_path
+    flash_info and redirect_to base_url
   end
 
   protected
