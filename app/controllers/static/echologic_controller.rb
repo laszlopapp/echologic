@@ -14,7 +14,7 @@ class Static::EchologicController < ApplicationController
   # Default page redirected to echoLogic - The Mission
   def show
     respond_to do |format|
-      if current_user
+      if current_user || params[:mode] == 'embed'
         format.html { redirect_to_home }
       else
         format.html { render :partial => 'show', :layout => 'static' }
