@@ -15,7 +15,7 @@ class Static::EchologicController < ApplicationController
   def show
     respond_to do |format|
       if current_user || params[:mode] == 'embed'
-        format.html { redirect_to_home }
+        format.html { redirect_to_app_home }
       else
         format.html { render :partial => 'show', :layout => 'static' }
         format.js { render :template => 'layouts/headContainer' }

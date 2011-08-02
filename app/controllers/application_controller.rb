@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   ##########
 
   private
-
   def layout_mode
     params[:mode] || 'application'
   end
@@ -67,8 +66,8 @@ class ApplicationController < ActionController::Base
 
   private
   # Called when when a routing error occurs.
-  def redirect_to_home
-    redirect_to discuss_search_url
+  def redirect_to_app_home
+    redirect_to app_home_url
   end
 
   private
@@ -117,7 +116,7 @@ class ApplicationController < ActionController::Base
   #
   def access_denied
     flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-    redirect_to_home
+    redirect_to_app_home
   end
 
   before_filter :require_user, :except => [:shortcut]
