@@ -842,7 +842,7 @@ module StatementsHelper
     bids = bids.join(",")
     
     link_to 'X', statement_node_url(statement_node, :bids => bids, :origin => params[:origin]),
-            :class => "alternative_close"
+            :class => "alternative_close", :title => "alternative_close"
   end
 
   #
