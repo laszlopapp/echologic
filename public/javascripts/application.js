@@ -57,12 +57,17 @@
   function initMainMenu() {
     positionMainMenuDropdowns();
     if (isMobileDevice()) {
-      $('a.main_menu_item').click(function() {
-        var dropdown = $(this).siblings('.dropdown');
-        if (!dropdown.isVisible()) {
-          return false;
-        }
-      });
+      $('a.main_menu_item').click(function(e) {initMenuItemHovering($(this).parent(), e)});
+      $('#echo_language_button').click(function(e) {initMenuItemHovering($(this).parent(), e)});
+    }
+  }
+
+  function initMenuItemHovering(menuItem, e) {
+    menuItem.siblings().removeClass('hover');
+    menuItem.toggleClass('hover');
+    if (menuItem.hasClass('hover')) {
+      e.preventDefault();
+      return false;
     }
   }
 

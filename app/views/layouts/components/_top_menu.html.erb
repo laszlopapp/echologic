@@ -21,9 +21,9 @@
               :target => '_blank' %>
 
   <% content_tag :span, :id => 'echo_language_button_container', :class => 'main_menu_item' do %>
-    <%= content_tag :a, I18n.t('layouts.outer_menu.language'),
-                    :href => '#',
-                    :id => 'echo_language_button' %>
+    <%= content_tag :span, I18n.t('layouts.outer_menu.language'),
+                    :id => 'echo_language_button',
+                    :class => 'main_menu_item' %>
  	  <%= render :partial => "layouts/components/language_selector" %>
   <% end %>
 

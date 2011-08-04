@@ -151,12 +151,9 @@ li.main_menu_item.active a.main_menu_item,
   left: -42px;
 }
 
-li.main_menu_item:hover .dropdown {
+li.main_menu_item:hover .dropdown,
+li.main_menu_item.hover .dropdown {
   display: inline-block;
-}
-
-li.main_menu_item.active:hover .dropdown {
-  /*display: none;*/
 }
 
 .main_menu_item .dropdown li.roadmap a {
