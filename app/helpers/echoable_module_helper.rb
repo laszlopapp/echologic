@@ -140,7 +140,7 @@ module EchoableModuleHelper
 
   def provider_connect_button(provider, token_url)
     content_tag :a, I18n.t("users.social_accounts.connect.title"),
-                :href => SocialService.instance.get_provider_signup_url(provider, token_url),
+                :href => SocialService.instance.get_provider_auth_url(provider, token_url),
                 :class => 'button connect',
                 :onClick => "return popup(this, true);"
   end

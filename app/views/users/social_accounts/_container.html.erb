@@ -5,7 +5,7 @@
   </div>
 	<ul id="social_account_list">
 			<% token_url = redirect_token_url %>
-      <% SocialService.instance.social_providers.each do |provider| %>
+      <% SocialService.instance.connectable_providers.each do |provider| %>
 			  <%= content_tag :div, social_account_button(provider, token_url),
                         :class => 'social_account' %>
       <% end %>

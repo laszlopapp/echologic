@@ -3,7 +3,7 @@ require 'singleton'
 class SocialService
   include Singleton
 
-  attr_accessor :service, :social_providers, :default_echo_image
+  attr_accessor :service, :connectable_providers, :default_echo_image
 
   def initialize
   end
@@ -79,8 +79,8 @@ class SocialService
   end
 
 
-  def get_provider_signup_url(provider, token_url)
-    @service.get_provider_signup_url(provider, token_url)
+  def get_provider_auth_url(provider, token_url)
+    @service.get_provider_auth_url(provider, token_url)
   end
 
 
@@ -91,7 +91,7 @@ class SocialService
 
 
   private
-  def create_activity(providerName, attrs={})
+  def create_activity(provider_name, attrs={})
     opts = attrs.clone
 
     # Handling images
@@ -114,8 +114,8 @@ class SocialService
     opts[:action] += " #{opts[:tags]}" if opts[:tags]
     opts[:user_generated_content] = opts[:action]
 
-    opts[:url] = "" if providerName.eql?('twitter')
-    opts[:action] = "made an echo" if providerName.eql?('facebook')
+    opts[:url] = "" if provider_name.eql?('twitter')
+    opts[:action] = "made an echo" if provider_name.eql?('facebook')
 
     #TAG TEST
     opts.to_json
