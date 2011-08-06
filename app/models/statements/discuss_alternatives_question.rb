@@ -7,13 +7,16 @@ class DiscussAlternativesQuestion < FollowUpQuestion
   
   
   def transpose_mirror_tree
-    alternatives = hub.children
+    # create the new twin hub and association between twin hubs
+    new_hub = CasHub.create(:root_id => question.target_id, :parent_id => question.target_id,
+                            :statement => question.statement, :creator_id => question.creator_id, 
+                            :twin_hub_id => hub.target_id)
+    hub.update_attribute(:twin_hub_id, new_hub.target_id)
     
-    # create the new twin hub
-    hub = CasHub.create(:root_id => question.target_id, :parent_id => question.target_id,
-                        :statement => question.statement, :creator_id => question.creator_id)
+    
       
-    # create proposals that mirror the alternatives from the parent hub 
+    # create proposals that mirror the alternatives from the parent hub
+    alternatives = hub.children 
     alternatives.each do |alternative|
       attributes = alternative.attributes
       # delete attributes that we don't want to transpose
@@ -25,8 +28,8 @@ class DiscussAlternativesQuestion < FollowUpQuestion
       attributes.delete("type")
       attributes.delete("drafting_state")
       # add the id of the new twin hub as the parent_id
-      attributes["parent_id"] = hub.id
-      attributes["root_id"] = hub.root_id
+      attributes["parent_id"] = new_hub.id
+      attributes["root_id"] = new_hub.root_id
       Proposal.create(attributes)
     end
   end

@@ -71,7 +71,7 @@ module ActiveRecord
             end
             
             def discuss_alternatives_question
-              hub.discuss_alternatives_question
+              hub ? hub.discuss_alternatives_question : nil
             end
             
             def has_alternative?(node)

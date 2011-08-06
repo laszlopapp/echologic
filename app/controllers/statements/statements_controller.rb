@@ -64,8 +64,6 @@ class StatementsController < ApplicationController
         redirect_to_url discuss_search_url, 'discuss.statements.no_document_in_language'
         return
       end
-      
-      load_discuss_alternatives_question if alternative_mode?(@statement_node)
 
       # Record visited
       @statement_node.visited!(current_user) if current_user
@@ -209,6 +207,7 @@ class StatementsController < ApplicationController
       # Rendering
       if created
         load_siblings @statement_node
+        load_discuss_alternatives_question(@statement_node)
         load_all_children
 
         set_statement_info @statement_document
@@ -1033,14 +1032,35 @@ class StatementsController < ApplicationController
 
   def alternative_mode?(statement_node_or_level)
     return true if !params[:hub].blank?
-    @alternative_modes and @current_stack and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : @current_stack.index(statement_node_or_level.id))
+    stack_ids = @current_stack || (@ancestors ? (@ancestors + [@statement_node]).map(&:id) : nil)
+    @alternative_modes and stack_ids and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : stack_ids.index(statement_node_or_level.id))
   end
 
 
-  def load_discuss_alternatives_question
-    @discuss_alternatives_question = @statement_node.hub.discuss_alternatives_question 
-    return if @discuss_alternatives_question.nil?
-    @discuss_alternatives_document ||= @discuss_alternatives_question.document_in_preferred_language(@language_preference_list)
+  #
+  # Loads the discuss alternative node and document from a statement node.
+  #
+  # statement_node(StatementNode) : the statement node
+  #
+  # Loads instance variables:
+  # @discuss_alternatives_questions(Hash) : key   : statement node dom id
+  #                                         value : DiscussAlternativesQuestion
+  # @discuss_alternatives_documents(Hash) : key   : statement_id: statement_id from a daq
+  #                                         value : StatementDocument: document in the preferred language
+  #
+  def load_discuss_alternatives_question(statement_node)
+    @discuss_alternatives_questions ||= {}
+    @discuss_alternatives_documents ||= {}
+    return if statement_node.new_record? or !statement_node.class.has_alternatives? or !alternative_mode?(statement_node)
+
+    # don't proceed if there is no discuss alternative yet
+    daq = statement_node.discuss_alternatives_question
+    return if daq.nil?
+    
+    
+    class_name = statement_node.target_statement.u_class_name
+    @discuss_alternatives_questions["#{class_name}_#{statement_node.target_id}"] ||= daq 
+    @discuss_alternatives_documents[daq.statement_id] ||= daq.document_in_preferred_language(@language_preference_list)
   end
 
   ############################
@@ -1081,9 +1101,13 @@ class StatementsController < ApplicationController
     if @statement_node
       @ancestors = stack_ids ? StatementNode.find(stack_ids).sort{|s1, s2|s1.level <=> s2.level} : @statement_node.ancestors
       @ancestor_documents = {}
-      @ancestors.each {|a| load_siblings(a) }
+      @ancestors.each {|a| 
+        load_siblings(a)
+        load_discuss_alternatives_question(a) 
+      }
 
       load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
+      load_discuss_alternatives_question(@statement_node)
       if teaser
 
         # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
