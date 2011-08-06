@@ -13,7 +13,7 @@
 	  <% if daq.nil? %>
       <%= create_discuss_alternatives_question_link(statement_node) unless has_twin_hub %>
 		<% else %>
-		  <% content_tag :div, :class => daq, 'statement-id' => daq.target_id do %>
+		  <% content_tag :div, :class => "discuss_alternatives_question", 'statement-id' => daq.target_id do %>
 			  <%= link_to_child(@discuss_alternatives_documents[daq.statement_id].title,
 	                        daq,
 	                        :new_level => true) %>
