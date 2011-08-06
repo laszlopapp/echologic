@@ -10,8 +10,8 @@ class DiscussAlternativesQuestion < FollowUpQuestion
     # create the new twin hub and association between twin hubs
     new_hub = CasHub.create(:root_id => question.target_id, :parent_id => question.target_id,
                             :statement => question.statement, :creator_id => question.creator_id, 
-                            :twin_hub_id => hub.target_id)
-    hub.update_attribute(:twin_hub_id, new_hub.target_id)
+                            :twin_hub_id => hub.id)
+    hub.update_attribute(:twin_hub_id, new_hub.id)
     
     
       

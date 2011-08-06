@@ -52,7 +52,7 @@
 
       // Initialize the statement
       initialise();
-      statement.removeAttr('dom-parent');
+     // statement.removeAttr('dom-parent');
 				
       // Initializes the statement.
       function initialise() {

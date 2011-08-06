@@ -69,10 +69,9 @@ class StatementsController < ApplicationController
       @statement_node.visited!(current_user) if current_user
 
       # Transfer statement node data to client for prev/next functionality
-      if !params[:nl].blank?
-        load_siblings(@statement_node)
-        load_discuss_alternatives_question(@statement_node)
-      end
+      
+      load_siblings(@statement_node) if !params[:nl].blank?
+      load_discuss_alternatives_question(@statement_node)
 
       # Test for special links
       @set_language_skills_teaser = @statement_node.should_set_languages?(current_user,
