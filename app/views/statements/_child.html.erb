@@ -3,6 +3,7 @@
   extra_classes ||= (@current_node && child == @current_node ? 'active' : '')
   extra_classes << " #{child.info_type.code}_link" if child.class.has_embeddable_data?
   new_level ||= false
+  alternative_link ||= (label_type.present? and label_type.eql?('alternative')) ? true : false
 %>
 
 <% content_tag :li, :class => child_type, 'statement-id' => child.target_id do %>
@@ -10,5 +11,6 @@
 	                  child,
 	                  :css => extra_classes,
 	                  :new_level => new_level,
-	                  :type => child_type) %>
+	                  :type => child_type,
+                    :alternative_link => alternative_link) %>
 <% end %>

@@ -465,7 +465,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Pile of contradictions"
       And I should not see "A first proposal!" within "#statements div.proposal"
-    When I follow "alternative_close" within "#statements div.proposal"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.proposal"
       Then I should see "A first proposal!" within ".alternatives"
       And the proposal should have 1 alternative
       And I go to the proposal
@@ -475,7 +475,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
       And I press "Save"
     Then I should see "Another Pile of contradictions"
-    When I follow "alternative_close" within "#statements div.proposal"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.proposal"
       Then I should see "A first proposal!" within ".alternatives"
       And I should see "Pile of contradictions" within ".alternatives"
       And the proposal should have 2 alternatives
@@ -495,7 +495,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit        |
       And I press "Save"
     Then I should see "Pile of contradictions"
-    When I follow "alternative_close" within "#statements div.proposal"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.improvement"
       Then I should see "A better first proposal" within ".alternatives"
       And the improvement should have 1 alternative
       And I go to the improvement
@@ -505,7 +505,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
       And I press "Save"
     Then I should see "Another Pile of contradictions"
-    When I follow "alternative_close" within "#statements div.proposal"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.improvement"
       Then I should see "A better first proposal" within ".alternatives"
       And I should see "Pile of contradictions" within ".alternatives"
       And the improvement should have 2 alternatives
@@ -516,8 +516,8 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | Damn, this is getting serious...       |
       And I press "Save"
     Then I should see "Discussing further the contradictions"
-      And I should see "Pile of contradictions" within "#statements div.discuss_alternatives_question .proposals"
-      And I should see "Another Pile of contradictions" within "#statements div.discuss_alternatives_question .proposals"
+      And I should see "Pile of contradictions" within "#statements div.question"
+      And I should see "Another Pile of contradictions" within "#statements div.question"
     When I choose the "Pile of contradictions" Proposal
       And I follow "Another Pile of contradictions" within ".alternatives"
     Then I should not see localized "discuss.statements.create_discuss_alternatives_question_link"     
@@ -529,7 +529,7 @@ Feature: Take Part on a question
     Then I should see "One contradiction to rule them all"
     When I go to the question
       And I choose the "A first proposal!" Proposal
-    Then I should see "One contradiction to rule them all" within "#statements div.question .improvements"
+    Then I should see "One contradiction to rule them all" within "#statements div.question"
       
    
 

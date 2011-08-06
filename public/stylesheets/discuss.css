@@ -1519,7 +1519,11 @@ a.statement_link:hover {
 #statements .header .alternative_close {
 	left: 163px;
   position: absolute;
-  top: 11px;
+  top: 14px;
+	background: url("../images/page/discuss/statement_icons_16.png");
+	display: inline-block;
+	width: 16px;
+	height: 16px;
 }
 
 #statements .header .alternative_header .header_link {

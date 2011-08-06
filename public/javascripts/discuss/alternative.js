@@ -57,28 +57,39 @@
 			
 			function initCloseButton() {
 				closeButton.bind('click', function(){
-					// SIDS
 					var targetStack = statement.data('api').getStatementsStack(this, false);
 					
 					// BIDS
-					var hubChild = targetStack[targetStack.length-1];
-					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					var bidsStatementIds = $.map(bids, function(a){return a.replace(/[^0-9]+/, '');});
-          var level = $.inArray(hubChild, bidsStatementIds); 
-          bids = bids.splice(0, level);
-          
-					$('#breadcrumbs').data('element_clicked', bids[bids.length-1]);
-					
+					// logic: parent key will be the alternatives breadcrumb, so return the bids til the previous bid
+					var currentBids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var parentKey = statement.data('api').getParentKey();
+					var parentIndex = $.inArray(parentKey, currentBids);
+					var targetBids = currentBids.splice(0, parentIndex);
+
+					// save element after which the breadcrumbs will be deleted while processing the response
+          $('#breadcrumbs').data('element_clicked', targetBids[targetBids.length-1]);
+
 					// ORIGIN
 					origin = $.fragment().origin;
-										
+					
+					// AL
+          var al = statement.data('api').getTargetAls(false);
+					
 					$.setFragment({
 				  	"sids": targetStack.join(','),
 				  	"nl": true,
-				  	"bids": bids.join(','),
+				  	"bids": targetBids.join(','),
 				  	"origin": origin,
-				  	"hub": ''
+						"al": al.join(',')
 				  });
+					
+					var path = $.queryString(statement.data('api').getStatementUrl(), {
+						"current_stack" : targetStack.join(','), 
+						"nl" : true, 
+						"al" : al.join(',')
+					});
+					alert(path)
+          $.getScript(path);
 					return false;
 				});
 			}

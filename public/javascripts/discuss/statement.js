@@ -52,7 +52,8 @@
 
       // Initialize the statement
       initialise();
-
+      statement.removeAttr('dom-parent');
+				
       // Initializes the statement.
       function initialise() {
 
@@ -80,7 +81,7 @@
         if(statement.is('form')) {
 					statement.statementForm();
         } else {
-					statementUrl = statement.find('.header_link a.statement_link').attr('href');
+					statementUrl = statement.find('input.statement_url').val();
 
           // Action menus
 					initAddNewButton();
@@ -665,6 +666,19 @@
         }
         return targetBids;
       }
+			
+			/*
+       * Loads the new set of Als
+       */
+			function getTargetAls(inclusive) {
+				var al = $.fragment().al || '';
+        al = al.length > 0 ? al.split(',') : [];
+        // eliminate levels below the one we're returning to
+        al = $.grep(al, function(a){
+          return inclusive ? a <= statementLevel : a < statementLevel;
+        });
+				return al;
+			}
 
 
       /*
@@ -688,12 +702,7 @@
 					var origin = $.fragment().origin;
 					
 					// AL
-					var al = $.fragment().al || '';
-					al = al.length > 0 ? al.split(',') : [];
-					// eliminate levels below the one we're returning to
-					al = $.grep(al, function(a){
-						return a <= statementLevel;
-					});
+					var al = getTargetAls(true);
 					
 					var statAl = $(this).attr('al');
 					if (statAl && $.inArray(statAl,al) == -1) { al.push(statAl); }
@@ -1032,7 +1041,18 @@
 				getType: function() {
 					return statementType;
 				},
-				
+				getParentKey: function() {
+					return getParentKey();
+				},
+				getTargetBids: function(key) {
+					return getTargetBids(key);
+				},
+				getTargetAls: function(inclusive) {
+					return getTargetAls(inclusive);
+				},
+				getStatementUrl: function() {
+					return statementUrl;
+				},
 				getStatementsStack: function(statementLink, newLevel) {
 					return getStatementsStack(statementLink, newLevel);
 				}

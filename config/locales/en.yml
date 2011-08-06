@@ -497,6 +497,7 @@ en:
         Enter a part of the title or paste in the URL of a statement.
         Afterwards press this button to reuse the statement in the current context.
       unlink_statement: "Click the button again to unlink the statement."
+      close_alternative_mode: "Exit Alternative Mode"
 
     statements:
       label: 'votes'

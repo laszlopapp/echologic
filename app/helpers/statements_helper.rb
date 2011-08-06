@@ -630,7 +630,8 @@ module StatementsHelper
         descendants_statement_node_url(prev,
                                        name,
                                        :current_node => statement_node,
-                                       :alternative_type => alternative_type)
+                                       :alternative_type => alternative_type,
+                                       :hub => (alternative_mode?(statement_node) ? "al#{statement_node.target_id}" : nil))
       end
     end
 
@@ -710,7 +711,8 @@ module StatementsHelper
   # Loads the link to a given statement, placed in the child panel section.
   #
   def link_to_child(title, statement_node,opts={})
-    opts[:type] = dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
+    opts[:type] ||= dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
+    # BIDS
     bids = params[:bids] || ''
     if opts[:nl]
       bids = bids.split(",")
@@ -719,11 +721,18 @@ module StatementsHelper
       bids = bids.join(",")
     end
 
+    # AL
+    al = @alternative_modes || []
+    level = @current_stack.nil? ? statement_node.level : @current_stack.index(statement_node.id)
+    al << level if opts[:alternative_link] and (@alternative_modes.nil? or !@alternative_modes.include?(@level))
+    al = al.join(",")
+
     content = link_to(statement_icon_title(title),
                       statement_node_url(statement_node.target_id,
                                          :bids => bids,
                                          :origin => params[:origin],
-                                         :nl => opts[:nl]),
+                                         :nl => opts[:nl],
+                                         :al => al),
                       :class => "statement_link #{opts[:type]}_link #{opts[:css]}")
     content += supporter_ratio_bar(statement_node)
     content
@@ -836,13 +845,20 @@ module StatementsHelper
   end
 
   def close_alternative_mode_button(statement_node)
+    # BIDS 
     bids = params[:bids] || ''
     bids = bids.split(",")
     bids.pop
     bids = bids.join(",")
+    # AL
+    al = @alternative_modes - [@level]
     
-    link_to 'X', statement_node_url(statement_node, :bids => bids, :origin => params[:origin]),
-            :class => "alternative_close", :title => "alternative_close"
+    link_to '', statement_node_url(statement_node, 
+                                    :bids => bids, 
+                                    :origin => params[:origin], 
+                                    :al => al.join(",")),
+            :class => "alternative_close ttLink no_border",
+            :title => I18n.t("discuss.tooltips.close_alternative_mode")
   end
 
   #
