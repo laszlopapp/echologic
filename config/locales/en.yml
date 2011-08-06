@@ -507,10 +507,8 @@ en:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
       add_new: New statement
-      copy_url: Link to
-      add_new: Add new...
-      copy_to_clipboard: Copy URL
       embed_button: "Embed"
+      copy_url: Link to
 
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
@@ -570,7 +568,13 @@ en:
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter the link to the external content'
       copy_url_hint: 'Copy the link to this statement and use it to spread the word via your favorite channels.'
-      embed_hint: 'Copy the embedded code pressing Ctrl + C on your keyboard or right clicking on it with your mouse'
+
+      embed_search_title: Embed search results
+      embed_search_hint: |
+        Copy and paste the code below to embed these search results into YOUR website and make an echo in your community.
+      embed_statement_title: Embed statement
+      embed_statement_hint: |
+        Copy and paste the code below to embed this statement into YOUR website and make an echo in your community.
 
       publish: Release
       published: The question has been released successfully.
@@ -582,19 +586,19 @@ en:
         improvement: 'Addition'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
-        follow_up_question: 'Follow-Up Question'
         alternative: 'Opposition'
         background_info: 'Background Info'
         discuss_alternatives_question: 'Question'
+        follow_up_question: 'Follow-Up Question'
       new:
         question: 'New Question'
         proposal: 'New Proposal'
         improvement: 'New Addition'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
-        follow_up_question: 'New Follow-Up Question'
         background_info: 'New Background Info'
         discuss_alternatives_question: 'New Alternatives Discussion'
+        follow_up_question: 'New Follow-Up Question'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
@@ -609,13 +613,13 @@ en:
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
-        follow_up_question: 'Questions'
         background_info: 'Backgrounds'
         alternative: 'Alternatives'
         discuss_alternatives_question: 'Questions'
+        follow_up_question: 'Questions'
       siblings:
-        follow_up_question: 'Follow-up Question in the context shown above'
         background_info: 'Background Infos'
+        follow_up_question: 'Follow-up Question in the context shown above'
 
       topic: Topic (Tags / Keywords)
       states:

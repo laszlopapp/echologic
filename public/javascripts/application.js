@@ -5,9 +5,9 @@
   $(function() {
 
     $.fragmentChange(true);
+    positionMainMenuDropdowns();
     makeTooltips();
     roundCorners();
-    bindLanguageSelectionEvents();
     moreHideButtonEvents();
     staticMenuClickEvents();
     ajaxClickEvents();
@@ -130,19 +130,6 @@
     }));
   }
 
-  /* Show and hide language selection on mouse enter and mouse leave. */
-  function bindLanguageSelectionEvents() {
-    $('#echo_language_button').bind("mouseenter", function() {
-      var pos = $(this).position();
-      $("#language_selector").css( { "left": (pos.left + 20) + "px", "top": (pos.top + 35) + "px" } );
-      $('#language_selector').show();
-    });
-
-    $('#language_selector').bind("mouseleave", function() {
-      $('#language_selector').hide();
-    });
-  }
-
   /* Remove all activeMenu classes and give it to the static menu item specified
    * through the given parameter. */
   function changeMenuImage(item) {
@@ -164,10 +151,21 @@
     };
   }
 
-  /* Lightweight tooltip plugin initialization to create fancy tooltips
-   * all over our site.
-   * Options and documentation:
-   *   http://bassistance.de/jquery-plugins/jquery-plugin-tooltip */
+  function positionMainMenuDropdowns() {
+    $('li.main_menu_item').each(function () {
+      setDropdownPosition($(this));
+    });
+    setDropdownPosition($('#echo_language_button_container'));
+  }
+
+  function setDropdownPosition(menuItem) {
+    menuItem.find('.dropdown').css('left', -(160 - menuItem.innerWidth())/2);
+  }
+
+  /*
+   * Initializing all tooltips.
+   * For docu see http://bassistance.de/jquery-plugins/jquery-plugin-tooltip
+   */
   function makeTooltips() {
     $(".ttLink[title]").livequery(function() {
       $(this).tooltip({
@@ -311,6 +309,27 @@
     }
     return false;
   }
+
+
+  $.fn.selText = function() {
+    var range, selection;
+    var obj = this[0];
+    if ($.browser.msie) {
+      range = obj.offsetParent.createTextRange();
+      range.moveToElementText(obj);
+      range.select();
+    } else if ($.browser.mozilla || $.browser.opera) {
+      selection = obj.ownerDocument.defaultView.getSelection();
+      range = obj.ownerDocument.createRange();
+      range.selectNodeContents(obj);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    } else if ($.browser.safari) {
+      selection = obj.ownerDocument.defaultView.getSelection();
+      selection.setBaseAndExtent(obj, 0, obj, 1);
+    }
+    return this;
+  };
 
 
   /*

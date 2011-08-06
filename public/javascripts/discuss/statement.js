@@ -84,8 +84,7 @@
 					statementUrl = statement.find('input.statement_url').val();
 
           // Action menus
-					initAddNewButton();
-					initClipboardButton();
+					initNewStatementButton();
 					initEmbedButton();
 					initCopyURLButton();
 
@@ -295,10 +294,10 @@
       /**************************/
 
       /*
-		   * Initializes the button for the Add New Statement function in the action panel.
+		   * Initializes the button for the New Statement function in the action panel.
 		   */
-		  function initAddNewButton() {
-		    statement.find(".action_bar .add_new_button").bind("click", function() {
+		  function initNewStatementButton() {
+		    statement.find(".action_bar .new_statement_button").bind("click", function() {
 					$(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
 		      return false;
 
@@ -311,13 +310,30 @@
 
 
       /*
+       * Initializes the Embed echo button and panel.
+       */
+      function initEmbedButton() {
+        var embed_code = statement.find('.action_bar .embed_code');
+        statement.find('.action_bar a.embed_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          embed_code.selText();
+          return false;
+        });
+        statement.find('.action_bar .embed_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
+
+
+      /*
        * Initializes the button for the Copy URL function in the action panel.
        */
 	    function initCopyURLButton() {
 				var statement_url = statement.find('.action_bar .statement_url');
 				statement.find('.action_bar a.copy_url_button').bind("click", function() {
           $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-					statement_url.show().select();
+					statement_url.selText();
           return false;
         });
 				statement.find('.action_bar .copy_url_panel').bind("mouseleave", function() {
@@ -433,80 +449,51 @@
           newChildrenPanel.show();
         }
       }
+			
+			
+			
+			 /*
+       * Collapses all visible statements.
+       */
+      function hideStatements() {
+        $('#statements .statement .header:Event(!click)').expandable();
+        $('#statements .statement .header').removeClass('active').addClass('expandable');
+        $('#statements .statement .content').animate(settings['hide_animation_params'],
+                                                     settings['hide_animation_speed']);
+        $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
+                                                                      settings['hide_animation_speed']);
+      }
+			
+			/*
+       * Handles the button to toggle the add new panel for creating new statements.
+       */
+      function initAddNewButton() {
+        statement.find(".action_bar .add_new_button").bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          return false;
 
-      function loadJumpLink(url){
-				var anchor_index = url.indexOf("#");
-        if (anchor_index != -1) {
-          url = url.substring(0, anchor_index);
-        }
-        var bid = 'jp' + statementId;
-        var bids = $.fragment().bids;
-
-        bids = (bids && bids.length > 0) ? bids.split(',') : [];
-        bids.push(bid);
-        return $.queryString(url, {"bids" : bids.join(','), "origin" : bid });
-
-			}
-
-      function initContentLinks() {
-        statement.find(".statement_content a").each(function() {
-          var link = $(this);
-          link.attr("target", "_blank");
-          var url = link.attr("href");
-
-          if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
-            url =  "http://" + url;
-          }
-					if (url.match(/\/statement\/\d+/)) { // if this link goes to another statement, then add a jump bid
-						url = loadJumpLink(url);
-					}
-
-					link.attr('href', url);
+        });
+        statement.find(".action_bar .add_new_panel").bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
         });
       }
-
-		  /*
-		   * Collapses all visible statements.
-		   */
-		  function hideStatements() {
-				$('#statements .statement .header:Event(!click)').expandable();
-				$('#statements .statement .header').removeClass('active').addClass('expandable');
-		    $('#statements .statement .content').animate(settings['hide_animation_params'],
-                                                     settings['hide_animation_speed']);
-		    $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
-                                                                      settings['hide_animation_speed']);
-		  }
-
-		  /*
-		   * Handles the button to toggle the add new panel for creating new statements.
-		   */
-		  function initAddNewButton() {
-		    statement.find(".action_bar .add_new_button").bind("click", function() {
-					$(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-		      return false;
-
-		    });
-		    statement.find(".action_bar .add_new_panel").bind("mouseleave", function() {
-		      $(this).fadeOut();
-          return false;
-		    });
-		  }
 
       /*
        * Handles the Clipboard button panel
        */
-	    function initClipboardButton() {
-				var clip_url = statement.find('.action_bar .clip_url');
-				statement.find('.action_bar a.clip_button').bind("click", function() {
+      function initClipboardButton() {
+        var clip_url = statement.find('.action_bar .clip_url');
+        statement.find('.action_bar a.clip_button').bind("click", function() {
           $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-					clip_url.show().select();
+          clip_url.show().select();
           return false;
         });
-				statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
+        statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
           $(this).fadeOut();
           return false;
         });
-			}
+      }
 			
 			/*
        * Handles the Embedded Code panel
@@ -602,7 +589,7 @@
             url =  "http://" + url;
           }
 					if (isEchoStatementUrl(url)) { // if this link goes to another echo statement => add a jump bid
-						generateJumpLink(link,url);
+						initJumpLink(link,url);
 					} else {
             link.attr("target", "_blank");
           }
@@ -612,21 +599,31 @@
 
 
       /*
-       * Generates a link for the statement with the dorrect breadcrumbs and a new JUMP breadcrumb in the end.
+       * Initiates a link for the statement with the dorrect breadcrumbs and a new JUMP breadcrumb in the end.
        */
-      function generateJumpLink(link, url){
+      function initJumpLink(link, url) {
 				var anchor_index = url.indexOf("#");
         if (anchor_index != -1) {
           url = url.substring(0, anchor_index);
         }
-				$.getJSON(url+'/ancestors', function(data) {
-					var sids = data;
 
-					link.bind("click", function() {
-
+        link.bind("click", function() {
+				  $.getJSON(url+'/ancestors', function(data) {
+            var sids = data['sids'];
+					  var bids = data['bids'];
 						var targetBids = getTargetBids(getParentKey());
-						var bid = 'jp' + statementId;
+
+						// if the jump link is for a statement on the same stack, delete those bids
+						// as they are going to be introduced anyway by the bids parameter
+						if (bids.length > 0) {
+							var index;
+							if ((index = $.inArray(bids[0], targetBids)) != -1) {
+								targetBids = targetBids.splice(0, index);
+							}
+						}
+            var bid = 'jp' + statementId;
 						targetBids.push(bid);
+						$.merge(targetBids, bids);
 
 						$.setFragment({
               "bids": targetBids.join(","),
@@ -636,8 +633,8 @@
 							"al" : ''
             });
 
-						return false;
 					});
+          return false;
 				});
 			}
 
@@ -742,7 +739,7 @@
 
 				// All form requests must nullify the new_level, so that when one clicks the parent button
 				// it triggers one request instead of two.
-				statement.find('.add_new_button').each(function(){
+				statement.find('.add_new_button').each(function() {
 					$(this).bind('click', function(){
 						$.setFragment({
 							"nl" : ''
