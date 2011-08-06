@@ -529,7 +529,8 @@ Feature: Take Part on a question
     Then I should see "One contradiction to rule them all"
     When I go to the question
       And I choose the "A first proposal!" Proposal
-    Then I should see "One contradiction to rule them all" within "#statements div.question"
+      And I choose the "A better first proposal" Improvement
+    Then I should see "One contradiction to rule them all" within ".alternatives"
       
    
 
