@@ -104,12 +104,13 @@ module EchoableModuleHelper
                 'data-enabled' => I18n.t("users.social_accounts.share.enabled"),
                 'data-disabled' => I18n.t("users.social_accounts.share.disabled")) do
       content = ''
-      token_url = redirect_token_url(:redirect_url => statement_node_url(statement_node,
+      token_url = redirect_from_popup_to(add_remote_url,
+                                         :redirect_url => statement_node_url(statement_node,
                                                                          :bids => params[:bids],
                                                                          :origin => params[:origin]),
-                                     :later_call => social_widget_statement_node_url(statement_node,
-                                                                                     :bids => params[:bids],
-                                                                                     :origin => params[:origin]))
+                                         :later_call => social_widget_statement_node_url(statement_node,
+                                                                                         :bids => params[:bids],
+                                                                                         :origin => params[:origin]))
       %w(facebook twitter yahoo! linkedin).each do |provider|
         connected = current_user.has_provider? provider
         css_provider = provider.eql?('yahoo!') ? 'yahoo' : provider

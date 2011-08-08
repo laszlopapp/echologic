@@ -409,7 +409,8 @@ class ApplicationController < ActionController::Base
   def load_signinup_data(type)
     @user ||= User.new
     @user_session ||= UserSession.new
-    if @to_show.nil?
+
+    if @to_show.nil?  # Signinup data not loaded yet
       if type == :signin
         @to_show = 'signin'
         @controller_name = 'user_sessions'
@@ -418,6 +419,12 @@ class ApplicationController < ActionController::Base
         @controller_name = 'users'
       else
         raise Exception "Invalid type. Use ':signin' or ':signup'."
+      end
+
+      @providers = []
+      SocialService.instance.signinup_provider_data.collect do |provider|
+        @providers << [provider.name, {:data_provider_url => provider.url,
+                                       :data_requires_input => provider.requires_input}]
       end
     end
   end
@@ -428,7 +435,9 @@ class ApplicationController < ActionController::Base
     load_signinup_data(type)
     # Rendering
     render_static_new :template => "users/#{@controller_name}/new" do |format|
-      format.js{render_signinup_js(type)}
+      format.js {
+        render_signinup_js(type)
+      }
     end
   end
 
