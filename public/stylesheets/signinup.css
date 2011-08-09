@@ -1,4 +1,6 @@
 
+/* echo signinup */
+
 .signinup_dialog {
   overflow: hidden;
 }
@@ -119,10 +121,39 @@
   font-size: 13px;
 }
 
+/* Remote signinup */
+
 .signinup_container .social_container {
 	float: right;
-	height: 250px;
+  width: 330px;
+	height: 220px;
+  padding: 20px 20px 0 0;
 }
+
+.remote_signinup .provider {
+  background: url("../images/page/remote_providers_p1.png") no-repeat transparent;
+  width: 150px;
+  height: 50px;
+  float: left;
+  margin: 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.remote_signinup .facebook.provider { background-position: 0 0; }
+.remote_signinup .twitter.provider { background-position: 0 -50px; }
+.remote_signinup .google.provider { background-position: 0 -100px; }
+.remote_signinup .yahoo.provider { background-position: 0 -150px; }
+.remote_signinup .linkedin.provider { background-position: 0 -200px; }
+.remote_signinup .openid.provider { background-position: 0 -250px; }
+
+.remote_signinup .facebook.provider:hover { background-position: -150px 0; }
+.remote_signinup .twitter.provider:hover { background-position: -150px -50px; }
+.remote_signinup .google.provider:hover { background-position: -150px -100px; }
+.remote_signinup .yahoo.provider:hover { background-position: -150px -150px; }
+.remote_signinup .linkedin.provider:hover { background-position: -150px -200px; }
+.remote_signinup .openid.provider:hover { background-position: -150px -250px; }
+
 
 
 /* Password resets panel */
