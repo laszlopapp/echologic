@@ -132,14 +132,14 @@ module ApplicationHelper
     #janrain_login_widget signin_remote_url, :language => I18n.locale
     render :partial => 'users/social_accounts/signinup',
            :locals => {:mode => :signin,
-                       :token_url => redirect_from_popup_to(signin_remote_url) }
+                       :token_url => u(redirect_from_popup_to(signin_remote_url)) }
   end
 
   def signup_social_link
    #janrain_login_widget signup_remote_url, :language => I18n.locale
     render :partial => 'users/social_accounts/signinup',
            :locals => {:mode => :signup,
-                       :token_url => redirect_from_popup_to(signup_remote_url) }
+                       :token_url => u(redirect_from_popup_to(signup_remote_url)) }
   end
 
 

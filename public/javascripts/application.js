@@ -17,7 +17,7 @@
     initTooltips();
     addRoundedCorners();
 
-    initSigninupButtons();
+    initSigninup();
     initAboutUs();
 
     /* Always send the authenticity_token with Ajax */
@@ -320,16 +320,22 @@
   /**************************************/
 
   /*
-   * Initializes the Login and Register buttons in the SignInUp panel.
+   * Initializes the SignInUp panel with the echo and remote social accounts.
    */
-  function initSigninupButtons() {
-		$('.signinup_container .signinup_toggle_button').live('click', function() {
-			var to_show = $(this).attr('href');
-			$(to_show).show();
-			$(this).parents('.signinup_container').hide();
-			return false;
+  function initSigninup() {
+		$('.signinup_container').livequery(function() {
+      var signinup = $(this);
+      signinup.find('.signinup_toggle_button').click(function() {
+        var to_show = $(this).attr('href');
+        $(to_show).show();
+        $(this).parents('.signinup_container').hide();
+        return false;
+      });
+      signinup.find('#user_session_email').focus();
+
+      // Init remote provider handling
+      signinup.find('.remote_signinup').remoteSigninup();
 		});
-    $('#user_session_email').focus();
 	}
 
   /*

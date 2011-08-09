@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
     redirect_to_app_home
   end
 
-  before_filter :require_user, :except => [:shortcut]
+  before_filter :require_user, :except => [:shortcut, :redirect_from_popup]
 
   private
   # Before filter used to define which controller actions require an active and valid user session.
