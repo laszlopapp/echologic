@@ -23,7 +23,7 @@
   border:       1px solid #777;
 }
 
-.formButton200 {
+.form_button_200 {
   border:       none;
   background:   #FFF url(../images/page/form_button_200.png) no-repeat scroll left top;
   width:        200px;
@@ -38,11 +38,11 @@
   overflow:     hidden;
 }
 
-.formButton200:hover {
+.form_button_200:hover {
   background-position: 0 -43px;
 }
 
-.formButton250 {
+.form_button_250 {
   border:       none;
   background:   #FFF url(../images/page/form_button_250.png) no-repeat scroll left top;
   width:        250px;
@@ -57,11 +57,11 @@
   overflow:     hidden;
 }
 
-.formButton250:hover {
+.form_button_250:hover {
   background-position: 0 -43px;
 }
 
-.formButton300 {
+.form_button_300 {
   border:       none;
   background:   #FFF url(../images/page/form_button_300.png) no-repeat scroll left top;
   width:        300px;
@@ -76,7 +76,7 @@
   overflow:     hidden;
 }
 
-.formButton300:hover {
+.form_button_300:hover {
   background-position: 0 -43px;
 }
 
