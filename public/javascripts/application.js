@@ -19,6 +19,7 @@
 
     initSigninup();
     initAboutUs();
+    //initMessages();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -57,8 +58,9 @@
   function initMainMenu() {
     positionMainMenuDropdowns();
     if (isMobileDevice()) {
-      $('a.main_menu_item').click(function(e) {initMenuItemHovering($(this).parent(), e)});
-      $('#echo_language_button').click(function(e) {initMenuItemHovering($(this).parent(), e)});
+      $('a.main_menu_item').add('#echo_language_button').click(function(e) {
+        initMenuItemHovering($(this).parent(), e);
+      });
     }
   }
 
@@ -69,6 +71,7 @@
       e.preventDefault();
       return false;
     }
+    return true;
   }
 
   /*
@@ -262,7 +265,7 @@
    */
   function initTabsContainers() {
     $('.tab_details_container').livequery(function() {
-     $(this).tabs();
+      $(this).tabs();
     });
   }
 
@@ -298,22 +301,25 @@
    * Shows and info message and hides it with a length-dependent delay.
    */
   function info(text) {
-    $('#info_box').stop().hide();
-    $('#error_box').stop().hide();
-    $('#message_container #info_box .message').html(text);
-    $('#message_container #info_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+    showMessage('info', text);
   }
 
   /*
    * Shows an error message and hides it with a length-dependent delay.
    */
   function error(text) {
-    $('#info_box').stop().hide();
-    $('#error_box').stop().hide();
-    $('#message_container #error_box .message').html(text);
-    $('#message_container #error_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+    showMessage('error', text);
   }
 
+  /*
+   * Shows an info or error message and hides it with a length-dependent delay.
+   */
+  function showMessage(type, text) {
+    var messageBox = '#' + type + '_box';
+    $('#message_container').children().stop().hide().end().
+      find(messageBox + ' .message').html(text).end().
+      find(messageBox).slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+  }
 
   /**************************************/
   /* Handling specific functional units */
@@ -358,6 +364,21 @@
     });
   }
 
+  /*
+   * Initializes the info and error message positioning in embed mode.
+   */
+  function initMessages() {
+    if ($('body').is('.embedded_echo')) {
+      var view = $(window);
+      var messageContainer = $('#message_container');
+      var messageBoxes = messageContainer.children();
+
+      view.bind('scroll resize', function() {
+        messageBoxes.css('top', view.scrollTop() - messageContainer.offset().top);
+      });
+
+    }
+  }
 
   /*****************************************/
   /* Redirection and browsers interactions */
@@ -395,7 +416,7 @@
 
 
   /*
-   * Opens the given target URL in the parent window and closes the popup window.
+   * Opens the given target URL in the opener window and closes the popup window.
    */
   function openUrlInParentWindow(targetUrl, closeme) {
     if (!(window.focus && window.opener)) {
