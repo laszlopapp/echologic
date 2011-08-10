@@ -19,7 +19,6 @@
 
     initSigninup();
     initAboutUs();
-    //initMessages();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -321,6 +320,7 @@
       find(messageBox).slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
+
   /**************************************/
   /* Handling specific functional units */
   /**************************************/
@@ -364,21 +364,6 @@
     });
   }
 
-  /*
-   * Initializes the info and error message positioning in embed mode.
-   */
-  function initMessages() {
-    if ($('body').is('.embedded_echo')) {
-      var view = $(window);
-      var messageContainer = $('#message_container');
-      var messageBoxes = messageContainer.children();
-
-      view.bind('scroll resize', function() {
-        messageBoxes.css('top', view.scrollTop() - messageContainer.offset().top);
-      });
-
-    }
-  }
 
   /*****************************************/
   /* Redirection and browsers interactions */
