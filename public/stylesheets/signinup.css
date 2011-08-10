@@ -201,6 +201,19 @@
   margin-left: 10px;
 }
 
+.remote_signinup .progress_indicator {
+  background: url('../images/indicator_16.gif') left center no-repeat;
+  opacity: 0.4;
+  display: block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 200px;
+  left: 152px;
+
+}
+
+
 /* Password resets panel */
 
 #reset_password .header.block,

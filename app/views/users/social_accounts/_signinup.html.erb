@@ -19,4 +19,7 @@
     <%= content_tag :span, I18n.t("users.#{mode}.label"), :class => 'signinup_button form_button_200' %>
     <%= content_tag :span, I18n.t("application.general.back"), :class => 'back_button text_button' %>
   <% end %>
+
+  <%= content_tag :div, '', :class => 'progress_indicator', :style => 'display:none;' %>
+
 <% end %>

@@ -383,8 +383,10 @@
   /*
    * Opens a popup browser window with the given URL and window name.
    * Currently it is used to call 3rd party authentication services.
+   *
+   * callback: called when the window gets closed.
    */
-  function popup(url, windowname) {
+  function popup(url, callback) {
     if (!window.focus) {
       return true;
     }
@@ -395,10 +397,27 @@
     else {
       href = url.href;
     }
-    window.open(href, windowname, 'width=800,height=450,scrollbars=yes');
+    var view = $(window);
+    var left = (view.width() - 800) / 2;
+    var popup = window.open(href, true, 'width=800,height=450,left=' + left + ',top=100,scrollbars=yes,dependent=yes');
+    if (callback) {
+      popup.onunload = popupClosed(popup, callback);
+    }
     return false;
   }
 
+  /*
+   * Helper function to handle the callback call on closing the popup.
+   */
+  function popupClosed(popup, callback) {
+    setTimeout(function() {
+      if (popup.closed) {
+        callback();
+      } else {
+        popup.onunload = popupClosed(popup, callback);
+      }
+    }, 500);
+  }
 
   /*
    * Opens the given target URL in the opener window and closes the popup window.
