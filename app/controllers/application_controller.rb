@@ -423,7 +423,8 @@ class ApplicationController < ActionController::Base
 
       @providers = []
       SocialService.instance.signinup_provider_data.collect do |provider|
-        @providers << [provider.name, {'data-provider-url' => provider.url,
+        @providers << [provider.name, {'data-provider-name' => provider.name,
+                                       'data-provider-url' => provider.url,
                                        'data-requires-input' => provider.requires_input}]
       end
     end

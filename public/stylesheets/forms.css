@@ -1,41 +1,49 @@
 /* Form styles */
 
 .formBlock {
-  margin:       10px 10px 8px 0;
+  margin: 10px 10px 8px 0;
 }
 
 .echoForm label {
-  font-size:    14px;
-  font-weight:  bold;
-  color:        #7bb031;
+  font-size: 14px;
+  font-weight: bold;
+  color: #7bb031;
 }
 
 .echoForm input[type='text'], .echoForm input[type='password'] {
-  width:        225px;
-  color:        #21587F;
-  border:       1px solid #777;
+  width: 225px;
+  color: #21587F;
+  border: 1px solid #777;
 }
 
 .echoForm textarea {
-  width:        300px;
-  height:       150px;
-  color:        #21587F;
-  border:       1px solid #777;
+  width: 300px;
+  height: 150px;
+  color: #21587F;
+  border: 1px solid #777;
 }
 
 .form_button_200 {
-  border:       none;
-  background:   #FFF url(../images/page/form_button_200.png) no-repeat scroll left top;
-  width:        200px;
-  height:       43px;
-  display:      inline-block;
-  font-size:    14px;
-  font-weight:  bold;
-  color:        #21587f;
-  text-align:   center;
-  margin:       13px 0 0 -6px;
-  padding:      0 0 4px 20px;
-  overflow:     hidden;
+  border: none;
+  background: #FFF url(../images/page/form_button_200.png) no-repeat scroll left top;
+  width: 200px;
+  height: 45px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #21587f;
+  text-align: center;
+  margin: 13px 0 0 -6px;
+  padding: 0 0 4px 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+span.form_button_200 {
+  height: 40px;
+  line-height: 41px;
+  font-size: 15px;
+  padding: 0 0 4px 10px;
 }
 
 .form_button_200:hover {
@@ -43,18 +51,18 @@
 }
 
 .form_button_250 {
-  border:       none;
-  background:   #FFF url(../images/page/form_button_250.png) no-repeat scroll left top;
-  width:        250px;
-  height:       43px;
-  display:      inline-block;
-  font-size:    14px;
-  font-weight:  bold;
-  color:        #21587f;
-  text-align:   center;
-  margin:       13px 0 0 -6px;
-  padding:      0 0 4px 20px;
-  overflow:     hidden;
+  border: none;
+  background: #FFF url(../images/page/form_button_250.png) no-repeat scroll left top;
+  width: 250px;
+  height: 43px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #21587f;
+  text-align: center;
+  margin: 13px 0 0 -6px;
+  padding: 0 0 4px 20px;
+  overflow: hidden;
 }
 
 .form_button_250:hover {
@@ -62,18 +70,18 @@
 }
 
 .form_button_300 {
-  border:       none;
-  background:   #FFF url(../images/page/form_button_300.png) no-repeat scroll left top;
-  width:        300px;
-  height:       43px;
-  display:      inline-block;
-  font-size:    14px;
-  font-weight:  bold;
-  color:        #21587f;
-  text-align:   center;
-  margin:       13px 0 0 -6px;
-  padding:      0 0 4px 20px;
-  overflow:     hidden;
+  border: none;
+  background: #FFF url(../images/page/form_button_300.png) no-repeat scroll left top;
+  width: 300px;
+  height: 43px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #21587f;
+  text-align: center;
+  margin: 13px 0 0 -6px;
+  padding: 0 0 4px 20px;
+  overflow: hidden;
 }
 
 .form_button_300:hover {

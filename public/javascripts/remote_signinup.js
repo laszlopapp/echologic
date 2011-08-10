@@ -19,6 +19,9 @@
 
     function RemoteSigninup(signinup) {
 
+      var providersPanel = signinup.find('.remote_providers');
+      var inputPanel = signinup.find('.remote_input_panel');
+
       var tokenUrl;
       var providers;
 
@@ -32,14 +35,15 @@
 
         // Getting the token URL
         tokenUrl = signinup.data('token-url');
-        //signinup.removeAttr('data-token-url');
+        signinup.removeAttr('data-token-url');
 
         // Initializing all providers
         providers = signinup.find('.provider').each(function() {
           var provider = $(this);
+          provider.data('providerName', provider.data('provider-name'));
           provider.data('providerUrl', provider.data('provider-url'));
           provider.data('requiresInput', provider.data('requires-input'));
-          //provider.removeAttr('data-provider-url').removeAttr('data-requires-input');
+          provider.removeAttr('data-provider-name').removeAttr('data-provider-url').removeAttr('data-requires-input');
 
           provider.click(function() {
             if (!provider.data('requiresInput')) {
@@ -48,6 +52,11 @@
               promptForInput(provider);
             }
           });
+        });
+
+        // Input panel
+        inputPanel.find('.back_button').click(function() {
+          chooseProvider();
         });
       }
 
@@ -64,7 +73,23 @@
        * Switches to the input panel to get the additional info from the user.
        */
       function promptForInput(provider) {
-        alert('Enter info...');
+        if (inputPanel.data('provider')) {
+          inputPanel.removeClass(inputPanel.data('provider'));
+        }
+        inputPanel.addClass(provider.data('providerName'));
+
+        providersPanel.fadeOut(250);
+        inputPanel.fadeIn(250);
+        inputPanel.find('.provider_input').focus();
+      }
+
+
+      /*
+       * Switches to the providers panel to let the user choose a different provider.
+       */
+      function chooseProvider() {
+        inputPanel.fadeOut(250);
+        providersPanel.fadeIn(250);
       }
 
 	  }
