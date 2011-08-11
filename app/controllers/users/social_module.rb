@@ -25,10 +25,10 @@ module Users::SocialModule
           end
         end
       else
-        redirect_or_render_with_error(redirect_url, "application.remote_error")
+        redirect_or_render_with_error(base_url, "application.remote_error")
       end
     rescue RpxService::RpxServerException
-      redirect_or_render_with_error(redirect_url, "application.remote_error")
+      redirect_or_render_with_error(base_url, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error creating user")
     else
