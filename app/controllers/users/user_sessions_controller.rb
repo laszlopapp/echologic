@@ -36,7 +36,7 @@ class Users::UserSessionsController < ApplicationController
   def create_social
     redirect_url = session.delete(:redirect_url)
     begin
-      if !params[:token]
+      if params[:token]
         profile_info = SocialService.instance.get_profile_info(params[:token])
         user = nil
         User.transaction do
