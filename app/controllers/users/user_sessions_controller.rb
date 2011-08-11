@@ -64,7 +64,7 @@ class Users::UserSessionsController < ApplicationController
           end
         end
       else
-        redirect_to redirect_url
+        redirect_or_render_with_error(redirect_url, "application.remote_error")
       end
     rescue RpxService::RpxServerException
       redirect_or_render_with_error(redirect_url, "application.remote_error")
