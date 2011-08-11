@@ -55,6 +55,10 @@
           provider.data('providerUrl', provider.data('provider-url'));
           provider.data('requiresInput', provider.data('requires-input'));
           provider.removeAttr('data-provider-name').removeAttr('data-provider-url').removeAttr('data-requires-input');
+          if (provider.data('requiresInput')) {
+            provider.data('inputDefault', provider.data('input-default'));
+            provider.removeAttr('data-input-default');
+          }
 
           provider.click(function() {
             if (!provider.data('requiresInput')) {
@@ -97,7 +101,13 @@
 
         providersPanel.fadeOut(settings['animation_speed']);
         inputPanel.fadeIn(settings['animation_speed']);
-        providerInput.focus();
+
+        providerInput.toggleVal({
+          populateFrom: 'custom',
+          text: provider.data('inputDefault'),
+          changedClass: 'changed',
+          focusClass: 'focused'
+        });
 
         busySign.addClass('input');
       }
