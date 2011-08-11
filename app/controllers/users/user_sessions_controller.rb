@@ -16,7 +16,7 @@ class Users::UserSessionsController < ApplicationController
         @user_session = UserSession.new(params[:user_session])
         if @user_session.save
           # if the user failed to log in with a social account just previously,
-        # this will be added as the user logs in with its' echo account
+          # this will be added as the user logs in with its' echo account
           user = User.find_by_email(params[:user_session][:email])
           add_social_to_user(user) if session[:identifier]
           user.check_social_accounts
@@ -78,7 +78,7 @@ class Users::UserSessionsController < ApplicationController
     current_user_session.destroy
     reset_session
     set_info 'users.signout.messages.success'
-    flash_info and redirect_to root_path
+    flash_info and redirect_to base_url
   end
 
   protected

@@ -1,7 +1,7 @@
 <%about_path ||= static_path(:about)%>
 <%logout ||= true%>
 
-<div id="top_menu_container">
+<% content_tag :div, :id => 'top_menu_container' do %>
 
   <%= link_to I18n.t('layouts.outer_menu.logout'),
               signout_path,
@@ -20,19 +20,11 @@
               :id => 'blog_button',
               :target => '_blank' %>
 
-  <!-- Language choose section. -->
-  <% link_to('#', :id => 'echo_language_button') do %>
-     <%= I18n.t('layouts.outer_menu.language') %>
+  <% content_tag :span, :id => 'echo_language_button_container', :class => 'main_menu_item' do %>
+    <%= content_tag :span, I18n.t('layouts.outer_menu.language'),
+                    :id => 'echo_language_button',
+                    :class => 'main_menu_item' %>
+ 	  <%= render :partial => "layouts/components/language_selector" %>
   <% end %>
 
-  <div id="language_selector" class="rounded-box rounded-box-green-iwot" style="display:none;">
-    <ul>
-      <li><%= link_to "English", request.request_uri.split("/").fill("en",1..1).join('/') %></li>
-      <li><%= link_to "Deutsch", request.request_uri.split("/").fill("de",1..1).join('/') %></li>
-			<li><%= link_to "Español", request.request_uri.split("/").fill("es",1..1).join('/') %></li>
-			<li><%= link_to "Português", request.request_uri.split("/").fill("pt",1..1).join('/') %></li>
-      <li><%= link_to "Français", request.request_uri.split("/").fill("fr",1..1).join('/') %></li>
-      <li><%= link_to "Magyar (wip)", request.request_uri.split("/").fill("hu",1..1).join('/') %></li>
-    </ul>
-  </div>
-</div>
+<% end %>

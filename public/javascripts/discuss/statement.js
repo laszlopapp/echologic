@@ -1,6 +1,6 @@
 (function($) {
 
-  $.fn.statement = function(current_settings) {
+  $.fn.statement = function(currentSettings) {
 
     $.fn.statement.defaults = {
       'level' : 0,
@@ -19,14 +19,14 @@
     };
 
     // Merging settings with defaults
-    var settings = $.extend({}, $.fn.statement.defaults, current_settings);
+    var settings = $.extend({}, $.fn.statement.defaults, currentSettings);
 
     return this.each(function() {
 			// Creating and binding the statement API
 			var elem = $(this);
       var statementApi = elem.data('api');
 	    if (statementApi) {
-	      statementApi.reinitialise(current_settings);
+	      statementApi.reinitialise(currentSettings);
 	    } else {
 				statementApi = new Statement(elem);
 	      elem.data('api', statementApi);
@@ -80,7 +80,8 @@
 					statementUrl = statement.find('.header_link a.statement_link').attr('href');
 
           // Action menus
-					initAddNewButton();
+					initNewStatementButton();
+					initEmbedButton();
 					initCopyURLButton();
 
           // Navigation
@@ -252,10 +253,10 @@
       /**************************/
 
       /*
-		   * Initializes the button for the Add New Statement function in the action panel.
+		   * Initializes the button for the New Statement function in the action panel.
 		   */
-		  function initAddNewButton() {
-		    statement.find(".action_bar .add_new_button").bind("click", function() {
+		  function initNewStatementButton() {
+		    statement.find(".action_bar .new_statement_button").bind("click", function() {
 					$(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
 		      return false;
 
@@ -268,13 +269,30 @@
 
 
       /*
+       * Initializes the Embed echo button and panel.
+       */
+      function initEmbedButton() {
+        var embed_code = statement.find('.action_bar .embed_code');
+        statement.find('.action_bar a.embed_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          embed_code.selText();
+          return false;
+        });
+        statement.find('.action_bar .embed_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
+
+
+      /*
        * Initializes the button for the Copy URL function in the action panel.
        */
 	    function initCopyURLButton() {
 				var statement_url = statement.find('.action_bar .statement_url');
 				statement.find('.action_bar a.copy_url_button').bind("click", function() {
           $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-					statement_url.show().select();
+					statement_url.selText();
           return false;
         });
 				statement.find('.action_bar .copy_url_panel').bind("mouseleave", function() {
@@ -392,7 +410,7 @@
       }
 
 
-      /*
+		  /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
 		  function initMoreButton() {
@@ -583,7 +601,7 @@
 
 				// All form requests must nullify the new_level, so that when one clicks the parent button
 				// it triggers one request instead of two.
-				statement.find('.add_new_button').each(function(){
+				statement.find('.add_new_button').each(function() {
 					$(this).bind('click', function(){
 						$.setFragment({
 							"nl" : ''

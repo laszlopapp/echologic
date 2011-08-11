@@ -72,7 +72,7 @@
 #login_container {
   clear: right;
   float: right;
-  padding: 13px 0 8px;
+  padding-bottom: 8px;
   height: 46px;
 
 }
@@ -604,4 +604,7 @@
 	color: #21587f;
 	padding: 33px 10px 5px !important;
   width: 300px !important;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
 }

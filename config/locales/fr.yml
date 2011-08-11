@@ -133,11 +133,16 @@ fr:
   # ------------
   # USERS MODULE
   # ------------
+
   users:
     anonym: Anonym
     authors:
       teaser:
         title: 'Devenez co-auteur!'
+
+    remote_auth:
+      input_default:
+        openid: Votre URL OpenID
     signup:
       label: "S'inscrire"
       member_tag: "Vous n'êtes pas encore membre ?"
@@ -544,8 +549,20 @@ fr:
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
+
       add_new: Nouvelle déclaration
+      embed_button: Intégrer
+      embed_search_title: Intégrer résultats de recherche
+      embed_search_hint: |-
+        Copiez et collez le code ci-dessous pour l'intégrer ces résultats de recherche dans
+        VOTRE page web et créez un echo dans votre communauté.
+      embed_statement_title: Intégrer contribution
+      embed_statement_hint: |-
+        Copiez et collez le code ci-dessous pour l'intégrer dans VOTRE page web et créez un echo dans votre communauté.
       copy_url: Link to
+      copy_url_title: Link to statement
+      copy_url_hint: 'Copy the link to this statement and use it to spread the word via your favorite channels.'
+
       create_question_link: 'Poser une nouvelle question'
       create_proposal_link: 'Soumettre de nouvelles propositions'
       create_internal_link: 'Une idée nouvelle'
@@ -595,7 +612,6 @@ fr:
         follow_up_question: Veuillez donner davantage de détails de votre question suivie...
       tag_hint: 'Mots-clefs (Tags) idoines...'
       info_url_hint: 'Enter the link to the external content'
-      copy_url_hint: 'Copy the link to this statement and use it to spread the word via your favorite channels.'
 
       publish: Publier
       published: La discussion a été publiée avec succès.

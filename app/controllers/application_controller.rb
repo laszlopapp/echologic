@@ -3,9 +3,29 @@
 
 class ApplicationController < ActionController::Base
 
+  layout :layout_mode
+
+  ##########
+  # LAYOUT #
+  ##########
+
+  private
+  def layout_mode
+    params[:mode] || 'application'
+  end
+
+
   ###########
   # ROUTING #
   ###########
+
+  before_filter :set_mode
+
+  private
+  def set_mode
+    RoutingFilter::Mode.current_mode = params[:mode]
+  end
+
 
   #
   # Initialize the locale of the application
@@ -46,16 +66,24 @@ class ApplicationController < ActionController::Base
 
   private
   # Called when when a routing error occurs.
-  def redirect_to_home
-    redirect_to discuss_search_url
+  def redirect_to_app_home
+    redirect_to app_home_url
   end
 
   private
   def last_url
-    request.referer || root_url
+    request.referer || base_url
   end
 
   protected
+
+  #
+  # Returns the root URL in normal mode and the app home URL (discuss search for now) in embed mode.
+  #
+  def base_url
+    params[:mode] == 'embed' ? app_home_url : root_url
+  end
+
   def redirect_to_url(url, message)
     respond_to do |format|
       set_info message
@@ -88,19 +116,19 @@ class ApplicationController < ActionController::Base
   #
   def access_denied
     flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-    redirect_to_home
+    redirect_to_app_home
   end
 
-  before_filter :require_user, :except => [:shortcut]
+  before_filter :require_user, :except => [:shortcut, :redirect_from_popup]
 
   private
   # Before filter used to define which controller actions require an active and valid user session.
   def require_user
     @user_required = true
     unless current_user
-      current_url = request.url == last_url ? root_url : last_url
+      current_url = request.url == last_url ? base_url : last_url
       open_signin(current_url, request.url)
-      return false
+      false
     end
   end
 
@@ -116,9 +144,9 @@ class ApplicationController < ActionController::Base
   # Checks that the user is NOT logged in.
   def require_no_user
     if current_user
-      redirect_to_url root_url, 'authlogic.error_messages.must_be_logged_out'
+      redirect_to_url base_url, 'authlogic.error_messages.must_be_logged_out'
     end
-    return false
+    false
   end
 
 
@@ -136,7 +164,7 @@ class ApplicationController < ActionController::Base
       expire_session!
     end
     session[:expiry_time] = MAX_SESSION_PERIOD.hours.from_now
-    return true
+    true
   end
 
   # Expires and cleans up the user session.
@@ -146,7 +174,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.signout.messages.success'
+      redirect_to_url base_url, 'users.signout.messages.success'
     else
       # Not logout
       @user_required ||= false
@@ -381,7 +409,8 @@ class ApplicationController < ActionController::Base
   def load_signinup_data(type)
     @user ||= User.new
     @user_session ||= UserSession.new
-    if @to_show.nil?
+
+    if @to_show.nil?  # Signinup data not loaded yet
       if type == :signin
         @to_show = 'signin'
         @controller_name = 'user_sessions'
@@ -390,6 +419,19 @@ class ApplicationController < ActionController::Base
         @controller_name = 'users'
       else
         raise Exception "Invalid type. Use ':signin' or ':signup'."
+      end
+
+      @providers = []
+      SocialService.instance.signinup_provider_data.collect do |provider|
+        provider_data = {
+          'data-provider-name' => provider.name,
+          'data-provider-url' => provider.url,
+          'data-requires-input' => provider.requires_input
+        }
+        if provider.requires_input
+          provider_data.merge!({'data-input-default' => I18n.t("users.remote_auth.input_default.#{provider.name}")})
+        end
+        @providers << [provider.name, provider_data]
       end
     end
   end
@@ -400,7 +442,9 @@ class ApplicationController < ActionController::Base
     load_signinup_data(type)
     # Rendering
     render_static_new :template => "users/#{@controller_name}/new" do |format|
-      format.js{render_signinup_js(type)}
+      format.js {
+        render_signinup_js(type)
+      }
     end
   end
 

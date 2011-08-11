@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Routing-filter plugin for wrapping :locale around URLs and paths.
   map.filter :locale
+  map.filter :mode
 
 
   ##################
@@ -115,7 +116,7 @@ ActionController::Routing::Routes.draw do |map|
   # ACT routes #
   ##############
 
-  map.act '/act/roadmap', :controller => :act, :action => :roadmap
+  map.act_roadmap '/act/roadmap', :controller => :act, :action => :roadmap
 
 
   ##################
@@ -129,7 +130,7 @@ ActionController::Routing::Routes.draw do |map|
   map.settings 'settings',
                :controller => 'my_echo',
                :action => 'settings'
-  map.my_echo '/my_echo/roadmap',
+  map.my_echo_roadmap '/my_echo/roadmap',
               :controller => :my_echo,
               :action => :roadmap
   map.welcome 'welcome',
@@ -258,24 +259,12 @@ ActionController::Routing::Routes.draw do |map|
 
 
   #####################
-  # echosocial routes #
+  # Public API routes #
   #####################
 
-  map.echosocial ':action',
-                 :controller => 'static/echosocial',:action => 'show',
-                 :conditions=> {:rails_env => 'development', :host =>'localhost', :port => 3001 }
-  map.echosocial ':action',
-                 :controller => 'static/echosocial',:action => 'show',
-                 :conditions=> {:rails_env => 'staging', :host => "echosocial.echo-test.org" }
-  map.echosocial ':action',
-                 :controller => 'static/echosocial',:action => 'show',
-                 :conditions=> {:rails_env => 'production', :host => "www.echosocial.org" }
-  map.echosocial ':action',
-                 :controller => 'static/echosocial',:action => 'show',
-                 :conditions=> {:rails_env => 'production', :host => "echosocial.org" }
-  map.echosocial ':action',
-                 :controller => 'static/echosocial',:action => 'show',
-                 :conditions=> {:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
+  # oEmbed API
+  map.oembed '/api/oembed', :controller => :api, :action => :oembed
+  map.oembed '/api/oembed.:format', :controller => :api, :action => :oembed
 
 
   ##################
@@ -286,9 +275,11 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
-  # Root URL
+  # Root and application's home URLs
   map.root :controller => 'static/echologic',
            :action => 'show'
+  map.app_home '/discuss/search', :controller => :statements, :action => :category
+
 
   # Shortcut URLs
   map.shortcut ':shortcut',

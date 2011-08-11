@@ -44,9 +44,9 @@ module Users::SocialModule
     @user = User.find_by_perishable_token(params[:activation_code], 1.week)
     @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
     if @user.nil?
-      redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
+      redirect_or_render_with_error(base_url, "users.activation.messages.no_account")
     elsif @user.active?
-      redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
+      redirect_or_render_with_error(base_url, "users.activation.messages.already_active")
     else
       opts = SocialService.instance.load_basic_profile_options(@profile_info) || {}
       opts.each{|k,v|@user.send("#{k}=",v)}
