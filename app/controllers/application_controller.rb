@@ -423,9 +423,15 @@ class ApplicationController < ActionController::Base
 
       @providers = []
       SocialService.instance.signinup_provider_data.collect do |provider|
-        @providers << [provider.name, {'data-provider-name' => provider.name,
-                                       'data-provider-url' => provider.url,
-                                       'data-requires-input' => provider.requires_input}]
+        provider_data = {
+          'data-provider-name' => provider.name,
+          'data-provider-url' => provider.url,
+          'data-requires-input' => provider.requires_input
+        }
+        if provider.requires_input
+          provider_data.merge!({'data-input-default' => I18n.t("users.remote_auth.input_default.#{provider.name}")})
+        end
+        @providers << [provider.name, provider_data]
       end
     end
   end

@@ -93,6 +93,6 @@ span.form_button_200 {
   color: #AAA !important;
 }
 
-.toggleval.has_focus, .toggleval.changed {
+.toggleval.focused, .toggleval.changed {
   color: #21587f !important;
 }

@@ -133,11 +133,16 @@ fr:
   # ------------
   # USERS MODULE
   # ------------
+
   users:
     anonym: Anonym
     authors:
       teaser:
         title: 'Devenez co-auteur!'
+
+    remote_auth:
+      input_default:
+        openid: Votre URL OpenID
     signup:
       label: "S'inscrire"
       member_tag: "Vous n'êtes pas encore membre ?"

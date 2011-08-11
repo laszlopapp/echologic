@@ -118,12 +118,16 @@ es:
   # ------------
   # USERS MODULE
   # ------------
+
   users:
     anonym: Anónimo
     authors:
       teaser:
         title: 'Conviértete en co-autor!'
-    # User sessions section
+
+    remote_auth:
+      input_default:
+        openid: Tu OpenID URL
     signup:
       label: 'Regístrate'
       member_tag: '¿No eres aún miembro?'

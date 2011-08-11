@@ -122,11 +122,16 @@ hu:
   # ------------
   # USERS MODULE
   # ------------
+
   users:
     anonym: Név nélkül
     authors:
       teaser:
         title: 'Légy társszerző!'
+
+    remote_auth:
+      input_default:
+        openid: OpenID URL
     signup:
       label: 'Regisztráció'
       member_tag: Még nem vagy tag?

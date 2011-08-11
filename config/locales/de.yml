@@ -124,12 +124,16 @@ de:
   # ------------
   # USERS MODULE
   # ------------
+
   users:
     anonym: Anonym
     authors:
       teaser:
         title: 'Werden Sie MitautorIn!'
-    # User sessions section
+
+    remote_auth:
+      input_default:
+        openid: Ihre OpenID URL
     signup:
       label: 'Registrieren'
       member_tag: Sind Sie noch kein Mitglied?
