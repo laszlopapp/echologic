@@ -25,12 +25,17 @@ module Users::SocialModule
           end
         end
       else
-        redirect_or_render_with_error(base_url, "application.remote_error")
+        redirect_to redirect_url
       end
-    rescue RpxService::RpxServerException
-      redirect_or_render_with_error(base_url, "application.remote_error")
+    rescue RpxService::RpxServerException => e
+      log_message_error(e, "Error creating user - RpxServerException")
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
+    rescue RpxService::RpxException => e
+      log_message_error(e, "Error creating user - RpxException")
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error creating user")
+      redirect_or_render_with_error(redirect_url, "application.unexpected_error")
     else
       params[:token] ? log_message_info("User '#{@user.id}' has been created sucessfully.") :
                        log_message_info("User creation cancelled")
@@ -96,7 +101,7 @@ module Users::SocialModule
     rescue RpxService::RpxServerException
       redirect_or_render_with_error(redirect_url, "application.remote_error")
     rescue RpxService::RpxException => e
-      log_message_error(e, "Error calling PRX service")
+      log_message_error(e, "Error calling RPX service")
     rescue Exception => e
       log_message_error(e, "Error adding social account to user")
     else

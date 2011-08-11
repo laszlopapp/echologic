@@ -64,12 +64,17 @@ class Users::UserSessionsController < ApplicationController
           end
         end
       else
-        redirect_or_render_with_error(base_url, "application.remote_error")
+        redirect_to redirect_url
       end
-    rescue RpxService::RpxServerException
-      redirect_or_render_with_error(base_url, "application.remote_error")
+    rescue RpxService::RpxServerException => e
+      log_message_error(e, "Error logging in with social account - RpxServerException")
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
+    rescue RpxService::RpxException => e
+      log_message_error(e, "Error logging in with social account - RpxException")
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error logging in with social account")
+      redirect_or_render_with_error(redirect_url, "application.unexpected_error")
     end
   end
 
