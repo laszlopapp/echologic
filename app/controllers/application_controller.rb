@@ -556,7 +556,10 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_from_popup
-    @redirect_url = params[:redirect_url].split('&').concat(["token=#{params[:token]}"]).join('&')
+    @redirect_url = params[:redirect_url]
+    if (params[:token])
+      @redirect_url = @redirect_url.split('&').concat(["token=#{params[:token]}"]).join('&')
+    end
     respond_to do |format|
       format.html{ render :template => "redirect_from_popup"}
     end
