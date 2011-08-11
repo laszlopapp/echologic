@@ -84,7 +84,7 @@
        * Switches to the input panel to get the additional info from the user.
        */
       function promptForInput(provider) {
-        if (busy) { return false; }
+        if (busy) { return; }
 
         inputMode = true;
         inputProvider = provider;
@@ -106,7 +106,7 @@
        * Switches to the providers panel to let the user choose a different provider.
        */
       function chooseProvider() {
-        if (busy) { return false; }
+        if (busy) { return; }
 
         inputMode = false;
         inputPanel.fadeOut(settings['animation_speed']);
@@ -133,7 +133,7 @@
        * The 'input', if defined, also gets substituted into the URL.
        */
       function callProvider(provider, input) {
-        if (busy) { return false; }
+        if (busy) { return; }
 
         var finalUrl = provider.data('providerUrl').replace("{url}", tokenUrl);
         if (input) {
