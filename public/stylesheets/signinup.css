@@ -129,7 +129,7 @@
 .signinup_container .social_container {
 	float: right;
   width: 335px;
-	height: 220px;
+	height: 240px;
   padding: 10px 20px 0 0;
 }
 
@@ -178,11 +178,14 @@
 }
 
 .remote_input_panel .provider_logo {
-  background: url("../images/page/social_login_logos.png") no-repeat transparent;
-  width: 288px;
-  height: 77px;
   margin: 0 0 20px 10px;
   display: inline-block;
+}
+
+.remote_input_panel.openid .provider_logo {
+  background: url("../images/page/social_login_openid.png") no-repeat transparent;
+  width: 288px;
+  height: 77px;
 }
 
 .remote_input_panel .provider_input {
@@ -201,7 +204,7 @@
   margin-left: 10px;
 }
 
-.remote_signinup .progress_indicator {
+.remote_signinup .busy_sign {
   background: url('../images/indicator_16.gif') left center no-repeat;
   opacity: 0.4;
   display: block;
@@ -210,7 +213,11 @@
   position: absolute;
   top: 200px;
   left: 152px;
+}
 
+.remote_signinup .busy_sign.input {
+  top: 220px;
+  left: 160px;
 }
 
 

@@ -399,7 +399,7 @@
     }
     var view = $(window);
     var left = (view.width() - 800) / 2;
-    var popup = window.open(href, true, 'width=800,height=450,left=' + left + ',top=100,scrollbars=yes,dependent=yes');
+    var popup = window.open(href, true, 'width=800,height=450,left=' + left + ',top=70,scrollbars=yes,dependent=yes');
     if (callback) {
       popup.onunload = popupClosed(popup, callback);
     }

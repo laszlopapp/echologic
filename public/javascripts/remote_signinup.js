@@ -29,10 +29,12 @@
       var providersPanel = signinup.find('.remote_providers');
       var inputPanel = signinup.find('.remote_input_panel');
       var providerInput = inputPanel.find('.provider_input');
-      var progressIndicator = signinup.find('.progress_indicator');
+      var busySign = signinup.find('.busy_sign');
 
       var tokenUrl;
       var providers;
+      var inputMode, inputProvider;
+      var busy;
 
       // Initialize the signinup panel
       initialize();
@@ -68,34 +70,25 @@
           chooseProvider();
         });
         inputPanel.find('.signinup_button').click(function() {
-          var input = providerInput.val();
-          if (input.length() > 0) {
-            callProvider(providersPanel.find('.provider.' + inputPanel.data('provider')), input);
+          callProviderWithInput();
+        });
+        providerInput.keypress(function(e) {
+          if (e.keyCode == 13) {
+            callProviderWithInput();
           }
         });
 
       }
 
       /*
-       * Calls the provider's URL with the token URL to return to.
-       * The 'input', if defined, also gets substituted into the URL.
-       */
-      function callProvider(provider, input) {
-        var finalUrl = provider.data('providerUrl').replace("{url}", tokenUrl);
-        if (input) {
-          finalUrl = finalUrl.replace("{input}", input)
-        }
-        progressIndicator.show();
-        popup(finalUrl, function() {
-          progressIndicator.hide();
-        });
-      }
-
-
-      /*
        * Switches to the input panel to get the additional info from the user.
        */
       function promptForInput(provider) {
+        if (busy) { return false; }
+
+        inputMode = true;
+        inputProvider = provider;
+
         if (inputPanel.data('provider')) {
           inputPanel.removeClass(inputPanel.data('provider'));
         }
@@ -104,22 +97,69 @@
 
         providersPanel.fadeOut(settings['animation_speed']);
         inputPanel.fadeIn(settings['animation_speed']);
-        inputPanel.find('.provider_input').focus();
-      }
+        providerInput.focus();
 
+        busySign.addClass('input');
+      }
 
       /*
        * Switches to the providers panel to let the user choose a different provider.
        */
       function chooseProvider() {
+        if (busy) { return false; }
+
+        inputMode = false;
         inputPanel.fadeOut(settings['animation_speed']);
         providersPanel.fadeIn(settings['animation_speed']);
+
+        busySign.removeClass('input');
+      }
+
+
+      /*
+       * Calls the provider according to the user input.
+       */
+      function callProviderWithInput() {
+        var input = providerInput.val();
+        if (input.length > 0) {
+          callProvider(inputProvider, input);
+        } else {
+          providerInput.focus();
+        }
+      }
+
+      /*
+       * Calls the provider's URL with the token URL to return to.
+       * The 'input', if defined, also gets substituted into the URL.
+       */
+      function callProvider(provider, input) {
+        if (busy) { return false; }
+
+        var finalUrl = provider.data('providerUrl').replace("{url}", tokenUrl);
+        if (input) {
+          finalUrl = finalUrl.replace("{input}", input)
+        }
+        setBusy(true);
+        popup(finalUrl, function() {
+          setBusy(false);
+        });
+      }
+
+
+      /*
+       * Sets the busy state of the signinup component.
+       */
+      function setBusy(value) {
+        busy = value;
+        if (busy) {
+          busySign.show();
+        } else {
+          busySign.hide();
+        }
       }
 
 	  }
-
   };
-
 })(jQuery);
 
 
