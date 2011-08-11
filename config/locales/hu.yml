@@ -3,9 +3,9 @@ hu:
   application:
 
     # Unexpected Error
-    unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
-    routing_error: Unknown URL. Redirecting...
-    remote_error: 'Failed to communicate with the Remote Service.'
+    unexpected_error: Egy váratlan hiba történt. Elnézést a kellemetlenségért.
+    routing_error: Ismeretlen URL. Átirányítás...
+    remote_error: 'Hiba történt a távoli szolgáltatóval való kommunikációban.'
 
     # General purpose resources
     general:
