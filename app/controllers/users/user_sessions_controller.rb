@@ -36,7 +36,7 @@ class Users::UserSessionsController < ApplicationController
   def create_social
     redirect_url = session.delete(:redirect_url)
     begin
-      if params[:token]
+      if !params[:token]
         profile_info = SocialService.instance.get_profile_info(params[:token])
         user = nil
         User.transaction do
@@ -64,10 +64,10 @@ class Users::UserSessionsController < ApplicationController
           end
         end
       else
-        redirect_or_render_with_error(redirect_url, "application.remote_error")
+        redirect_or_render_with_error(base_url, "application.remote_error")
       end
     rescue RpxService::RpxServerException
-      redirect_or_render_with_error(redirect_url, "application.remote_error")
+      redirect_or_render_with_error(base_url, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error logging in with social account")
     end
