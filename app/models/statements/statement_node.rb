@@ -507,7 +507,6 @@ class StatementNode < ActiveRecord::Base
       # Limit
       limit = "LIMIT #{opts[:limit]}" if opts[:limit]
 
-
       opts[:joins] ||= ""
 
       # Search terms
