@@ -528,16 +528,14 @@ class StatementNode < ActiveRecord::Base
         end
         term_queries = term_queries.join(" UNION ALL ")
 
-        joins = "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
-                "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
-                "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id "
+        joins = "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id "
         joins << opts[:joins]
-        statements_query = "SELECT #{table_name}.#{opts[:param] || '*'} " +
+        statements_query = "SELECT s.#{opts[:param] || '*'} " +
                            "FROM (#{term_queries}) statement_ids " + joins +
                            "WHERE #{opts[:node_conditions].join(" AND ")} " +
                            "GROUP BY s.#{aggregator_field} " +
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
-                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id #{limit};"
+                           "s.supporter_count DESC, s.id DESC #{limit};"
       else
         document_conditions << "d.current = 1"
 
@@ -549,7 +547,7 @@ class StatementNode < ActiveRecord::Base
 
         statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " + joins +
                            "WHERE " + (opts[:node_conditions] + document_conditions).join(' AND ') +
-                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
+                           " ORDER BY s.supporter_count DESC, s.id DESC #{limit};"
       end
       find_by_sql statements_query
     end
