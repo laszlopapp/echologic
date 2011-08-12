@@ -13,14 +13,14 @@ module RoutingFilter
       end
 
       def modes_regexp
-        @@modes_regexp ||= %r(^/(#{modes_pattern})(?=/|$))
+        @@modes_regexp ||= %r(^/(#{self.modes_pattern})(?=/|$))
       end
     end
 
     def around_recognize(path, env, &block)
       mode = extract_mode!(path)
       returning yield do |params|
-        @@current_mode = params[:mode] = mode if mode
+        @@current_mode = params[:mode] = mode
       end
     end
 
