@@ -1,6 +1,6 @@
 (function($) {
 
-  $.fn.statement = function(current_settings) {
+  $.fn.statement = function(currentSettings) {
 
     $.fn.statement.defaults = {
       'level' : 0,
@@ -19,14 +19,14 @@
     };
 
     // Merging settings with defaults
-    var settings = $.extend({}, $.fn.statement.defaults, current_settings);
+    var settings = $.extend({}, $.fn.statement.defaults, currentSettings);
 
     return this.each(function() {
 			// Creating and binding the statement API
 			var elem = $(this);
       var statementApi = elem.data('api');
 	    if (statementApi) {
-	      statementApi.reinitialise(current_settings);
+	      statementApi.reinitialise(currentSettings);
 	    } else {
 				statementApi = new Statement(elem);
 	      elem.data('api', statementApi);

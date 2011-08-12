@@ -11,13 +11,15 @@
   text-decoration: none;
   float: right;
   font-size: 12px;
+  cursor: pointer;
 }
 
 #top_menu_container a img {
   border: 0;
 }
 
-#top_menu_container a:hover {
+#top_menu_container a:hover,
+#top_menu_container #echo_language_button:hover {
   color: #1A4864;
 }
 
@@ -60,7 +62,8 @@
   top: 15px;
 }
 
-#top_menu_container #echo_language_button_container:hover .dropdown {
+#top_menu_container #echo_language_button_container:hover .dropdown,
+#top_menu_container #echo_language_button_container.hover .dropdown {
   display: inline-block;
 }
 

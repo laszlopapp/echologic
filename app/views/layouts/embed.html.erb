@@ -30,6 +30,9 @@
 
     <!-- Javascript -->
     <%= javascript_include_tag :defaults,
+                               'app/history',
+                               'app/placeholder',
+                               'app/remote_signinup',
                                'discuss/discuss',
                                'discuss/statement',
                                'discuss/statement_form',
@@ -39,18 +42,15 @@
                                'discuss/expandable',
                                'discuss/breadcrumbs',
                                'discuss/statement_search',
-                               'discuss/placeholder',
                                'discuss/embeddable',
-                               'connect',
-                               'my_echo',
-                               'history',
+                               'connect/connect',
+                               'myecho/my_echo',
                                'jquery.color',
                                'jquery.simplyCountable',
                                'jquery.event-filter.min',
                                'jquery.getUrlParam',
                                'jquery.ba-url.min',
-                               'jquery.autogrow',
-                               'jquery.autocomplete',
+                               'jquery.autocomplete.min',
                                'jquery.forms',
                                'jquery.tooltip.min',
                                'jquery.scrollTo.min',
@@ -68,7 +68,7 @@
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   </head>
 
-  <% content_tag :body, :class => 'embedded_echo' do %>
+  <% content_tag :body, :class => "embedded_echo lang_#{I18n.locale}" do %>
 
     <%= render :partial => 'layouts/components/messages' %>
 
@@ -87,7 +87,6 @@
     <% end %>
 
     <% content_tag :div, :id => 'app_container' do %>
-      <%= yield :submenu %>
       <% content_tag :div,
                      :id => 'echo_' + (@function_name || 'function'),
                      :class => 'function_container' do %>

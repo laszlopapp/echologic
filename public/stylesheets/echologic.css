@@ -604,4 +604,7 @@
 	color: #21587f;
 	padding: 33px 10px 5px !important;
   width: 300px !important;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
 }

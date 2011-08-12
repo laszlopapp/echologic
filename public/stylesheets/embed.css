@@ -13,6 +13,10 @@ body.embedded_echo {
 
 .embedded_echo #login_container {
   float: left;
+  padding-top: 12px;
+}
+
+.embedded_echo #login_container.logged_out {
   padding-top: 8px;
 }
 
@@ -56,14 +60,25 @@ body.embedded_echo {
 }
 
 .embedded_echo .embed_menu .main_menu_item {
-  height: 40px;
+  height: 42px;
   list-style: none;
   float: left;
-  margin: 0 10px;
+  margin: 0;
+  padding: 0 8px;
   color: #21587f;
   font-size: 15px;
   font-weight: bold;
   position: relative;
+}
+
+.embedded_echo.lang_hu .embed_menu .main_menu_item {
+  padding: 0 6.5px;
+}
+
+.embedded_echo .main_menu_item a,
+.embedded_echo .main_menu_item a:visited,
+.embedded_echo .embed_menu #echo_language_button {
+  z-index: 101;
 }
 
 .embedded_echo .embed_menu .main_menu_item.active {
@@ -72,9 +87,9 @@ body.embedded_echo {
 
 .embedded_echo .embed_menu .main_menu_item .dropdown {
   top: 35px;
-  box-shadow: 0 -17px 20px -3px #F8F9FA; /* 0 -15px 19px #F8F9FA;*/
-  -moz-box-shadow: 0 -17px 20px -3px #F8F9FA;
-  -webkit-box-shadow: 0 -17px 20px -3px #F8F9FA;
+  box-shadow: 0 -20px 20px -3px #F8F9FA, 0 10px 25px #CAD3DB;
+  -moz-box-shadow: 0 -20px 20px -3px #F8F9FA, 0 10px 25px #CAD3DB;
+  -webkit-box-shadow: 0 -20px 20px -3px #F8F9FA, 0 10px 25px #CAD3DB;
 }
 
 .embedded_echo .embed_menu #echo_language_button {

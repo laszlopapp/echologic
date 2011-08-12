@@ -1,4 +1,3 @@
-# Localization in Spanish.
 
 es:
 
@@ -119,12 +118,16 @@ es:
   # ------------
   # USERS MODULE
   # ------------
+
   users:
     anonym: Anónimo
     authors:
       teaser:
         title: 'Conviértete en co-autor!'
-    # User sessions section
+
+    remote_auth:
+      input_default:
+        openid: Tu OpenID URL
     signup:
       label: 'Regístrate'
       member_tag: '¿No eres aún miembro?'
@@ -529,8 +532,22 @@ es:
       echo_indicator:
         one: '{{supporter_count}} voto'
         many: '{{supporter_count}} votos'
-      add_new: Nueva declaración
+
+      add_new: Nuevo contenido
+      embed_button: Insertar
+      embed_search_title: Insertar resultados de búsqueda.
+      embed_search_hint: |-
+        Copie y pegue el código de abajo para insertar estos resultados de búsqueda en TU página web y
+        hacer un echo en tu comunidad.
+      embed_statement_title: Contenido insertado
+      embed_statement_hint: |-
+        Copie y pegue el código de abajo para insertar este contenido en TU página web y
+        hacer un echo en tu comunidad.
       copy_url: Enlace a
+      copy_url_title: Enlace al contenido
+      copy_url_hint: |-
+        Copia el enlace de este contenido y utilízalo para extender la palabra a través de tus canales favoritos.
+
       create_question_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
@@ -576,8 +593,6 @@ es:
         follow_up_question: Por favor, formula tu pregunta de seguimiento en detalle...
       tag_hint: 'Clasificado por temas'
       info_url_hint: 'Escribe el enlace al contenido externo'
-      copy_url_hint: |-
-        Copia el enlace de este contenido y utilízalo para extender la palabra a través de tus canales favoritos.
 
       publish: Publicar
       published: Este debate ha sido publicada con éxito.

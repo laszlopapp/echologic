@@ -174,7 +174,8 @@ module StatementsHelper
   # Creates the button to pop up the Copy URL panel.
   #
   def render_copy_url_button(statement_node)
-    url = statement_node_url(statement_node)
+    url = statement_node_url(statement_node, :mode => :platform)
+
     content = ""
     content << link_to(I18n.t("discuss.statements.copy_url"), '#',
                        :class => 'copy_url_button text_button')
@@ -190,7 +191,7 @@ module StatementsHelper
                       :style => "display: none") do
       panel = ''
       panel << content_tag(:div, :class => 'panel_header') do
-        I18n.t("discuss.statements.copy_url")
+        I18n.t("discuss.statements.copy_url_title")
       end
       panel << content_tag(:div, I18n.t('discuss.statements.copy_url_hint'), :class => '')
       panel << content_tag(:div, h(url), :class => 'statement_url')

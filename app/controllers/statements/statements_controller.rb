@@ -1343,7 +1343,7 @@ class StatementsController < ApplicationController
   # Logs the exception and redirects to home.
   def log_error_home(e, message)
     log_message_error(e, message) do
-      flash_error and redirect_to_home
+      flash_error and redirect_to_app_home
     end
   end
 
