@@ -68,11 +68,6 @@ class StatementsController < ApplicationController
       # Record visited
       @statement_node.visited!(current_user) if current_user
 
-      # Transfer statement node data to client for prev/next functionality
-      
-      load_siblings(@statement_node) if !params[:nl].blank?
-      load_discuss_alternatives_question(@statement_node)
-
       # Test for special links
       @set_language_skills_teaser = @statement_node.should_set_languages?(current_user,
                                                                           @locale_language_id,
@@ -82,12 +77,15 @@ class StatementsController < ApplicationController
                                     @statement_document.language,
                                     Language[params[:locale]])
 
-      # If statement node is draftable, then try to get the approved one
-      load_approved_statement
 
-      # Find all child statement_nodes, which are published (except user is an editor)
-      # sorted by supporters count, and paginate them
+      # Load siblings for navigation (prev/next) functionality
+      load_siblings(@statement_node) if !params[:nl].blank?
+      # If statement node is draftable, load the approved node
+      load_approved_statement
+      # Load all children to be rendered
       load_all_children
+      # Load the discuss alternatives question (if we're in alternative mode)
+      load_discuss_alternatives_question(@statement_node)
 
       render_template 'statements/show'
     rescue Exception => e
@@ -516,9 +514,9 @@ class StatementsController < ApplicationController
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
 
-  ##############
-  # BREADCRUMB #
-  ##############
+  ###############
+  # AUX ACTIONS #
+  ###############
 
   #
   # Loads the ancestors' ids
