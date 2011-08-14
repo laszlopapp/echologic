@@ -143,7 +143,8 @@
             "sids": new_sids.join(","),
             "bids": bids_to_load.join(','),
 						"origin": $.fragment().origin,
-						"cs" : $.fragment().sids
+						"al": $.fragment().al,
+						"cs": $.fragment().sids
           }));
         }
       }

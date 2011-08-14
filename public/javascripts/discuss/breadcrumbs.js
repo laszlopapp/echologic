@@ -69,17 +69,29 @@
 				var sids = [];
 
 				var b_gen = breadcrumb.prev();
+				
+				var al = [];
 
 				// iterate on the previous breadcrumbs to generate the stack list
 				while (b_gen.length > 0) {
 					var b_id = b_gen.attr("id");
 					// if it's an origin breadcrumb, stack is done
 					if (getOriginKeys([b_id]).length == 0) {
-			   	 sids.unshift(b_id.match(/\d+/));
+						if (getHubKeys([b_id]).length == 0) {
+							sids.unshift(b_id.match(/\d+/)[0]); // get id to the stack list
+						} else {
+							al.push(b_gen.prev().attr("id").match(/\d+/)[0]); // get id of the previous breadcrumb to the al list
+						}
 					} else {break;}
 					b_gen = b_gen.prev();
 				}
 				sids.push(breadcrumb.attr('id').match(/\d+/));
+				
+				// load al with the levels. logic: since we stored the levels of the previous statements before 
+				// the alternative mode statement, we have to add 1 to the levels from the stack we get
+				al = $.map(al, function(a){
+					return $.inArray(a, sids) + 1;
+				});
 
 				breadcrumb.bind("click", function() {
           // Getting bids from fragment
@@ -101,7 +113,7 @@
           // Getting previous breadcrumb entry, in order to load the proper siblings to session
 					var origin_bids = getOriginKeys(new_bids);
           var origin = origin_bids.length > 0 ? origin_bids[origin_bids.length -1] : '';
-          if (origin == null || origin == "undefined") {
+          if (!origin) {
             origin = '';
           }
 
@@ -116,7 +128,8 @@
 							"bids": new_bids.join(","),
 							"sids": sids.join(","),
 							"nl": true,
-							"origin": origin
+							"origin": origin,
+							"al": al.join(",")
 						});
 					}
           return false;

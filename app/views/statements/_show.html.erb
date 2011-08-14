@@ -3,13 +3,12 @@
 <% only_header ||= false %>
 <% hide_content ||= false %>
 <% type = [statement_node.class.name_for_siblings, node_type(statement_node)].uniq.join(' ') %>
+<% dom_parent = alternative_mode?(statement_node) ? "alternative_#{statement_node.target_id}" : statement_node.parent_node ? dom_id(statement_node.parent_node) : params[:origin] %>
 
 <% content_tag :div, :id => dom_id(statement_node), 
-               :class => "statement #{type} #{statement_node.echoable? ? 'echoable' : ''}",
+               :class => "statement #{type} #{statement_node.echoable? ? 'echoable' : ''} #{'alternative' if alternative_mode?(statement_node)}",
                'data-siblings' => @siblings ? @siblings[dom_id(statement_node)].to_json : '',
-               'dom-parent' => statement_node.parent_node ? 
-                               "#{dom_class(statement_node.parent_node)}_#{statement_node.parent_node.id}" :
-                               params[:origin] do %>
+               'dom-parent' => dom_parent do %>
   <%= render :partial => 'statements/header',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document,

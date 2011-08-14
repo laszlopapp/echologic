@@ -212,7 +212,6 @@ module StatementsHelper
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
     label_type = opts.delete(:label_type) || child_type
-    opts[:hub] = label_type if !label_type.eql?(child_type)
     link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :class => "#{css} add_new_button text_button create_#{label_type}_button ttLink no_border",
@@ -278,11 +277,13 @@ module StatementsHelper
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       buttons = ''
-      if statement_node.parent_node
-        buttons << add_new_sibling_button(statement_node)
+      if statement_node.parent_node 
+        buttons << add_new_sibling_button(statement_node) if !alternative_mode?(statement_node)
       else
-        if origin.blank? or %w(ds mi sr jp).include? origin[0,2] # create new question
+        if origin.blank?
           buttons << add_new_question_button(!origin.blank? ? origin : nil)
+        elsif %w(ds mi sr jp dq).include? origin[0,2] # create new question
+          buttons << add_new_question_button(!origin.blank? ? origin : nil) if !origin[0,2].eql? 'dq'
         else # create sibling follow up question
           context_type = ''
           context_type << case origin[0,2]
@@ -303,12 +304,15 @@ module StatementsHelper
       if statement_node.class.has_alternatives?
         buttons << content_tag(:a, :href => new_statement_node_url(statement_node.target_id,
                                                                    statement_node.class.alternative_types.first.to_s.underscore,
-                                                                   :hub => 'alternative',
+                                                                   :hub => "al#{statement_node.target_id}",
                                                                    :bids => params[:bids],
                                                                    :origin => origin),
                                :class => "create_alternative_button_32 resource_link ajax ttLink no_border",
                                :title => I18n.t("discuss.tooltips.create_alternative")) do
           statement_icon_title(I18n.t("discuss.statements.types.alternative"))
+        end
+        if alternative_mode?(statement_node) and @discuss_alternatives_question.nil?
+          buttons << add_new_child_link(statement_node, "discuss_alternatives_question", :nl => true, :bids => params[:bids], :origin => params[:origin]) 
         end
       end
       buttons
@@ -473,7 +477,7 @@ module StatementsHelper
   # Returns the block heading for the siblings of the current statement node.
   #
   def sibling_box_title(type)
-    content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
+    content_tag :span, I18n.t("discuss.statements.headings.#{@hub_type || type}"), :class => 'label'
   end
 
   #
@@ -588,7 +592,7 @@ module StatementsHelper
   #
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
-    if statement_node and statement_node.new_record?
+    if statement_node and (statement_node.new_record? or (!opts[:origin].blank? and opts[:origin][0,2].eql?('dq') and statement_node.level.eql?(0)))
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
                              I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"),
@@ -607,28 +611,36 @@ module StatementsHelper
     buttons
   end
 
-  def siblings_button(statement_node, type, opts={})
+  def siblings_button(statement_node, type = node_type(statement_node), opts={})
     origin = opts[:origin]
-    name = type.classify.constantize.name_for_siblings
+    if alternative_mode?(statement_node)
+      sib = statement_node
+      name = "alternative"
+      alternative_type = type.classify.constantize.name_for_siblings
+    end
+    name ||= type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.u_class_name != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        parent = @current_stack ? @current_stack[@current_stack.length - 2] : statement_node
-        descendants_statement_node_url(parent, name)
+        parent = sib || (@current_stack ? @current_stack[@current_stack.length - 2] : statement_node)
+        descendants_statement_node_url(parent, name, :alternative_type => alternative_type)
       end
     else  # STATEMENT NODES
 
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        prev = @current_stack ?
+        prev = sib ||
+               (@current_stack ?
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
-               statement_node.parent_node
+               statement_node.parent_node)
 
         descendants_statement_node_url(prev,
-                                       statement_node.class.name_for_siblings,
-                                       :current_node => statement_node)
+                                       name,
+                                       :current_node => statement_node,
+                                       :alternative_type => alternative_type,
+                                       :hub => (alternative_mode?(statement_node) ? "al#{statement_node.target_id}" : nil))
       end
     end
 
@@ -637,7 +649,7 @@ module StatementsHelper
                 :class => 'show_siblings_button expandable') do
       content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
                   :class => 'show_siblings_label ttLink no_border',
-                  :title => I18n.t("discuss.tooltips.siblings.#{type}"))
+                  :title => I18n.t("discuss.tooltips.siblings.#{name}"))
     end
   end
 
@@ -708,7 +720,8 @@ module StatementsHelper
   # Loads the link to a given statement, placed in the child panel section.
   #
   def link_to_child(title, statement_node,opts={})
-    opts[:type] = dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
+    opts[:type] ||= dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
+    # BIDS
     bids = params[:bids] || ''
     if opts[:nl]
       bids = bids.split(",")
@@ -717,17 +730,21 @@ module StatementsHelper
       bids = bids.join(",")
     end
 
-    content_tag :li, :class => opts[:type], 'statement-id' => statement_node.target_id do
-      content = link_to(statement_node_url(statement_node.target_id,
-                                           :bids => bids,
-                                           :origin => params[:origin],
-                                           :nl => opts[:nl]),
-                        :class => "statement_link #{opts[:type]}_link #{opts[:css]}") do
-        statement_icon_title(title)
-      end
-      content += supporter_ratio_bar(statement_node)
-      content
-    end
+    # AL
+    al = @alternative_modes || []
+    level = @current_stack.nil? ? statement_node.level : @current_stack.index(statement_node.id)
+    al << level if opts[:alternative_link] and (@alternative_modes.nil? or !@alternative_modes.include?(@level))
+    al = al.join(",")
+
+    content = link_to(statement_icon_title(title),
+                      statement_node_url(statement_node.target_id,
+                                         :bids => bids,
+                                         :origin => params[:origin],
+                                         :nl => opts[:nl],
+                                         :al => al),
+                      :class => "statement_link #{opts[:type]}_link #{opts[:css]}")
+    content += supporter_ratio_bar(statement_node)
+    content
   end
 
 
@@ -768,6 +785,7 @@ module StatementsHelper
                                                     :type => opts[:type],
                                                     :bids => params[:bids],
                                                     :origin => params[:origin],
+                                                    :hub => opts[:hub],
                                                     :nl => opts[:new_level]),
             :class => 'more_children'
   end
@@ -835,6 +853,43 @@ module StatementsHelper
                          :alternatives => children}
   end
 
+  def close_alternative_mode_button(statement_node)
+    # BIDS 
+    bids = params[:bids] || ''
+    bids = bids.split(",")
+    bids.pop
+    bids = bids.join(",")
+    # AL
+    al = @alternative_modes - [@level]
+    
+    link_to '', statement_node_url(statement_node, 
+                                    :bids => bids, 
+                                    :origin => params[:origin], 
+                                    :al => al.join(",")),
+            :class => "alternative_close ttLink no_border",
+            :title => I18n.t("discuss.tooltips.close_alternative_mode")
+  end
+
+  #
+  # Returns the block heading for the alternative tag on the alternative header
+  #
+  def alternative_header_box_title(type)
+    type_tag = I18n.t("discuss.statements.headings.#{type}")
+    content_tag :span, "#{I18n.t("discuss.statements.types.alternative")}... #{type_tag}", :class => 'label'
+  end
+
+  def create_discuss_alternatives_question_link(statement_node)
+    create_new_child_statement_link(statement_node, "discuss_alternatives_question", :css => "ajax", :nl => true, :origin => params[:origin], :bids => params[:bids])
+  end
+  
+  def alternative_mode?(statement_node_or_level)
+    return true if !params[:hub].blank?
+    return false if statement_node_or_level.nil?
+    index = statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : 
+            (@current_stack ? @current_stack.index(statement_node_or_level.id) : statement_node_or_level.level)
+    @alternative_modes and 
+    @alternative_modes.include?(index)
+  end
 
   ####################
   # BACKGROUND INFOS #

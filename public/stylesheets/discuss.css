@@ -563,7 +563,7 @@ a.statement_link.active {
 	color: #7bb031;
 }
 
-.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
+.main_header .header_buttons a.statement_link.prev, .main_header .header_buttons a.statement_link.next {
 	padding-left: 0 !important;
 }
 
@@ -612,6 +612,7 @@ a.statement_link:hover {
 .create_pro_argument_button,
 .create_contra_argument_button,
 .create_follow_up_question_button,
+.create_discuss_alternatives_question_button,
 .create_alternative_button,
 .create_background_info_button {
   background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
@@ -1402,6 +1403,7 @@ a.statement_link:hover {
   background-position: -224px 0;
   left: -5px;
 }
+.create_discuss_alternatives_question_button_32 .icon{background-position: -256px 0;}
 
 
 /******************/
@@ -1475,6 +1477,11 @@ a.statement_link:hover {
   min-height: 45px;
 }
 
+#statements .alternative_header,
+#statements .main_header {
+	float:left;
+}
+
 #statements .header_buttons {
   width: 170px;
   margin-right: 13px;
@@ -1515,7 +1522,7 @@ a.statement_link:hover {
   margin-bottom: 4px;
 }
 
-#statements .header .header_link .statement_link {
+#statements .header .main_header .header_link .statement_link {
   display: inline-block;
   color: #21587F;
   font-size: 18px;
@@ -1530,8 +1537,35 @@ a.statement_link:hover {
 }
 
 #statements .header .header_link .statement_link:hover,
-#statements .header.active .header_link .statement_link {
+#statements .header.active .main_header .header_link .statement_link {
   color: #7bb031;
+}
+
+#statements .header .alternative_close {
+	left: 163px;
+  position: absolute;
+  top: 14px;
+	background: url("../images/page/discuss/statement_icons_16.png");
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+#statements .header .alternative_header .header_link {
+  padding-top: 2px;
+}
+
+#statements .header .alternative_header .add_new_button {
+	margin: 0;
+}
+
+#statements .header .alternative_header .label {
+	float: left;
+	font-size: 11px;
+  font-weight: bold;
+	left: 15px;
+  position: absolute;
+  top: 13px;
 }
 
 

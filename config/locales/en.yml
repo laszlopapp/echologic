@@ -481,6 +481,7 @@ en:
       create_alternative: "Post a new opposition to this statement"
       create_background_info: "Recommend a new piece of background information related to this statement"
       create_follow_up_question: "Post a new new follow-up question concerning this statement"
+      create_discuss_alternatives_question: "Post a new alternative debate concerning this alternative view"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -491,13 +492,16 @@ en:
         question: See all questions in the context shown above
         proposal: See all proposals belonging to the current question
         improvement: See all additions proposed for the current proposal
+        argument: See all arguments belonging to the current proposal
         pro_argument: See all arguments belonging to the current proposal
-        contra_argument: See all arguments belonging to the current proposal
-        background_info: See all background infos belonging to the current statement
+        contra_argument:  See all arguments belonging to the current proposal
+        background_info:  See all background infos belonging to the current statement
+        alternative: See all alternatives from the the previous statement
       link_statement: |-
         Enter a part of the title or paste in the URL of a statement.
         Afterwards press this button to reuse the statement in the current context.
       unlink_statement: "Click the button again to unlink the statement."
+      close_alternative_mode: "Exit Alternative Mode"
 
     statements:
       label: 'votes'
@@ -528,6 +532,7 @@ en:
       create_alternative_link: Add new opposition
       create_background_info_link: Add new background info
       create_follow_up_question_link: Add new follow-up question
+      create_discuss_alternatives_question_link: Open follow-up discussion on the alternatives
       preview_embedded_content: Preview
       open_embedded_content: Open in new window
 
@@ -552,6 +557,7 @@ en:
         contra_argument: Enter the CONTRA argument title in... English?
         background_info: Enter the background info title in... English?
         follow_up_question: Enter the follow-up question title in... English?
+        discuss_alternatives_question: Enter the alternatives question title in... English?
       text_hint:
         alternative_prefix: |
           OPPOSITIONS are mutually exclusive to the original statement and all its other alternatives.<br/><br/>
@@ -571,6 +577,7 @@ en:
           Please describe the recommended background information shortly and tell why you
           think it is interesting in this context...
         follow_up_question: Please describe your follow-up question in more detail...
+        discuss_alternatives_question: Please describe the theme of this alternative question in more detail...
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter the link to the external content'
 
@@ -586,6 +593,7 @@ en:
         contra_argument: 'Contra Argument'
         alternative: 'Opposition'
         background_info: 'Background Info'
+        discuss_alternatives_question: 'Question'
         follow_up_question: 'Follow-Up Question'
       new:
         question: 'New Question'
@@ -594,6 +602,7 @@ en:
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         background_info: 'New Background Info'
+        discuss_alternatives_question: 'New Alternatives Discussion'
         follow_up_question: 'New Follow-Up Question'
       headings:
         question: 'Questions'
@@ -603,12 +612,15 @@ en:
         alternatives: 'Alternatives'
         background_info: 'Background Infos'
         follow_up_question: 'Follow-up Questions'
+        alternative: 'Alternatives'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
         background_info: 'Backgrounds'
+        alternative: 'Alternatives'
+        discuss_alternatives_question: 'Questions'
         follow_up_question: 'Questions'
       siblings:
         background_info: 'Background Infos'
@@ -670,6 +682,8 @@ en:
           bi: 'Background Infos for'
           fq: 'Follow-up Questions for'
           jp: 'Following link in'
+          al: 'Oppositions for'
+          dq: 'Deepening discussion coming from'
           over:
             ds: 'Back to'
             mi: 'Back to'
@@ -680,6 +694,8 @@ en:
             bi: 'Back to'
             fq: 'Back to'
             jp: 'Back to'
+            al: 'Back to'
+            dq: 'Back to'
 
       upload_image:
         title: Upload Image
@@ -709,6 +725,9 @@ en:
           Press the button above to enter it NOW!
         follow_up_question: |
           This is where YOUR follow-up question could appear.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
+        alternative: |
+          This is where YOUR opposition could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
     summary:
       title: 'Summary'

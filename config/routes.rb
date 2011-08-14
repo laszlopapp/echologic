@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :background_infos, :controller => :statements, :only => [:create, :update]
   map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
+  map.resources :discuss_alternative_questions, :controller => :statements, :only => [:create, :update]
 
   # Statement images
   map.resources :statement_images,

@@ -349,6 +349,12 @@ class StatementNode < ActiveRecord::Base
       false
     end
 
+    # Aux Function: Function that says if this statement mirrors a sub tree somewhere
+    def is_mirror_discussion?
+      false
+    end
+
+
     # Aux Function: Get Siblings Helper (overwritten in doubles)
     def name_for_siblings
       self.name.underscore
@@ -425,7 +431,7 @@ class StatementNode < ActiveRecord::Base
       fields[:joins] << children_joins
       fields[:conditions] = children_conditions(opts)
       fields[:conditions] << state_conditions(opts)
-      fields[:conditions] << alternative_conditions(opts) if opts[:alternative_ids]
+      fields[:conditions] << alternative_conditions(opts) if !opts[:alternative_ids].blank?
       fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
       fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id"

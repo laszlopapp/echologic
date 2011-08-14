@@ -25,32 +25,25 @@
 <% end %>
 
 
-/* Breadcrumb */
-<% if params[:expand].blank? %>
-	$('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
-	<% if @breadcrumbs %>
-	  $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
-  <% else %>
-	  $('#breadcrumbs').data('breadcrumbApi').hideContainer();
-	<% end %>
-<% end %>
-
 
 /* Expand mode - render content only */
 <% if !params[:expand].blank? %>
   var content = "<%= escape_javascript(render :partial => 'statements/content',
                                               :locals => {:hide_content => true}) %>";
   var statement = $('#statements div#<%= dom_id(@statement_node)%>');
-	statement.data('api').insertContent(content).show().reinitialise({'level' : <%= @level %>, 'insertStatement' : false});
+	statement.data('api').insertContent(content);
+<% else %>
 
-/* Fade in new level with an animation */
-<% elsif !params[:nl].blank? %>
+// Breadcrumbs
+$('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
+<% if @breadcrumbs %>
+  $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+<% else %>
+  $('#breadcrumbs').data('breadcrumbApi').hideContainer();
+<% end %>
+
+
+/* Show new statement */
   var element = $("<%= escape_javascript(render :partial => 'statements/show',
                                                 :locals => {:hide_content => true}) %>").statement({'level' : <%= @level %>});
-	element.data('api').show().removeBelow();
-
-/* Show new statement and remove all below it */
-<% else %>
-  var element = $("<%= escape_javascript(render :partial => 'statements/show') %>").statement({'level' : <%= @level %>});
-	element.data('api').removeBelow();
 <% end %>

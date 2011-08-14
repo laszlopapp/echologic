@@ -3,15 +3,17 @@
 <% no_more ||= false %>
 <% new_level ||= false %>
 <% label_type ||= child_type.underscore %>
+<% hub ||= nil %>
 <div class="<%= child_type.pluralize %> expandable_content children_container" style="<%= display ? 'display:inline-block' : 'display:none'%>">
 
 	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :label_type => label_type,
-                                                                   :child_type => child_type, :new_level => new_level }%>
+                                                                   :child_type => child_type, :new_level => new_level,
+                                                                   :hub => hub }%>
 
   <% if !no_more %>
 		<div class="more_pagination">
 			<% if !children.blank? and children.current_page != children.total_pages %>
-			  <%= more_children(@statement_node,:type => label_type, :page => @page || 0, :new_level => new_level) %>
+			  <%= more_children(@statement_node,:type => label_type, :page => @page || 0, :new_level => new_level, :hub => hub) %>
 		  <% end %>
 		</div>
 	<% end %>

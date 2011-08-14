@@ -76,6 +76,7 @@ function initFragmentChangeHandling() {
 				"bids": bids.join(","),
         "nl": $.fragment().nl,
 				"origin": $.fragment().origin,
+				"al" : $.fragment().al,
 				"cs": $.fragment().sids
       });
 
@@ -110,6 +111,7 @@ function initFragmentChangeHandling() {
 
     $.setFragment({
       "nl" : true,
+			"al" : $.fragment().al || '',
       "bids" : bids.join(','),
       "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
@@ -139,6 +141,7 @@ function getTypeKey(type) {
 	else if (type == 'pro_argument' || type == 'contra_argument') {return 'ar';}
   else if (type == 'background_info') {return 'bi';}
 	else if (type == 'follow_up_question') {return 'fq';}
+	else if (type == 'discuss_alternatives_question') {return 'dq';}
 	else {return '';}
 }
 
@@ -148,7 +151,16 @@ function getTypeKey(type) {
  */
 function getOriginKeys(array) {
   return $.grep(array, function(a, index) {
-    return $.inArray(a.substring(0,2), ['sr','ds','mi','fq','jp']) != -1;
+    return $.inArray(a.substring(0,2), ['sr','ds','mi','fq','jp','dq']) != -1;
+  });
+}
+
+/*
+ * Returns breadcrumb keys representing a new hub (being outside of the scope of a given stack).
+ */
+function getHubKeys(array) {
+  return $.grep(array, function(a, index) {
+    return $.inArray(a.substring(0,2), ['al']) != -1;
   });
 }
 

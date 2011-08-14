@@ -24,17 +24,31 @@ if (session_data != null) {
 
 
 
-
+// BIDS
 var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
+// ORIGIN
 var origin_bids = getOriginKeys(bids);
 var origin = origin_bids[origin_bids.length-1];
 if (origin == null || origin == "undefined"){origin = '';}
 
-$.setFragment({ "nl" : '', "origin" : origin});
+// AL
+var al = $.fragment().al || '';
+al = al.length > 0 ? al.split(',') : [];
+
+<% if @statement_node.class.is_top_statement? %>
+  al = [];
+<% end %>
+
+<% if params[:hub] %>
+  if($.inArray(<%= @statement_node.level %>, al) == -1) {
+    al.push(<%= @statement_node.level %>);
+	}
+<% end %>
+
+$.setFragment({ "nl" : '', "origin" : origin, "al" : al.join(',')});
 
 var element = $("<%= escape_javascript(render :partial => 'statements/show', :locals => {:statement_node => @statement_node.target_statement}) %>").statement({'level' : <%= @statement_node.level %>});
-element.data('api').removeBelow();
 
 /* Statements' stack */
 var sids = $('div#statements div.statement').map(function(){

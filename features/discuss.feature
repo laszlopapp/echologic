@@ -313,6 +313,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I like to alternativate |
       And I press "Save"
     Then I should see "Alternativating"
+      And I should not see "A first proposal!"
       And the proposal should have 1 alternative
 
   Scenario: Add an Alternative to an Improvement
@@ -350,6 +351,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I like to alternativate |
       And I press "Save"
     Then I should see "Alternativating part 1"
+      And I should not see "Pro 4 life"
       And I go to the proposal
       And I choose the "Alternativating part 1" Contra Argument
       And the contra argument should have 1 alternative
@@ -462,7 +464,9 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit        |
       And I press "Save"
     Then I should see "Pile of contradictions"
-      And I should see "A first proposal!" within ".alternatives"
+      And I should not see "A first proposal!" within "#statements div.proposal"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.proposal"
+      Then I should see "A first proposal!" within ".alternatives"
       And the proposal should have 1 alternative
       And I go to the proposal
       And I follow localized "discuss.statements.create_alternative_link"
@@ -471,12 +475,13 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
       And I press "Save"
     Then I should see "Another Pile of contradictions"
-      And I should see "A first proposal!" within ".alternatives"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.proposal"
+      Then I should see "A first proposal!" within ".alternatives"
       And I should see "Pile of contradictions" within ".alternatives"
       And the proposal should have 2 alternatives
 
   @ok
-  Scenario: Add 2 contrary statements to a Improvement
+  Scenario: Add 2 contrary statements to a Improvement, create a discuss alternative question, add an alternative to the existing ones, 
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
     When I follow localized "discuss.featured_topics.title"
@@ -490,7 +495,8 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit        |
       And I press "Save"
     Then I should see "Pile of contradictions"
-      And I should see "A better first proposal" within ".alternatives"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.improvement"
+      Then I should see "A better first proposal" within ".alternatives"
       And the improvement should have 1 alternative
       And I go to the improvement
       And I follow localized "discuss.statements.create_alternative_link"
@@ -499,9 +505,34 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
       And I press "Save"
     Then I should see "Another Pile of contradictions"
-      And I should see "A better first proposal" within ".alternatives"
+    When I follow localized "discuss.tooltips.close_alternative_mode" within "#statements div.improvement"
+      Then I should see "A better first proposal" within ".alternatives"
       And I should see "Pile of contradictions" within ".alternatives"
       And the improvement should have 2 alternatives
+    When I follow "A better first proposal" within ".alternatives"
+      And I follow localized "discuss.statements.create_discuss_alternatives_question_link"
+      And I fill in the following:
+      | statement_node_statement_document_title           | Discussing further the contradictions  |
+      | statement_node_statement_document_text            | Damn, this is getting serious...       |
+      And I press "Save"
+    Then I should see "Discussing further the contradictions"
+      And I should see "Pile of contradictions" within "#statements div.question"
+      And I should see "Another Pile of contradictions" within "#statements div.question"
+    When I choose the "Pile of contradictions" Proposal
+      And I follow "Another Pile of contradictions" within ".alternatives"
+    Then I should not see localized "discuss.statements.create_discuss_alternatives_question_link"     
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | statement_node_statement_document_title           | One contradiction to rule them all     |
+      | statement_node_statement_document_text            | And in the confusion bind them         |
+      And I press "Save"
+    Then I should see "One contradiction to rule them all"
+    When I go to the question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+    Then I should see "One contradiction to rule them all" within ".alternatives"
+      
+   
 
 
 

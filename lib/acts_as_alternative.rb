@@ -40,14 +40,14 @@ module ActiveRecord
                                   's.id != #{id} AND ' +
                                   's.type IN (#{self.class.alternative_types.map{|s|"\"#{s.to_s}\""}})'
 
-
+          after_create :create_mirror_alternative 
+          
           class_eval do
             class << self
 
-              def has_alternatives(*klasses)
+              def has_alternatives(klasses)
                 @@alternative_types ||= { }
-                @@alternative_types[self.name] ||= []
-                @@alternative_types[self.name] |= klasses
+                @@alternative_types[self.name] ||= klasses
               end
 
               def has_alternatives?
@@ -66,9 +66,42 @@ module ActiveRecord
                 sanitize_sql([" AND statement_nodes.id IN (?) ", opts[:alternative_ids]])
               end
             end
+            
+            def create_mirror_alternative
+              return if hub.nil? or hub.twin_hub.nil? or ([self.statement_id] - hub.twin_hub.alternatives.map(&:statement_id)).empty?
+              
+              # if a twin hub exists, then i can assume all my siblings are already mirrored
+              
+              sibling_alternative = alternatives.first
+              mirrored_sibling_alternative = sibling_alternative.statement.statement_nodes(:conditions => ["parent_id = ?", hub.twin_hub_id]).first
+              
+              mirrored_type = mirrored_sibling_alternative.class.alternative_types.first
+              
+              attributes = self.attributes
+              # delete attributes that we don't want to transpose
+              attributes.delete("created_at")
+              attributes.delete("updated_at")
+              attributes.delete("lft")
+              attributes.delete("rgt")
+              attributes.delete("id")
+              attributes.delete("type")
+              attributes.delete("drafting_state")
+              # add the id of the new twin hub as the parent_id
+              attributes["parent_id"] = hub.twin_hub_id
+              attributes["root_id"] = mirrored_sibling_alternative.root_id
+              mirrored_type.to_s.constantize.create(attributes)
+            end
 
             def parent_node
               hub.nil? ? parent : hub.parent
+            end
+            
+            def discuss_alternatives_question
+              hub ? hub.discuss_alternatives_question : nil
+            end
+            
+            def has_alternative?(node)
+              parent_id == node.parent_id
             end
 
             def paginated_alternatives(page, per_page = nil,opts={})

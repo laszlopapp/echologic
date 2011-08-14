@@ -41,16 +41,19 @@
     function Statement(statement) {
       var domId = statement.attr('id');
 			var domParent = statement.attr('dom-parent');
+			var parentId = domParent ? domParent.replace(/[^0-9]+/, '') : '';
 			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) :
                                                               $.trim(domId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(domId);
 			var parentStatement, statementLevel;
 			var statementUrl;
 			var embedPlaceholder = statement.find('.embed_placeholder');
+			var statementSiblings; 
 
       // Initialize the statement
       initialise();
-
+     // statement.removeAttr('dom-parent');
+				
       // Initializes the statement.
       function initialise() {
 
@@ -64,6 +67,7 @@
 
 					// Navigation through siblings
 	        storeSiblings();
+					loadSiblings();
 					initNavigationButton(statement.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(statement.find(".header a.next"),  1); /* Next */
 				}
@@ -77,7 +81,7 @@
         if(statement.is('form')) {
 					statement.statementForm();
         } else {
-					statementUrl = statement.find('.header_link a.statement_link').attr('href');
+					statementUrl = statement.find('input.statement_url').val();
 
           // Action menus
 					initNewStatementButton();
@@ -99,6 +103,14 @@
 					}
         }
       }
+
+      /*
+       * reinitialises statement content without needing to place the statement again
+       */
+      function reinitialise(resettings) {
+				settings = $.extend({}, resettings, settings, {'load' : false});
+        initialise();
+			}
 
 
       /*
@@ -141,6 +153,26 @@
         $("#statements").data(key, siblings);
         statement.removeAttr("data-siblings");
 		  }
+			
+			
+			/*
+       * Loads the siblings from the current statement being loaded
+       */
+			function loadSiblings() {
+				// Get parent element (statement)
+        var parent = statement.prev();
+        // Get id where the current node's siblings are stored
+        var parentPath, siblingsKey;
+        if (parent.length > 0) {
+          parentPath = siblingsKey = parent.attr('id');
+        } else {
+          siblingsKey = 'roots';
+          parentPath = '';
+        }
+
+        // Get siblings ids
+        statementSiblings = $("div#statements").data(siblingsKey);
+			}
 
 
 		  /*
@@ -172,37 +204,30 @@
 		    } else {
           currentStatementId = eval(currentStatementId);
         }
-
-		    // Get parent element (statement)
-		    var parent = statement.prev();
-		    // Get id where the current node's siblings are stored
-        var parentPath, siblingsKey;
-		    if (parent.length > 0) {
-		      parentPath = siblingsKey = parent.attr('id');
-		    } else {
-		      siblingsKey = 'roots';
-		      parentPath = '';
-		    }
-
-		    // Get siblings ids
-		    var siblingIds = $("div#statements").data(siblingsKey);
+		    
 				// Get index of the prev/next sibling
-				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
-		    var targetStatementId = new String(siblingIds[targetIndex]);
+				var targetIndex = ($.inArray(currentStatementId,statementSiblings) + inc + statementSiblings.length) % statementSiblings.length;
+		    var targetStatementId = new String(statementSiblings[targetIndex]);
+				var buttonUrl;
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId));
+					buttonUrl = button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId);
 		    }
 		    else {
-					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
+					buttonUrl = button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId);
 		    }
-
+				
+        button.attr('href', buttonUrl);
+				
+				if ($.fragment().al && $.fragment().al.length > 0) {
+					button.attr('al', $.fragment().al);
+				}
 		    button.removeAttr('data-id');
 		  }
 
 
       /*
-       * Called if the newly added statement might influance the stack (new level or removing some deeper levels).
+       * Inserts the statement in the stack
        */
 			function insertStatement() {
 				if (!settings['insertStatement']) {return;}
@@ -210,6 +235,8 @@
 				collapseStatements();
 
         var element = $('div#statements .statement').eq(settings['level']);
+				
+				// if the statement is going to replace a statement already existing in the stack
 				if(element.length > 0) {
 					// if statement this statement is going to replace is from a different type
 					if (domId.match('new') && element.data('api').getType() != statementType) {
@@ -226,14 +253,28 @@
 							element.data('api').deleteBreadcrumb();
 						}
 				  }
+					statement.find('.content').show();
           element.replaceWith(statement);
         }
-        else
+        else // no statement on this level of the stack, so insert at the bottom
         {
           $('div#statements').append(statement);
+					showAnimated();
         }
+			  removeBelow();
 			}
-
+      
+			
+			/*
+			 * Removes the statements from the lower levels of this statement's stack
+			 */
+			function removeBelow(){
+	  	  statement.nextAll().each(function(){
+	  		  // Delete the session data relative to this statement first
+					$('div#statements').removeData(this.id);
+					$(this).remove();
+				});
+			}
 
       /*
 		   * Collapses all visible statements to focus on the one appearing on new level.
@@ -408,9 +449,69 @@
           newChildrenPanel.show();
         }
       }
+			
+			
+			
+			 /*
+       * Collapses all visible statements.
+       */
+      function hideStatements() {
+        $('#statements .statement .header:Event(!click)').expandable();
+        $('#statements .statement .header').removeClass('active').addClass('expandable');
+        $('#statements .statement .content').animate(settings['hide_animation_params'],
+                                                     settings['hide_animation_speed']);
+        $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
+                                                                      settings['hide_animation_speed']);
+      }
+			
+			/*
+       * Handles the button to toggle the add new panel for creating new statements.
+       */
+      function initAddNewButton() {
+        statement.find(".action_bar .add_new_button").bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          return false;
 
+        });
+        statement.find(".action_bar .add_new_panel").bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
 
-		  /*
+      /*
+       * Handles the Clipboard button panel
+       */
+      function initClipboardButton() {
+        var clip_url = statement.find('.action_bar .clip_url');
+        statement.find('.action_bar a.clip_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          clip_url.show().select();
+          return false;
+        });
+        statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
+			
+			/*
+       * Handles the Embedded Code panel
+       */
+      function initEmbedButton() {
+        var embed_url = statement.find('.action_bar .embed_url');
+        statement.find('.action_bar a.embed_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          embed_url.show().select();
+          return false;
+        });
+        statement.find('.action_bar .embed_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
+
+      /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
 		  function initMoreButton() {
@@ -464,7 +565,8 @@
 			function reinitialiseSiblings(siblingsContainerSelector) {
 	      var container = statement.find(siblingsContainerSelector);
         initContainerMoreButton(container);
-        initSiblingsLinks(container);
+				var opts = container.hasClass('alternatives') ? {"nl" : true, "al" : ("al" + statementId)} : {}
+        initSiblingsLinks(container, opts);
         if (isEchoable) {
           statement.data('echoableApi').loadRatioBars(container);
         }
@@ -527,7 +629,8 @@
               "bids": targetBids.join(","),
               "sids": sids.join(","),
               "nl": true,
-              "origin": bid
+              "origin": bid,
+							"al" : ''
             });
 
 					});
@@ -547,34 +650,66 @@
         if (index != -1) { // if parent breadcrumb exists, then delete everything after it
           targetBids = targetBids.splice(0, index + 1);
         } else { // if parent breadcrumb doesn't exist, it means top stack statement
-          targetBids = targetBids.splice(0, currentBids.length - currentBids.length % 3);
+          //find all origin breadcrumbs
+					var originBids = getOriginKeys(currentBids);
+					// get last of them, if it exists
+					if (originBids.length > 0) {
+						var lastOriginBid = originBids.pop();
+						var index = $.inArray(lastOriginBid, currentBids);
+				  	targetBids = targetBids.splice(0, index + 1);
+				  } else { // if it doesn't, it means there should be no breadcrumbs
+						targetBids = [];
+					}
         }
         return targetBids;
       }
+			
+			/*
+       * Loads the new set of Als
+       */
+			function getTargetAls(inclusive) {
+				var al = $.fragment().al || '';
+        al = al.length > 0 ? al.split(',') : [];
+        // eliminate levels below the one we're returning to
+        al = $.grep(al, function(a){
+          return inclusive ? a <= statementLevel : a < statementLevel;
+        });
+				return al;
+			}
 
 
       /*
        * Initializes all statement link apart from the inline content (jump) links handled separately.
        */
       function initAllStatementLinks() {
-        statement.find('.header a.statement_link').bind("click", function() {
+        statement.find('.header .main_header a.statement_link').bind("click", function() {
 
+          // SIDS
 					var currentStack = $.fragment().sids;
 		      var targetStack = getStatementsStack(this, false);
 
+          // BIDS
           var parentKey = getParentKey();
           var targetBids = getTargetBids(parentKey);
 
           // save element after which the breadcrumbs will be deleted while processing the response
           $('#breadcrumbs').data('element_clicked', parentKey);
 
+          // ORIGIN
 					var origin = $.fragment().origin;
-
+					
+					// AL
+					var al = getTargetAls(true);
+					
+					var statAl = $(this).attr('al');
+					if (statAl && $.inArray(statAl,al) == -1) { al.push(statAl); }
+					
 		      $.setFragment({
 		        "sids": targetStack.join(','),
 		        "nl": '',
 						"bids": targetBids.join(','),
-						"origin": origin
+						"origin": origin,
+						"al": al.join(',')
 		      });
 
 					var nextStatement = statement.next();
@@ -591,9 +726,12 @@
 
 		      return false;
 		    });
+				
+				// DAQ Link
+				initChildrenLinks(statement.find('.header .alternative_header'));
 
 	      statement.find('.alternatives').each(function(){
-					initSiblingsLinks($(this));
+					initSiblingsLinks($(this), { "nl": true, "al": ("al" + statementId) });
 				});
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
@@ -616,7 +754,7 @@
        * new_level = false
        */
       function initSiblingsLinks(container) {
-        initStatementLinks(container, false)
+				initStatementLinks(container, false, arguments[1]);
 	    }
 
 
@@ -633,31 +771,36 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
+				var params = arguments[2] || {};
 				container.find('a.statement_link').bind("click", function() {
 					var current_stack = getStatementsStack(null, newLevel);
 					var childId = $(this).parent().attr('statement-id');
 					var key = getTypeKey($(this).parent().attr('class'));
 					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var al = $.fragment().al || '';
+					var al = al.length > 0 ? al.split(',') : [];
 
-          if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
-            var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
-            var level = or_index + (statementLevel+1);
-            bids = bids.splice(0, level);
-            var new_bid = key + statementId;
-            bids.push(new_bid);
-          }
-					else { // siblings box or maybe alternatives box
-						var parentKey = getParentKey();
-						var index = $.inArray(parentKey, bids);
-	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
-	            bids = bids.splice(0, index + 1);
-	          }
+          var parentKey = getParentKey();
+					var level = $.inArray(parentKey, bids);
+					if (level != -1) { // if parent breadcrumb exists, then delete everything after it
+            bids = bids.splice(0, level+1);
 					}
+					
+          if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
+						var new_bid = key + statementId;
+            bids.push(new_bid);
+						al = $.grep(al, function(a) {
+							return a <= statementLevel;
+						});
+          }
+					
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
+						case 'dq':
 						  stack = [childId];
 							origin = bids.length == 0 ? '' : bids[bids.length - 1];
+							al = [];
 						  break;
 						default :
 						  stack.push(childId);
@@ -666,13 +809,24 @@
 					}
 
           $('#breadcrumbs').data('element_clicked', getParentKey());
-
-          $.setFragment({
-            "sids": stack.join(','),
-            "nl": newLevel ? newLevel : '',
-						"bids": bids.join(','),
-						"origin": origin
-          });
+					
+					// so we have the possibility of adding possible breadcrumb entries
+					if (params['al']) {
+						bids.push(params['al']);
+						if ($.inArray(statementLevel, al) == -1) {
+							al.push(statementLevel);
+						}
+						params['al'] = al.join(',');
+					}
+          $.setFragment(
+					  $.extend({
+	            "sids": stack.join(','),
+	            "nl": (newLevel ? newLevel : ''),
+							"bids": bids.join(','),
+							"origin": origin,
+							"al" : al.join(',')
+            }, params)
+				  );
           return false;
         });
       }
@@ -683,7 +837,23 @@
        */
       function getParentKey() {
 				if (parentStatement.length > 0) {
-          return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));
+					if (statement.hasClass('alternative')) {
+	          var breadcrumbs = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+	          breadcrumbs = $.grep(breadcrumbs, function(a) {
+							return a.substring(0, 2) == 'al';
+						});
+						$.grep(breadcrumbs, function(a) {
+							return $.inArray(a.substring(2,100), statementSiblings) != -1;
+						});
+						if (breadcrumbs.length > 0) {
+							return breadcrumbs[0];
+						} else  {
+							return "al" + getStatementId(parentStatement.attr('id'));
+						}
+						
+					} else {
+					 return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));	
+					}
         } else {
           return $.fragment().origin;
         }
@@ -781,6 +951,13 @@
       }
 
 
+      function showAnimated() {
+				var content = statement.find('.content');
+				if (!content.is(':visible')) {
+					statement.find('.content').animate(toggleParams, settings['animation_speed']);
+				}
+			}
+
       /***************************/
       /* Public API of statement */
       /***************************/
@@ -788,8 +965,7 @@
       $.extend(this,
       {
         reinitialise: function(resettings) {
-          settings = $.extend({}, resettings, settings, {'load' : false});
-          initialise();
+          reinitialise(resettings);
         },
 
         reinitialiseContainerBlock: function(containerSelector, newLevel) {
@@ -806,20 +982,14 @@
 
         insertContent: function(content) {
           statement.append(content);
+					showAnimated();
+					reinitialise();
           return this;
         },
 
 		    removeBelow: function(){
-		     statement.nextAll().each(function() {
-			     // Delete the session data relative to this statement first
-					 /*if (domId.match('new')) {
-				   	$(this).data('api').deleteBreadcrumb();
-				   }*/
-			     $('div#statements').removeData(this.id);
-			     $(this).remove();
-
-		     });
-				 return this;
+				  removeBelow();
+				  return this;
 		    },
 
 				getBreadcrumbKey: function() {
@@ -830,17 +1000,6 @@
 					var key = getParentKey();
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
 				},
-
-        insert: function() {
-		      var element = $('div#statements .statement').eq(settings['level']);
-		      if(element.length > 0) {
-		        element.replaceWith(statement);
-		      } else {
-		        collapseStatements();
-		        $('div#statements').append(statement);
-		      }
-					return this;
-		    },
 
 		    loadAuthors: function (authors) {
 		      authors.insertAfter(statement.find('.summary h2')).animate(toggleParams, settings['animation_speed']);
@@ -878,6 +1037,21 @@
 
 				getType: function() {
 					return statementType;
+				},
+				getParentKey: function() {
+					return getParentKey();
+				},
+				getTargetBids: function(key) {
+					return getTargetBids(key);
+				},
+				getTargetAls: function(inclusive) {
+					return getTargetAls(inclusive);
+				},
+				getStatementUrl: function() {
+					return statementUrl;
+				},
+				getStatementsStack: function(statementLink, newLevel) {
+					return getStatementsStack(statementLink, newLevel);
 				}
       });
 	  }

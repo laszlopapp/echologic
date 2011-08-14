@@ -1,0 +1,23 @@
+<% statement_node ||= @statement_node %>
+<% has_twin_hub = (statement_node.hub and !statement_node.hub.twin_hub_id.nil?) %>
+<% daq = @discuss_alternatives_questions[dom_id(statement_node)] %>
+
+<% content_tag :div, :class => "alternative_header" do %>
+  <% content_tag :div, :class => 'header_buttons' do %>
+	 
+   <%= alternative_header_box_title(dom_class(statement_node)) %>
+   <%= close_alternative_mode_button(statement_node) %>
+   
+  <% end %>
+	<% content_tag :div, :class => 'header_link' do %>
+	  <% if daq.nil? %>
+      <%= create_discuss_alternatives_question_link(statement_node) unless has_twin_hub %>
+		<% else %>
+		  <% content_tag :div, :class => "discuss_alternatives_question", 'statement-id' => daq.target_id do %>
+			  <%= link_to_child(@discuss_alternatives_documents[daq.statement_id].title,
+	                        daq,
+	                        :new_level => true) %>
+		  <% end %>
+		<% end %>	
+	<% end %>
+<% end %>

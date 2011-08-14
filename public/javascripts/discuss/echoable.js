@@ -45,9 +45,7 @@
 				} else {
 					initEchoButton();
 				}
-				if(echoable.find('.alternatives').length > 0) {
-					initAlternativePanel();
-				}
+				initAlternativePanel();
 		  }
 
       function initLabelMessages() {

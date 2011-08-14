@@ -1,10 +1,10 @@
 <%
 # This partial renders the static echo tabnav.
 
+
 render_tabnav :main,
               :generate_css => false,
               :html => { :class => 'app_menu' } do |tn|
-
   tn.add_tab :html => { :class => 'ajaxLink main_menu_item' } do |t|
     t.named I18n.t('static.echo.tabs.echo')
     t.links_to hash_for_echo_path
