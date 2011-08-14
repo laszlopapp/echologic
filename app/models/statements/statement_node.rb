@@ -491,6 +491,7 @@ class StatementNode < ActiveRecord::Base
       opts[:node_conditions] ||= []
       opts[:node_conditions].map!{|cond|sanitize_sql(cond)}
       opts[:node_conditions] << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
+      opts[:node_conditions] << "s.top_level = 1"
 
       # Statement type
       if opts[:types]

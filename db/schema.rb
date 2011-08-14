@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110806134202) do
+ActiveRecord::Schema.define(:version => 20110814114718) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(:version => 20110806134202) do
     t.integer  "rgt"
     t.integer  "question_id"
     t.integer  "twin_hub_id"
+    t.boolean  "top_level",                    :default => true
   end
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
@@ -412,7 +413,7 @@ ActiveRecord::Schema.define(:version => 20110806134202) do
     v.column :granted_user_id
   end
 
-  create_view "search_statement_nodes", "select distinct `n`.`id` AS `id`,`n`.`type` AS `type`,`n`.`parent_id` AS `parent_id`,`n`.`root_id` AS `root_id`,`n`.`creator_id` AS `creator_id`,`n`.`echo_id` AS `echo_id`,`n`.`created_at` AS `created_at`,`n`.`updated_at` AS `updated_at`,`n`.`statement_id` AS `statement_id`,`n`.`drafting_state` AS `drafting_state`,`n`.`lft` AS `lft`,`n`.`rgt` AS `rgt`,`n`.`question_id` AS `question_id`,`s`.`editorial_state_id` AS `editorial_state_id`,`e`.`supporter_count` AS `supporter_count`,`sp`.`statement_id` AS `closed_statement`,`sp`.`user_id` AS `granted_user_id` from (((`statement_nodes` `n` left join `statements` `s` on((`s`.`id` = `n`.`statement_id`))) left join `echos` `e` on((`n`.`echo_id` = `e`.`id`))) left join `statement_permissions` `sp` on((`s`.`id` = `sp`.`statement_id`))) where isnull(`n`.`question_id`)", :force => true do |v|
+  create_view "search_statement_nodes", "select distinct `n`.`id` AS `id`,`n`.`type` AS `type`,`n`.`parent_id` AS `parent_id`,`n`.`root_id` AS `root_id`,`n`.`creator_id` AS `creator_id`,`n`.`echo_id` AS `echo_id`,`n`.`created_at` AS `created_at`,`n`.`updated_at` AS `updated_at`,`n`.`statement_id` AS `statement_id`,`n`.`drafting_state` AS `drafting_state`,`n`.`lft` AS `lft`,`n`.`rgt` AS `rgt`,`n`.`question_id` AS `question_id`,`n`.`twin_hub_id` AS `twin_hub_id`,`n`.`top_level` AS `top_level`,`s`.`editorial_state_id` AS `editorial_state_id`,`e`.`supporter_count` AS `supporter_count`,`sp`.`statement_id` AS `closed_statement`,`sp`.`user_id` AS `granted_user_id` from (((`statement_nodes` `n` left join `statements` `s` on((`s`.`id` = `n`.`statement_id`))) left join `echos` `e` on((`n`.`echo_id` = `e`.`id`))) left join `statement_permissions` `sp` on((`s`.`id` = `sp`.`statement_id`))) where isnull(`n`.`question_id`)", :force => true do |v|
     v.column :id
     v.column :type
     v.column :parent_id
@@ -426,6 +427,8 @@ ActiveRecord::Schema.define(:version => 20110806134202) do
     v.column :lft
     v.column :rgt
     v.column :question_id
+    v.column :twin_hub_id
+    v.column :top_level
     v.column :editorial_state_id
     v.column :supporter_count
     v.column :closed_statement

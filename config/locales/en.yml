@@ -634,6 +634,11 @@ en:
           published: 'Publish immediately (further editing will be limited)'
         published: Released
         approved: Approved
+      top_level:
+        label: 'Is this a top-level question?'
+        initial_state:
+          true_value: 'Yes, it is'
+          false_value: 'No, it is not'
       delete_link: 'Delete'
       delete_confirmation: 'Are you sure you want to delete this statement?'
       read_only_permission: |-

@@ -112,6 +112,8 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Question on the side"
       And the question should have 6 siblings in session
+    When I go to the discuss index
+      Then I should see "Question on the side"
 
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
@@ -234,6 +236,8 @@ Feature: Take Part on a question
     Then I should not see "Livin it up"
     Given I login as "ben" with password "benrocks"
     Then I should not see "Livin it up"
+    When I go to the discuss index
+      Then I should not see "Livin it up"
 
   Scenario: Add a Follow Up Question to a Proposal
     Given I am logged in as "user" with password "true"
@@ -247,10 +251,13 @@ Feature: Take Part on a question
       | statement_node_statement_document_title           | Livin it up      |
       | statement_node_statement_document_text            | I love this game |
       | statement_node_topic_tags                         |                  |
+      And I choose "Yes, it is"
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
       And there should be a "A first proposal!" breadcrumb
+    When I go to the discuss index
+      Then I should see "Livin it up"
 
   Scenario: Add a Follow Up Question to an Improvement
     Given I am logged in as "user" with password "true"

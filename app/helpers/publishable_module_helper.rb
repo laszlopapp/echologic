@@ -166,6 +166,10 @@ module PublishableModuleHelper
   def statement_states_collection
     StatementState.all.map{|s| [I18n.t("discuss.statements.states.initial_state.#{s.code}"), s.id]}
   end
+  
+  def top_level_collection
+    [true, false].map{|bool|[I18n.t("discuss.statements.top_level.initial_state.#{bool}_value"), bool]}
+  end
 
   # renders pagination 'more' button
   def more_questions(statement_nodes, page=1)
