@@ -256,13 +256,20 @@ form.statement fieldset ol span.defaultText {
   color: #555 !important;
 }
 
-#statements form.formtastic fieldset.statement_title,
-#statements form.formtastic fieldset.statement_title li,
-#statements form.formtastic fieldset.statement_title input {
+#statements form .statement_title,
+#statements form .statement_title li,
+#statements form .statement_title input {
   margin-bottom: 0;
+  width: 547px;
+}
+
+#statements form .linkable .statement_title,
+#statements form .linkable .statement_title li,
+#statements form .linkable .statement_title input {
   width: 433px;
   padding-right: 114px;
 }
+
 
 #statements form.formtastic fieldset.statement_language {
   margin-top: -10px;
