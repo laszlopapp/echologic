@@ -547,7 +547,7 @@ class StatementNode < ActiveRecord::Base
 
         statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " + joins +
                            "WHERE " + (opts[:node_conditions] + document_conditions).join(' AND ') +
-                           " ORDER BY s.id DESC, s.supporter_count DESC #{limit};"
+                           " ORDER BY s.supporter_count DESC, s.id DESC #{limit};"
       end
       find_by_sql statements_query
     end
