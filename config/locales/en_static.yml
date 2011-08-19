@@ -61,7 +61,7 @@ en:
           title: Collective solution finding - everywhere
           more: |
             <p>
-            echo is <strong>NOT yet another platform</strong>! Its content will be embeddable in arbitrary webpages:
+            echo is <strong>NOT yet another platform</strong>! Its content is embeddable in arbitrary webpages:
             e.g. in websites of political or non-governmental organizations, news portals, companies or in private blogs.
             Wherever they are, people can elaborate their ideas and solutions by writing the same drafts together -
             in a democratic process without moderators or admins. In this way, echo brings together all splinters
@@ -279,7 +279,7 @@ en:
           different groups of the society at any time.
           <br/><br/>
           <u>For example:</u> How many people in the world are for and against nuclear power? What do the Europeans think?
-          What do physicists say and what about affected people living near Chernobyl or a nuclear waste repository?
+          What do physicists say and what about impacted people living near Chernobyl or a nuclear waste repository?
           And finally, what is the position of a certain organisation?
 
         democratic: Collective drafting
@@ -317,7 +317,7 @@ en:
           </p>
 
         list: &competences |
-          <li>Citizens and affected people (with competence with regard to needs)</li>
+          <li>Citizens and impacted people (with competence with regard to needs)</li>
           <li>Experts and scientists (with professional competence)</li>
           <li>Politicians and other representatives (with decision making competence)</li>
           <li>Non-governmental and governmental organizations (with action competence & mobilization potential)</li>
