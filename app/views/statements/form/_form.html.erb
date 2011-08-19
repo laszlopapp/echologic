@@ -12,7 +12,8 @@
 
 
 <!-- Approved document -->
-<%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
+<%= render(:partial => 'statements/approved',
+           :locals => {:being_incorporated => true}) unless @approved_node.nil? %>
 
 <% if publishable -%>
 

@@ -1925,7 +1925,7 @@ a.statement_link:hover {
 /*******************/
 
 .echo_indicator, .no_echo_indicator {
-  height: 12px !important;
+  height: 13px !important;
   width: 170px;
   display: inline-block;
   margin: 3px 30px 0 0;
@@ -1952,7 +1952,7 @@ a.statement_link:hover {
 .doubles_list .echo_indicator, .doubles_list .no_echo_indicator {
 	margin: 3px 17px 0;
   width: 85px;
-  height: 11px !important;
+  height: 12px !important;
 }
 
 .header .echo_indicator, .header .no_echo_indicator, .header .no_echo_indicator:hover {
@@ -1996,7 +1996,11 @@ form .header .echo_indicator, form .header .no_echo_indicator {
   width: 767px;
 }
 
-#approved_ip.only_text {
+#approved_ip.only_show {
+  border-top: 1px dashed #CCC;
+}
+
+#approved_ip.being_incorporated {
   border: 1px dashed #CCC;
   margin: 0 10px 20px 0;
   padding: 0 7px 10px;
