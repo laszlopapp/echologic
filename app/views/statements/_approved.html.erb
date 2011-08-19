@@ -2,16 +2,23 @@
 <% parent_document ||= @statement_document %>
 <% statement_node ||= @approved_node %>
 <% statement_document ||= @approved_document %>
-<% only_text ||= false %>
+<% being_incorporated ||= false %>
+<% incorporate_now = !being_incorporated &&
+                     (!current_user or
+                      (statement_node.published? and
+                       parent_document.language == statement_node.drafting_language and
+                       statement_document.language. == statement_node.drafting_language and
+                       ((statement_node.times_passed == 0 and statement_document.author == current_user) or
+                        (statement_node.times_passed == 1 and statement_node.supported?(current_user))))) %>
 
-<% if !statement_node.nil? and !statement_node.nil? %>
-  <div id="approved_ip" class="statement_content <%= only_text ? 'only_text' : '' %>">
+<% if !statement_node.nil? %>
 
-     <% incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document) unless only_text %>
+  <% content_tag :div,
+                 :id => 'approved_ip',
+                 :class => "statement_content#{being_incorporated ? ' being_incorporated' : ''}#{!incorporate_now ? ' only_show' : ''}" do %>
 
-		 <div id="ip_text">
-		   <%= sanitize statement_document.text %>
-		 </div>
+     <% incorporate_statement_node_link(parent_node, statement_node) if incorporate_now %>
+     <%= content_tag :div, sanitize(statement_document.text), :id => 'ip_text' %>
+  <% end %>
 
-  </div>
 <% end %>
