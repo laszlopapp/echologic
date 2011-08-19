@@ -1,24 +1,34 @@
 <% statement_document ||= @statement_document %>
-<div class="header active">
-  <div class="header_buttons"><%= navigation_buttons(statement_node, node_type(statement_node)) %></div>
-	<div class="header_link">
+<% linking_enabled = (statement_node.new_record? and !@statement_node_type.linkable_types.empty?) %>
+
+<% content_tag :div, :class => 'header active' do %>
+
+  <% content_tag :div, :class => 'header_buttons' do %>
+     <%= navigation_buttons(statement_node, node_type(statement_node)) %>
+  <% end %>
+
+  <% content_tag :div, :class => "header_link#{linking_enabled ? ' linkable' : ''}" do %>
+
     <%= content_tag :span, '&nbsp;', :class => 'icon' %>
 		<% form.inputs :class => 'statement_title' do %>
 			<% form.semantic_fields_for :statement_document, statement_document do |doc| %>
 	      <%= doc.input :title, :label => false,
                       :input_html => {:class => 'focus',
                                       'data-default' => title_hint_text(statement_node)} %>
-				<% if statement_node.new_record? and !@statement_node_type.linkable_types.empty? %>
-					<%= content_tag :span, I18n.t('discuss.statements.linking.disabled'), :class => "link_button off ttLink no_border",
+				<% if linking_enabled %>
+					<%= content_tag :span, I18n.t('discuss.statements.linking.disabled'),
+                          :class => "link_button off ttLink no_border",
 	                        :title => I18n.t('discuss.tooltips.link_statement'),
 							            :linking_on => I18n.t('discuss.statements.linking.enabled'),
 							            :linking_off => I18n.t('discuss.statements.linking.disabled') %>
 	      <% end %>
 			<% end %>
 	  <% end %>
+
 		<% if statement_node.echoable? %>
 		  <%= supporter_ratio_bar(statement_node) %>
 			<%= supporters_label(statement_node, true) %>
     <% end %>
-  </div>
-</div>
+
+  <% end %>
+<% end %>
