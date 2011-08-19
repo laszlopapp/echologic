@@ -260,13 +260,13 @@ en:
     concernments:
       title: Concernments & Competences
       guide: |
-        All of us have <strong>different facets</strong>. In some areas we might be affected and need help from others,
+        All of us have <strong>different facets</strong>. In some areas we might be impacted and need help from others,
         in other areas we engage ourselves and offer help to others. In certain fields we have professional expertise,
         in others we might represent other people and make decisions.<br/>
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
-        affection: <strong>Affected</strong> by
+        affection: <strong>Impacted</strong> by
         engagement: <strong>Engaged</strong> in
         expertise: <strong>Expert</strong> in the field of
         decision_making: <strong>Decision maker</strong> in the field of
@@ -761,7 +761,7 @@ en:
 
     segments:
       all:       'All'
-      affection:  'Affected'
+      affection:  'Impacted'
       engagement:   'Engaged'
       expertise: 'Experts'
       decision_making: 'Decision Makers'
@@ -775,11 +775,11 @@ en:
           more: "people related to '{{filter}}'"
       affection:
         no_filter:
-          one: affected person
-          more: affected people
+          one: impacted person
+          more: impacted people
         with_filter:
-          one: "person affected by '{{filter}}'"
-          more: "people affected by '{{filter}}'"
+          one: "person impacted by '{{filter}}'"
+          more: "people impacted by '{{filter}}'"
       engagement:
         no_filter:
           one: engaged person
