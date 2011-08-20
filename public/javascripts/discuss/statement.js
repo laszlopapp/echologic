@@ -48,12 +48,12 @@
 			var parentStatement, statementLevel;
 			var statementUrl;
 			var embedPlaceholder = statement.find('.embed_placeholder');
-			var statementSiblings; 
+			var statementSiblings;
 
       // Initialize the statement
       initialise();
      // statement.removeAttr('dom-parent');
-				
+
       // Initializes the statement.
       function initialise() {
 
@@ -105,7 +105,7 @@
       }
 
       /*
-       * reinitialises statement content without needing to place the statement again
+       * Reinitialises the statement content without reinserting the whole statement again.
        */
       function reinitialise(resettings) {
 				settings = $.extend({}, resettings, settings, {'load' : false});
@@ -153,10 +153,10 @@
         $("#statements").data(key, siblings);
         statement.removeAttr("data-siblings");
 		  }
-			
-			
+
+
 			/*
-       * Loads the siblings from the current statement being loaded
+       * Loads the siblings from the current statement being loaded.
        */
 			function loadSiblings() {
 				// Get parent element (statement)
@@ -204,7 +204,7 @@
 		    } else {
           currentStatementId = eval(currentStatementId);
         }
-		    
+
 				// Get index of the prev/next sibling
 				var targetIndex = ($.inArray(currentStatementId,statementSiblings) + inc + statementSiblings.length) % statementSiblings.length;
 		    var targetStatementId = new String(statementSiblings[targetIndex]);
@@ -216,9 +216,9 @@
 		    else {
 					buttonUrl = button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId);
 		    }
-				
+
         button.attr('href', buttonUrl);
-				
+
 				if ($.fragment().al && $.fragment().al.length > 0) {
 					button.attr('al', $.fragment().al);
 				}
@@ -235,7 +235,7 @@
 				collapseStatements();
 
         var element = $('div#statements .statement').eq(settings['level']);
-				
+
 				// if the statement is going to replace a statement already existing in the stack
 				if(element.length > 0) {
 					// if statement this statement is going to replace is from a different type
@@ -263,8 +263,8 @@
         }
 			  removeBelow();
 			}
-      
-			
+
+
 			/*
 			 * Removes the statements from the lower levels of this statement's stack
 			 */
@@ -449,67 +449,7 @@
           newChildrenPanel.show();
         }
       }
-			
-			
-			
-			 /*
-       * Collapses all visible statements.
-       */
-      function hideStatements() {
-        $('#statements .statement .header:Event(!click)').expandable();
-        $('#statements .statement .header').removeClass('active').addClass('expandable');
-        $('#statements .statement .content').animate(settings['hide_animation_params'],
-                                                     settings['hide_animation_speed']);
-        $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
-                                                                      settings['hide_animation_speed']);
-      }
-			
-			/*
-       * Handles the button to toggle the add new panel for creating new statements.
-       */
-      function initAddNewButton() {
-        statement.find(".action_bar .add_new_button").bind("click", function() {
-          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-          return false;
 
-        });
-        statement.find(".action_bar .add_new_panel").bind("mouseleave", function() {
-          $(this).fadeOut();
-          return false;
-        });
-      }
-
-      /*
-       * Handles the Clipboard button panel
-       */
-      function initClipboardButton() {
-        var clip_url = statement.find('.action_bar .clip_url');
-        statement.find('.action_bar a.clip_button').bind("click", function() {
-          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-          clip_url.show().select();
-          return false;
-        });
-        statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
-          $(this).fadeOut();
-          return false;
-        });
-      }
-			
-			/*
-       * Handles the Embedded Code panel
-       */
-      function initEmbedButton() {
-        var embed_url = statement.find('.action_bar .embed_url');
-        statement.find('.action_bar a.embed_button').bind("click", function() {
-          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-          embed_url.show().select();
-          return false;
-        });
-        statement.find('.action_bar .embed_panel').bind("mouseleave", function() {
-          $(this).fadeOut();
-          return false;
-        });
-      }
 
       /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
@@ -663,7 +603,7 @@
         }
         return targetBids;
       }
-			
+
 			/*
        * Loads the new set of Als
        */
@@ -697,13 +637,13 @@
 
           // ORIGIN
 					var origin = $.fragment().origin;
-					
+
 					// AL
 					var al = getTargetAls(true);
-					
+
 					var statAl = $(this).attr('al');
 					if (statAl && $.inArray(statAl,al) == -1) { al.push(statAl); }
-					
+
 		      $.setFragment({
 		        "sids": targetStack.join(','),
 		        "nl": '',
@@ -726,7 +666,7 @@
 
 		      return false;
 		    });
-				
+
 				// DAQ Link
 				initChildrenLinks(statement.find('.header .alternative_header'));
 
@@ -785,7 +725,7 @@
 					if (level != -1) { // if parent breadcrumb exists, then delete everything after it
             bids = bids.splice(0, level+1);
 					}
-					
+
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
 						var new_bid = key + statementId;
             bids.push(new_bid);
@@ -793,7 +733,7 @@
 							return a <= statementLevel;
 						});
           }
-					
+
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
@@ -809,7 +749,7 @@
 					}
 
           $('#breadcrumbs').data('element_clicked', getParentKey());
-					
+
 					// so we have the possibility of adding possible breadcrumb entries
 					if (params['al']) {
 						bids.push(params['al']);
@@ -850,9 +790,9 @@
 						} else  {
 							return "al" + getStatementId(parentStatement.attr('id'));
 						}
-						
+
 					} else {
-					 return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));	
+					 return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));
 					}
         } else {
           return $.fragment().origin;
