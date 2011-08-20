@@ -347,7 +347,12 @@
 					});
 				}
 			}
-			// Public API
+
+
+      /**************/
+      /* Public API */
+      /**************/
+
       $.extend(this,
       {
 				reinitialize: function() {
