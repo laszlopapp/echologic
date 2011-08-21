@@ -33,6 +33,10 @@ class DiscussAlternativesQuestion < FollowUpQuestion
       Proposal.create(attributes)
     end
   end
+  
+  def parent_node
+    hub.parent
+  end
 
   class << self
     def new_instance(attributes = nil)
