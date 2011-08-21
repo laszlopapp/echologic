@@ -457,6 +457,7 @@ class StatementsController < ApplicationController
   #
   def add
     @type = params[:type].to_s
+    load_discuss_alternatives_question(@statement_node) if alternative_mode?(@level)
     begin
       if !params[:nl].blank?
         if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
@@ -1120,7 +1121,7 @@ class StatementsController < ApplicationController
 
         # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         # if stack ids exists, that means the @statement node is already in ancestors
-        @ancestors << @statement_node if !@ancestors.map(&:id).include?(@statement_node.id)
+        @ancestors << @statement_node if !alternative_mode?(@level) and !@ancestors.map(&:id).include?(@statement_node.id)
         load_children_for_parent(@statement_node, @type)
       end
 

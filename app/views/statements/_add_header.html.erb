@@ -1,5 +1,6 @@
 <% statement_node ||= @statement_node %>
 <% content_tag :div, :class => "header active" do %>
+  <%= render :partial => 'statements/alternative_header', :locals => {:statement_node => statement_node} if alternative_mode?(@level) %>
   <% content_tag :div, :class => "main_header" do %>
 	  <% content_tag :div, :class => 'header_buttons' do %>
 		 <%= navigation_buttons(statement_node, @type,:classes => "add",:origin => params[:origin]) %>
@@ -9,7 +10,7 @@
 		<% end %>
 	  <% content_tag :div, :class => 'add_header_link'  do %>
 		  <% if !statement_node.nil? %>
-	      <%= create_new_child_statement_link(statement_node, @type, :nl => nil, :label_type => ('alternative' if alternative_mode?(@level)), :hub => ("al#{@statement_node.id}" if alternative_mode?(@level)), :origin => params[:origin], :css => "ajax") %>
+	      <%= create_new_child_statement_link(statement_node, @type, :nl => nil, :label_type => ('alternative' if alternative_mode?(@level)), :hub => ("al#{statement_node.id}" if alternative_mode?(@level)), :origin => params[:origin], :css => "ajax") %>
 			<% else %>
 			  <%= create_new_question_link(params[:origin], :css => "ajax") %>
 			<% end %>
