@@ -1177,9 +1177,11 @@ class StatementsController < ApplicationController
                statement_node.hub : # then prev must be the hub
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id")) : # if not, it's the previous statement in the current stack
              statement_node.parent_node # no current stack, so just load the damn parent
+      hub = statement_node.id if alternative_mode?(statement_node)
       siblings = statement_node.siblings_to_session :language_ids => @language_preference_list,
                                                     :user => current_user,
-                                                    :prev => prev
+                                                    :prev => prev,
+                                                    :hub => hub
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end

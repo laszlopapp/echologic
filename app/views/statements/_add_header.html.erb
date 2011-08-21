@@ -9,7 +9,7 @@
 		<% end %>
 	  <% content_tag :div, :class => 'add_header_link'  do %>
 		  <% if !statement_node.nil? %>
-	      <%= create_new_child_statement_link(statement_node, @type, :nl => nil, :label_type => ('alternative' if alternative_mode?(@level)), :hub => params[:hub], :origin => params[:origin], :css => "ajax") %>
+	      <%= create_new_child_statement_link(statement_node, @type, :nl => nil, :label_type => ('alternative' if alternative_mode?(@level)), :hub => ("al#{@statement_node.id}" if alternative_mode?(@level)), :origin => params[:origin], :css => "ajax") %>
 			<% else %>
 			  <%= create_new_question_link(params[:origin], :css => "ajax") %>
 			<% end %>
