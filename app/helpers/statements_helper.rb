@@ -477,7 +477,7 @@ module StatementsHelper
   # Returns the block heading for the siblings of the current statement node.
   #
   def sibling_box_title(type)
-    content_tag :span, I18n.t("discuss.statements.headings.#{@hub_type || type}"), :class => 'label'
+    content_tag :span, I18n.t("discuss.statements.headings.#{@hub_type || type}", :type => type), :class => 'label'
   end
 
   #
@@ -648,7 +648,7 @@ module StatementsHelper
     content_tag(:a,
                 :href => url,
                 :class => 'show_siblings_button expandable') do
-      content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
+      content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{alternative_mode?(statement_node) ? alternative_type : name}"),
                   :class => 'show_siblings_label ttLink no_border',
                   :title => I18n.t("discuss.tooltips.siblings.#{name}"))
     end
@@ -874,9 +874,8 @@ module StatementsHelper
   #
   # Returns the block heading for the alternative tag on the alternative header
   #
-  def alternative_header_box_title(type)
-    type_tag = I18n.t("discuss.statements.headings.#{type}")
-    content_tag :span, "#{I18n.t("discuss.statements.types.alternative")}... #{type_tag}", :class => 'label'
+  def alternative_header_box_title
+    content_tag :span, "#{I18n.t("discuss.statements.headings.alternative")}", :class => 'label'
   end
 
   def create_discuss_alternatives_question_link(statement_node)
