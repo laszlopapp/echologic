@@ -1041,6 +1041,7 @@ class StatementsController < ApplicationController
 
   def alternative_mode?(statement_node_or_level)
     return true if !params[:hub].blank?
+    statement_node_or_level = 0 if statement_node_or_level.nil?
     stack_ids = @current_stack || (@ancestors ? (@ancestors + [@statement_node]).map(&:id) : nil)
     @alternative_modes and stack_ids and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : stack_ids.index(statement_node_or_level.id))
   end

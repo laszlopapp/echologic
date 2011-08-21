@@ -101,6 +101,7 @@ Feature: User Generated Debates
         | statement_node_statement_document_title | A Debate for all Seasons |
         | statement_node_statement_document_text  | A Debate for all Seasons |
         | statement_node_topic_tags                     | first_tag |
+      And I choose "Set up at first and publish later"
       And I press "Save"
       And I go to "My Questions"
       And I follow "Release"
