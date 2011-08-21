@@ -34,7 +34,7 @@
     <% end %>
   <% end %>
 	
-	<% if (@statement_node_type and @statement_node_type.is_top_statement?) or statement_node.class.is_top_statement? %>
+	<% if (@statement_node_type and @statement_node_type.is_top_statement?) or statement_node.is_referenced? %>
 		<% form.inputs :class => 'top_level_radios' do %>
 	    <%= form.input :top_level, :as => :radio,
 	                   :label => I18n.t('discuss.statements.top_level.label'),

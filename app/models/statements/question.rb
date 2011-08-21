@@ -6,7 +6,8 @@
 class Question < StatementNode
 
   # Deletion handling - also delete all FUQs referencing this question
-  has_many :follow_up_questions, :class_name => "FollowUpQuestion", :foreign_key => 'question_id', :dependent => :destroy
+  has_many :follow_up_questions,           :class_name => "FollowUpQuestion",            :foreign_key => 'question_id', :dependent => :destroy
+  has_one  :discuss_alternatives_question, :class_name => "DiscussAlternativesQuestion", :foreign_key => 'question_id', :dependent => :destroy
 
   has_children_of_types [:Proposal,true],[:BackgroundInfo,true]
   has_linkable_types
@@ -27,4 +28,7 @@ class Question < StatementNode
     true
   end
 
+  def is_referenced?
+    !follow_up_questions.empty? or discuss_alternatives_question.present?
+  end
 end

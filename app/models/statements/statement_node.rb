@@ -126,6 +126,10 @@ class StatementNode < ActiveRecord::Base
     false
   end
 
+  def is_referenced?
+    false
+  end
+
   def publish_descendants
     descendants.each do |node|
       if !node.published?
