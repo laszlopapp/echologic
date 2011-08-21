@@ -68,13 +68,10 @@
 
 					// save element after which the breadcrumbs will be deleted while processing the response
           $('#breadcrumbs').data('element_clicked', targetBids[targetBids.length-1]);
-
 					// ORIGIN
 					origin = $.fragment().origin;
-					
 					// AL
           var al = statement.data('api').getTargetAls(false);
-					
 					$.setFragment({
 				  	"sids": targetStack.join(','),
 				  	"nl": true,
@@ -88,7 +85,6 @@
 						"nl" : true, 
 						"al" : al.join(',')
 					});
-					alert(path)
           $.getScript(path);
 					return false;
 				});
