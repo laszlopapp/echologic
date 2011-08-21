@@ -69,6 +69,7 @@ en:
         created_contra_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
         created_background_infos: 'New content in the statement "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'New follow-up questions for "<strong>{{title}}</strong>":'
+        created_discuss_alternatives_questions: 'New discuss alternatives question for "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to
