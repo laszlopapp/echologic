@@ -81,7 +81,7 @@
         if(statement.is('form')) {
 					statement.statementForm();
         } else {
-					statementUrl = statement.find('input.statement_url').val();
+					statementUrl = statement.find('div.statement_url').val();
 
           // Action menus
 					initNewStatementButton();

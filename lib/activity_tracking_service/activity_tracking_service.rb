@@ -62,6 +62,7 @@ class ActivityTrackingService
       :info_type => node.class.has_embeddable_data? ? node.info_type.code : nil,
       :id => node.target_id,
       :level => node.class.is_top_statement? ? node.parent_node.level + 1 : node.level,
+      :top_level => node.top_level,
       :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent_node ? set_titles_hash(node.parent_node.statement_documents) : nil,
@@ -140,7 +141,7 @@ class ActivityTrackingService
   def build_events_hash(events)
 
     # Take the question events apart
-    root_events = events.select{|e| e['level'] == 0}
+    root_events = events.select{|e| e['level'] == 0 and e['top_level']}
     events -= root_events
 
     # Create a Hash containing the number of occurrences of the new tags in the new questions

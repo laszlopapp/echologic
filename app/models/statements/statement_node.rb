@@ -126,6 +126,10 @@ class StatementNode < ActiveRecord::Base
     false
   end
 
+  def is_referenced?
+    false
+  end
+
   def publish_descendants
     descendants.each do |node|
       if !node.published?
@@ -408,7 +412,9 @@ class StatementNode < ActiveRecord::Base
       if opts[:for_session]
         fields[:select] = "DISTINCT #{table_name}.id, #{table_name}.question_id"
         statements = self.base_class.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
-        statements << "/#{opts[:parent_id].nil? ? '' : "#{opts[:parent_id]}/" }add/#{self.name.underscore}" # ADD TEASER
+        
+        parent_id = opts[:hub] || opts[:parent_id]
+        statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}" # ADD TEASER
       else
         fields[:select] = "DISTINCT #{table_name}.*"
         statements = self.base_class.all(fields)

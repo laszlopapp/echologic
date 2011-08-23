@@ -1549,9 +1549,9 @@ a.statement_link:hover {
 }
 
 #statements .header .alternative_close {
-	left: 163px;
+	left: 132px;
   position: absolute;
-  top: 14px;
+  top: 11px;
 	background: url("../images/page/discuss/statement_icons_16.png");
 	display: inline-block;
 	width: 16px;
@@ -1570,7 +1570,7 @@ a.statement_link:hover {
 	float: left;
 	font-size: 11px;
   font-weight: bold;
-	left: 15px;
+	left: 50px;
   position: absolute;
   top: 13px;
 }

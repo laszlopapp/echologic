@@ -102,7 +102,7 @@ class StatementsController < ApplicationController
   #
   def new
     @statement_node ||= StatementNode.new_instance(:parent_id => params[:id],
-                                                   :editorial_state => StatementState[:new],
+                                                   :editorial_state => StatementState[:published],
                                                    :top_level => false)
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
@@ -457,6 +457,7 @@ class StatementsController < ApplicationController
   #
   def add
     @type = params[:type].to_s
+    load_discuss_alternatives_question(@statement_node) if alternative_mode?(@level)
     begin
       if !params[:nl].blank?
         if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
@@ -1040,6 +1041,7 @@ class StatementsController < ApplicationController
 
   def alternative_mode?(statement_node_or_level)
     return true if !params[:hub].blank?
+    statement_node_or_level = 0 if statement_node_or_level.nil?
     stack_ids = @current_stack || (@ancestors ? (@ancestors + [@statement_node]).map(&:id) : nil)
     @alternative_modes and stack_ids and @alternative_modes.include?(statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : stack_ids.index(statement_node_or_level.id))
   end
@@ -1120,7 +1122,7 @@ class StatementsController < ApplicationController
 
         # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         # if stack ids exists, that means the @statement node is already in ancestors
-        @ancestors << @statement_node if !@ancestors.map(&:id).include?(@statement_node.id)
+        @ancestors << @statement_node if !alternative_mode?(@level) and !@ancestors.map(&:id).include?(@statement_node.id)
         load_children_for_parent(@statement_node, @type)
       end
 
@@ -1177,9 +1179,11 @@ class StatementsController < ApplicationController
                statement_node.hub : # then prev must be the hub
                StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id")) : # if not, it's the previous statement in the current stack
              statement_node.parent_node # no current stack, so just load the damn parent
+      hub = statement_node.id if alternative_mode?(statement_node)
       siblings = statement_node.siblings_to_session :language_ids => @language_preference_list,
                                                     :user => current_user,
-                                                    :prev => prev
+                                                    :prev => prev,
+                                                    :hub => hub
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end
