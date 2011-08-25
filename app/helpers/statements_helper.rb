@@ -588,7 +588,7 @@ module StatementsHelper
   #
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
-    if statement_node and statement_node.new_record?
+    if statement_node and opts[:form]
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
                              I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"),
