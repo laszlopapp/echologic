@@ -593,7 +593,7 @@ en:
         contra_argument: 'Contra Argument'
         alternative: 'Opposition'
         background_info: 'Background Info'
-        discuss_alternatives_question: 'Question'
+        discuss_alternatives_question: 'Alternatives Discussion'
         follow_up_question: 'Follow-Up Question'
       new:
         question: 'New Question'
