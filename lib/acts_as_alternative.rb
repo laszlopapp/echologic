@@ -105,11 +105,16 @@ module ActiveRecord
             end
 
             def paginated_alternatives(page, per_page = nil,opts={})
-              #TODO: When the support of multiple alternatives is set, we have to rethink this
-              alternative_statements = hub.nil? ? [] : hub.child_statements(opts.merge({:type => self.class.alternative_types.first.to_s,
-                                                                                        :alternative_ids => alternatives.map(&:id),
-                                                                                        :filter_drafting_state => true})).flatten
-
+              alternative_statements = []
+              if hub.present?
+                alternative_ids = alternatives.map(&:id)
+                alternative_ids << target_id if opts[:with_self]
+                #TODO: When the support of multiple alternatives is set, we have to rethink this
+                alternative_statements = hub.child_statements(opts.merge({:type => self.class.alternative_types.first.to_s,
+                                                                                          :alternative_ids => alternative_ids,
+                                                                                          :filter_drafting_state => true})).flatten
+              end
+              
               per_page = alternative_statements.length if per_page.nil? or per_page < 0
               per_page = 1 if per_page.to_i == 0
               alternative_statements.paginate(self.class.base_class.default_scope.merge(:page => page,

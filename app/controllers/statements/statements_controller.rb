@@ -371,7 +371,7 @@ class StatementsController < ApplicationController
       if @type.eql? :Alternative
         @hub_type = "alternative"
         @type = params[:alternative_type].to_s.camelize.to_sym
-        load_alternatives(1, -1, @type, :alternative_ids => [])
+        load_alternatives(1, -1, @type, :alternative_ids => [], :with_self => true)
       else
         @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
       end
