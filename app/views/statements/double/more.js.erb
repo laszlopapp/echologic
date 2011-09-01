@@ -30,7 +30,7 @@ var double_list = statement.find('.children .<%= type_plural %> .doubles_list');
 	  if (children_list.find('.add_new_button').length == 0) {
 	   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, type,
 	                                                                              :nl => true,
-	                                                                              :css => "ajax") %>');
+	                                                                              :css => "new_statement") %>');
 		}
 	<% end %>
 

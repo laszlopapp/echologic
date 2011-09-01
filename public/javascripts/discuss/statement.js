@@ -96,7 +96,8 @@
           // Links
           initContentLinks();
           initAllStatementLinks();
-
+          initAllNewStatementFormLinks();
+					
           // Embedded content
 					if (hasEmbeddableContent()) {
 						initEmbeddedContent();
@@ -688,6 +689,14 @@
 				})
 		  }
 
+
+      function initAllNewStatementFormLinks() {
+				statement.find('.new_statement').bind('click', function(){
+					$.getScript(this.href);
+					return false;
+				});
+			}
+		
 
       /*
        * Initializes links for all statements but Follow-up Questions.

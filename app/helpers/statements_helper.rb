@@ -293,7 +293,7 @@ module StatementsHelper
           buttons << content_tag(:a, :href => new_statement_node_url(origin[2..-1],
                                                                      context_type,
                                                                      :origin => origin),
-                                 :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
+                                 :class => "create_#{context_type}_button_32 resource_link new_statement ttLink no_border",
                                  :title => I18n.t("discuss.statements.siblings.#{context_type}")) do
             statement_icon_title(I18n.t("discuss.statements.siblings.#{context_type}"))
           end
@@ -307,7 +307,7 @@ module StatementsHelper
                                                                    :hub => "al#{statement_node.target_id}",
                                                                    :bids => params[:bids],
                                                                    :origin => origin),
-                               :class => "create_alternative_button_32 resource_link ajax ttLink no_border",
+                               :class => "create_alternative_button_32 resource_link new_statement ttLink no_border",
                                :title => I18n.t("discuss.tooltips.create_alternative")) do
           statement_icon_title(I18n.t("discuss.statements.types.alternative"))
         end
@@ -329,7 +329,7 @@ module StatementsHelper
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
       content << content_tag(:a, :href => new_statement_node_url(@parent_node || statement_node.parent_node, sub_type),
-                             :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
+                             :class => "create_#{sub_type}_button_32 resource_link new_statement ttLink no_border",
                              :title => I18n.t("discuss.tooltips.create_#{sub_type}")) do
         statement_icon_title(I18n.t("discuss.statements.types.#{sub_type}"))
       end
@@ -379,7 +379,7 @@ module StatementsHelper
     opts[:nl] = true
     content = ''
     content << content_tag(:a, :href => new_statement_node_url(statement_node, type, opts),
-                           :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
+                           :class => "create_#{type}_button_32 resource_link new_statement ttLink no_border",
                            :title => I18n.t("discuss.tooltips.create_#{type}")) do
       statement_icon_title(I18n.t("discuss.statements.types.#{type}"))
     end
@@ -430,7 +430,7 @@ module StatementsHelper
       content = ''
       content << image_tag(user.avatar.url(:small), :alt => '')
       content << content_tag(:span, I18n.t('users.authors.teaser.title'), :class => 'name')
-      content << create_new_child_statement_link(statement_node, 'improvement', :nl => true, :css => "ajax")
+      content << create_new_child_statement_link(statement_node, 'improvement', :nl => true, :css => "new_statement")
       content
     end
   end
@@ -506,7 +506,7 @@ module StatementsHelper
 
   def summary_hint_text(statement_node)
     text = ""
-    text << I18n.t("discuss.statements.text_hint.alternative_prefix") if params[:hub].start_with? 'al'
+    text << I18n.t("discuss.statements.text_hint.alternative_prefix") if params[:hub].present? and params[:hub].start_with? 'al'
     text << I18n.t("discuss.statements.text_hint.#{node_type(statement_node)}")
     text
   end
@@ -879,7 +879,7 @@ module StatementsHelper
   end
 
   def create_discuss_alternatives_question_link(statement_node)
-    create_new_child_statement_link(statement_node, "discuss_alternatives_question", :css => "ajax", :nl => true, :origin => params[:origin], :bids => params[:bids])
+    create_new_child_statement_link(statement_node, "discuss_alternatives_question", :css => "new_statement", :nl => true, :origin => params[:origin], :bids => params[:bids])
   end
   
   def alternative_mode?(statement_node_or_level)
