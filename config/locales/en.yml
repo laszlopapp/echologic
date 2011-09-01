@@ -612,7 +612,7 @@ en:
         alternatives: 'Alternatives'
         background_info: 'Background Infos'
         follow_up_question: 'Follow-up Questions'
-        alternative: 'Alternatives'
+        alternative: 'Alternative'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'
