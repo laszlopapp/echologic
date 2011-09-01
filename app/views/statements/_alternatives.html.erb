@@ -10,6 +10,7 @@
                          :hub => "al#{@statement_node.target_id}",
                          :child_type => @statement_node.class.alternative_types.first.to_s.underscore,
                          :children => alternatives,
+                         :new_level => true, 
                          :display => true} %>
 
   <%= content_tag :span, '', :class => 'alt_border bottom' %>
