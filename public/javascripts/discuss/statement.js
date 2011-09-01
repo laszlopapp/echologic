@@ -81,7 +81,7 @@
         if(statement.is('form')) {
 					statement.statementForm();
         } else {
-					statementUrl = statement.find('div.statement_url').val();
+					statementUrl = $.trim(statement.find('.statement_url').text());
 
           // Action menus
 					initNewStatementButton();
