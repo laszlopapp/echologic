@@ -916,15 +916,14 @@ en:
       text: |
         Dear {{name}},
 
-        welcome to echo!
+        welcome to echo - the distributed system for living democracy.
 
-        We are happy seeing you join us to participate in the evolution of echo.
-        As a member you can take part in discussions and also provide helpful
-        impulses for a successfull development of echo.
+        We are happy to see you join the community.
 
-        We wish you an inspiring and enriching time.
+        Use echo to speak up your mind on YOUR site, with YOUR community, for YOUR issues in society.
+        Your voice needs an echo. echo needs your voice! :-)
 
-        See you soon,
+        With best wishes,
 
         Your echo team
 
@@ -941,6 +940,7 @@ en:
         If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
 
         We wish you further much inspiration and fun at echo.
+
         With best regards,
 
         Your echo team
@@ -950,7 +950,7 @@ en:
       text1: |
         Dear {{name}},
 
-        In order to successfully update your E-Mail address, you must complete the last step of the process, which consists of clicking the URL below, allowing us to successfully confirm your new E-Mail address.
+        Please click the link below to confirm and update to your new E-Mail address.
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
