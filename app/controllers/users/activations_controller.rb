@@ -96,6 +96,7 @@ class Users::ActivationsController < ApplicationController
     log_message_info("User '#{@user.id}' has been activated sucessfully.")
   end
 
+
   def activate_email
     @action = PendingAction.find(params[:token])
 
