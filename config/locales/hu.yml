@@ -507,8 +507,8 @@ hu:
         contra_argument:  Tekintsd át az összes érvet az aktuális javaslatra vonatkozóan
         background_info:  Tekintsd át az összes háttérinfót az aktuális hozzászólás kapcsán
       link_statement: |-
-        Add meg a cím egy részletét vagy másold be a kijelentés közvetlen URL-jét.
-        Ezután nyomd meg ezt a gombot a régi kijelentés beillesztéséhez.
+        Add meg a cím egy részletét vagy másold be a hozzászólás közvetlen URL-jét.
+        Ezután nyomd meg ezt a gombot a régi hozzászólás beillesztéséhez.
       unlink_statement: "Nyomd meg a gombot újra a régi és új bejegyzés közti összeköttetés feloldásához."
 
 
