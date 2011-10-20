@@ -885,66 +885,68 @@ hu:
     activation:
       subject: Kérjük aktiváld új echo profilodat
       text1: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Köszönjük, hogy regisztráltál az echo rendszerébe. Kérjük kattints az alábbi linkre és aktiváld profilodat.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Ha bármi problémád adódna profilod aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
 
-        Looking forward to seeing you soon at echo,
+        Reméljük, az echon mindjárt találkozunk. :-)
 
-        Your echo team
+        Minden jót,
+
+        Az echo csapata
 
     # Welcome section
     welcome:
-      subject: Üdvözlünk az echo közösségben
+      subject: Üdvözlégy az echo közösségben
       text: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        welcome to echo!
+        Üdvözlünk Téged az echo rendszerében - az élő, valódi demokrácia internetes otthonában.
 
-        We are happy seeing you join us to participate in the evolution of echo.
-        As a member you can take part in discussions and also provide helpful
-        impulses for a successfull development of echo.
+        Örülünk, hogy mostantól Téged is mozgalmunk aktív tagjaként köszönthetünk.
 
-        We wish you an inspiring and enriching time.
+        Használd az echot és kelts visszhangot a SAJÁT weboldaladon is - a SAJÁT közösségeddel, a SAJÁT témáitok kapcsán.
+        Mert ne feledd: a hangod egy echora, az echo a hangodra vár. :-)
 
-        See you soon,
+        A világod és világunk megmentéséhez sok sikert és minden jót kíván,
 
-        Your echo team
+        Az echo csapata
 
     new_password:
       subject: Új echo jelszó
       text1: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        a new password was requested for your echo account. If you want to change it please click on the following link.
-
+        Új jelszavad megadásához kérjük kattints az alábbi linkre.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Ha bármi problémád adódna jelszavad aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
 
-        We wish you further much inspiration and fun at echo.
-        With best regards,
+        További sok sikert kívánunk Neked az echo használatához. :-)
 
-        Your echo team
+        Minden jót,
+
+        Az echo csapata
 
     activate_email:
-      subject: Kérjük aktiváld E-Mail címedet
+      subject: Kérjük aktiváld új E-Mail címedet
       text1: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        In order to successfully update your E-Mail address, you must complete the last step of the process, which consists of clicking the URL below, allowing us to successfully confirm your new E-Mail address.
+        Kérjük kattints az alábbi linkre, hogy megerősítsd és aktiváld újonnan megadott E-Mail címedet.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        If you keep having problems with activating your email, please feel free to contact us at support@echologic.org.
+        Ha bármi problémád adódna új E-Mail címed aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
 
-        Looking forward to seeing you soon at echo,
+        További sok sikert kívánunk Neked az echo használatához. :-)
 
-        Your echo team
+        Minden jót,
 
+        Az echo csapata
 

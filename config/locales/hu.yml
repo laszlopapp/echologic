@@ -170,7 +170,7 @@ hu:
     # Activations section
     activation:
       messages:
-        success: Profilodat sikeresen aktiváltad. Üdvözlünk az echo közösségben!
+        success: Profilodat sikeresen aktiváltad. Légy üdvözölve az echo közösségben!
         failed: |-
           <p>Profilodat nem tudtuk aktiválni. Kérjük ellenőrizd a megadottak helyességét.</p>
         email_success: E-mail címedet sikeresen megváltoztattad!
@@ -403,13 +403,13 @@ hu:
         action: 'Join now!'
 
       messages:
-        created: "Please check your E-Mails to activate your newly created account!"
-        activate_email: In order to complete the E-Mail address modification, please log out and press the confimation link sent to your new E-Mail address!
+        created: "Kérjük ellenőrizd E-Mailjeidet és aktiváld újonnan létrehozott echo profilodat!"
+        activate_email: Új E-Mail címed aktiválásához kérjük, hogy jelentkezz ki az echoból és kattints az új E-Mail címedre elküldött linkre.
 
     # Reports section
     reports:
       new:
-        title:  "Report user"
+        title: "Report user"
         text: |
           <p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>
           If so, here you can report the user to our administrative team.
