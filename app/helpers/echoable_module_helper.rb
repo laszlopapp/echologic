@@ -80,7 +80,7 @@ module EchoableModuleHelper
     content_tag(:span, '',
                 :class => 'label',
                 'data-not-supported' => '+1 Echo', #I18n.t("discuss.statements.echo_link"),
-                'data-supported' => '-1 Echo') #I18n.t("discuss.statements.unecho_link"))
+                'data-supported' => '–1 Echo') #I18n.t("discuss.statements.unecho_link"))
   end
 
   def social_echo_container(statement_node, echoed=false)
