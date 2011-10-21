@@ -23,7 +23,7 @@
   <% end %>
 
 	<% if flash[:later_call] %>
-	   $.getScript('<%= escape_javascript(flash[:later_call]) %>');
+	  $.getScript('<%= escape_javascript(flash[:later_call]) %>');
   <% end %>
 </script>
 
