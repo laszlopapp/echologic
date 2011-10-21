@@ -1,62 +1,69 @@
 
-<% {'en' => "English", 'de' => "Englisch",'fr'=> "Ingles",'pt' => "Inglês",'es' => "Inglés"}.each_pair do |code,value| %>
+<% {'en' => "English", 'de' => "Englisch",'fr'=> "Ingles",'pt' => "Inglês",'es' => "Inglés",'hu' => "Angol"}.each_pair do |code,value| %>
 english_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_en) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "German",'de' => "Deutsch",'fr'=> "Aleman",'pt' => "Alemão",'es' => "Alemán"}.each_pair do |code,value| %>
+<% {'en' => "German",'de' => "Deutsch",'fr'=> "Aleman",'pt' => "Alemão",'es' => "Alemán",'hu' => "Német"}.each_pair do |code,value| %>
 german_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_de) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "French",'de' => "Französisch",'fr'=> "Français",'pt' => "Francês",'es' => "Francés"}.each_pair do |code,value| %>
+<% {'en' => "French",'de' => "Französisch",'fr'=> "Français",'pt' => "Francês",'es' => "Francés",'hu' => "Francia"}.each_pair do |code,value| %>
 french_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_fr) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Portuguese",'de' => "Portugiesisch",'fr'=> "Portugais",'pt' => "Português",'es' => "Portugués"}.each_pair do |code,value| %>
+<% {'en' => "Portuguese",'de' => "Portugiesisch",'fr'=> "Portugais",'pt' => "Português",'es' => "Portugués",'hu' => "Portugál"}.each_pair do |code,value| %>
 portuguese_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_pt) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Spanish",'de' => "Spanisch",'fr'=> "Espagnol",'pt' => "Espanhol",'es' => "Español"}.each_pair do |code,value| %>
+<% {'en' => "Spanish",'de' => "Spanisch",'fr'=> "Espagnol",'pt' => "Espanhol",'es' => "Español",'hu' => "Spanyol"}.each_pair do |code,value| %>
 spanish_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_es) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
+<% {'en' => "Hungarian", 'de' => "Ungarisch",'fr'=> "Hun",'pt' => "Hun",'es' => "Hun",'hu' => "Magyar"}.each_pair do |code,value| %>
+hungarian_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:language_hu) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
 
-<% {'en' => "Mother Tongue",'de' => "Muttersprache",'fr'=> "Langue Maternelle",'pt' => "Língua Materna",'es' => "Lengua Materna"}.each_pair do |code,value| %>
+<% {'en' => "Mother Tongue",'de' => "Muttersprache",'fr'=> "Langue Maternelle",'pt' => "Língua Materna",'es' => "Lengua Materna",'hu' => "Anyanyelv"}.each_pair do |code,value| %>
 mother_tongue_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_mother_tongue) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Advanced",'de' => "Fortgeschritten",'fr'=> "Avancé",'pt' => "Avançado",'es' => "Avanzado"}.each_pair do |code,value| %>
+<% {'en' => "Advanced",'de' => "Fortgeschritten",'fr'=> "Avancé",'pt' => "Avançado",'es' => "Avanzado",'hu' => "Felsofok"}.each_pair do |code,value| %>
 advanced_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_advanced) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Intermediate",'de' => "Mittelstufe",'fr'=> "Intermédiaire",'pt' => "Intermédio",'es' => "Intermedio"}.each_pair do |code,value| %>
+<% {'en' => "Intermediate",'de' => "Mittelstufe",'fr'=> "Intermédiaire",'pt' => "Intermédio",'es' => "Intermedio",'hu' => "Kozepszint"}.each_pair do |code,value| %>
 intermediate_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_intermediate) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Basic",'de' => "Grundkenntnisse",'fr'=> "Basique",'pt' => "Básico",'es' => "Basico"}.each_pair do |code,value| %>
+<% {'en' => "Basic",'de' => "Grundkenntnisse",'fr'=> "Basique",'pt' => "Básico",'es' => "Basico",'hu' => "Alapfok"}.each_pair do |code,value| %>
 basic_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_basic) %>
   code: <%= code %>
@@ -64,7 +71,7 @@ basic_<%= code %>:
   context:
 <% end %>
 
-<% ['en','de','fr','pt','es'].each do |code| %>
+<% ['en','de','fr','pt','es','hu'].each do |code| %>
 email_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_email) %>
   code: <%= code %>
@@ -109,7 +116,7 @@ twitter_<%= code %>:
 
 <% end %>
 
-<% {'en' => "Other",'de' => "Andere",'fr'=> "Autre",'pt' => "Outro",'es' => "Otro"}.each_pair do |code,value| %>
+<% {'en' => "Other",'de' => "Andere",'fr'=> "Autre",'pt' => "Outro",'es' => "Otro",'hu' => "Mas"}.each_pair do |code,value| %>
 other_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_other) %>
   code: <%= code %>
@@ -117,42 +124,42 @@ other_<%= code %>:
   context:
 <% end %>
 
-<% {'en' => "NGO",'de' => "NRO",'fr'=> "ONG",'pt' => "ONG",'es' => "ONG"}.each_pair do |code,value| %>
+<% {'en' => "NGO",'de' => "NRO",'fr'=> "ONG",'pt' => "ONG",'es' => "ONG",'hu' => "NGO"}.each_pair do |code,value| %>
 ngo_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_ngo) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Political",'de' => "Politisch",'fr'=> "Politique",'pt' => "Política",'es' => "Política"}.each_pair do |code,value| %>
+<% {'en' => "Political",'de' => "Politisch",'fr'=> "Politique",'pt' => "Política",'es' => "Política",'hu' => "Politikai"}.each_pair do |code,value| %>
 political_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_political) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Scientific",'de' => "Wissenschaftlich",'fr'=> "Scientifique",'pt' => "Científica",'es' => "Científica"}.each_pair do |code,value| %>
+<% {'en' => "Scientific",'de' => "Wissenschaftlich",'fr'=> "Scientifique",'pt' => "Científica",'es' => "Científica",'hu' => "Tudomanyos"}.each_pair do |code,value| %>
 scientific_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_scientific) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Trade Union",'de' => "Gewerkschaft",'fr'=> "Syndicat",'pt' => "Sindicato",'es' => "Sindicato"}.each_pair do |code,value| %>
+<% {'en' => "Trade Union",'de' => "Gewerkschaft",'fr'=> "Syndicat",'pt' => "Sindicato",'es' => "Sindicato",'hu' => "Szakszervezet"}.each_pair do |code,value| %>
 trade_union_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_trade_union) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Social Business",'de' => "Sozialbetrieb",'fr'=> "Activité Sociale",'pt' => "Actividade Social",'es' => "Actividad Social"}.each_pair do |code,value| %>
+<% {'en' => "Social Business",'de' => "Sozialbetrieb",'fr'=> "Activité Sociale",'pt' => "Actividade Social",'es' => "Actividad Social",'hu' => "Social Business"}.each_pair do |code,value| %>
 social_business_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_social_business) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Profit-Driven Business",'de' => "Gewinnorientierte Firma",'fr'=> "Firma à but lucratif",'pt' => "Firma com fins lucrativos",'es' => "Firma de lucro"}.each_pair do |code,value| %>
+<% {'en' => "Profit-Driven Business",'de' => "Gewinnorientierte Firma",'fr'=> "Firma à but lucratif",'pt' => "Firma com fins lucrativos",'es' => "Firma de lucro",'hu' => "Profitorientalt"}.each_pair do |code,value| %>
 profit_driven_business_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_profit_driven_business) %>
   code: <%= code %>
@@ -160,49 +167,49 @@ profit_driven_business_<%= code %>:
   context:
 <% end %>
 
-<% {'en' => "Affection",'de' => "Betroffenheit",'fr'=> "Affection",'pt' => "Afeição",'es' => "Afecto"}.each_pair do |code,value| %>
+<% {'en' => "Affection",'de' => "Betroffenheit",'fr'=> "Affection",'pt' => "Afeição",'es' => "Afecto",'hu' => "Erintett"}.each_pair do |code,value| %>
 affection_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_affection) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Engagement",'de' => "Engagement",'fr'=> "Engagement",'pt' => "Compromisso",'es' => "Compromisso"}.each_pair do |code,value| %>
+<% {'en' => "Engagement",'de' => "Engagement",'fr'=> "Engagement",'pt' => "Compromisso",'es' => "Compromisso",'hu' => "Aktiv"}.each_pair do |code,value| %>
 engagement_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_engagement) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Expertise",'de' => "Expertise",'fr'=> "Expertise",'pt' => "Especialidade",'es' => "Peritaje"}.each_pair do |code,value| %>
+<% {'en' => "Expertise",'de' => "Expertise",'fr'=> "Expertise",'pt' => "Especialidade",'es' => "Peritaje",'hu' => "Szakerto"}.each_pair do |code,value| %>
 expertise_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_expertise) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Decision Making",'de' => "Entscheidung",'fr'=> "Décision",'pt' => "Decisão",'es' => "Decisión"}.each_pair do |code,value| %>
+<% {'en' => "Decision Making",'de' => "Entscheidung",'fr'=> "Décision",'pt' => "Decisão",'es' => "Decisión",'hu' => "Donteshozo"}.each_pair do |code,value| %>
 decision_making_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_decision_making) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Field of Work",'de' => "Arbeitsfeld",'fr'=> "Domaine de travail",'pt' => "Domínio de Trabalho",'es' => "Área de Trabajo"}.each_pair do |code,value| %>
+<% {'en' => "Field of Work",'de' => "Arbeitsfeld",'fr'=> "Domaine de travail",'pt' => "Domínio de Trabalho",'es' => "Área de Trabajo",'hu' => "Munkaterulet"}.each_pair do |code,value| %>
 field_work_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_field_work) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Field of Activity",'de' => "Aktivitätsfeld",'fr'=> "Domaine d'activité",'pt' => "Domínio de Actividade",'es' => "Área de Actividad"}.each_pair do |code,value| %>
+<% {'en' => "Field of Activity",'de' => "Aktivitätsfeld",'fr'=> "Domaine d'activité",'pt' => "Domínio de Actividade",'es' => "Área de Actividad",'hu' => "Aktivitasi terulet"}.each_pair do |code,value| %>
 field_activity_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_field_activity) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' =>"Topic",'de' => "Thema",'fr'=> "Topique",'pt' => "Tópico",'es' => "Tema"}.each_pair do |code,value| %>
+<% {'en' =>"Topic",'de' => "Thema",'fr'=> "Topique",'pt' => "Tópico",'es' => "Tema",'hu' => "Tema"}.each_pair do |code,value| %>
 topic_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_topic) %>
   code: <%= code %>
@@ -210,14 +217,14 @@ topic_<%= code %>:
   context:
 <% end %>
 
-<% {'en' => "New",'de' => "Neu",'fr'=> "Neuf",'pt' => "Novo",'es' => "Nuevo"}.each_pair do |code,value| %>
+<% {'en' => "New",'de' => "Neu",'fr'=> "Neuf",'pt' => "Novo",'es' => "Nuevo",'hu' => "Uj"}.each_pair do |code,value| %>
 new_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_state_new) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Published",'de' => "Veröffentlicht",'fr'=> "Publié",'pt' => "Publicado",'es' => "Publicado"}.each_pair do |code,value| %>
+<% {'en' => "Published",'de' => "Veröffentlicht",'fr'=> "Publié",'pt' => "Publicado",'es' => "Publicado",'hu' => "Publikalt"}.each_pair do |code,value| %>
 published_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_state_published) %>
   code: <%= code %>
@@ -225,28 +232,28 @@ published_<%= code %>:
   context:
 <% end %>
 
-<% {'en' => "New",'de' => "Neu",'fr'=> "Neuf",'pt' => "Novo",'es' => "Nuevo"}.each_pair do |code,value| %>
+<% {'en' => "New",'de' => "Neu",'fr'=> "Neuf",'pt' => "Novo",'es' => "Nuevo",'hu' => "Uj"}.each_pair do |code,value| %>
 created_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_created) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Edit",'de' => "Editieren",'fr'=> "Éditer",'pt' => "Editar",'es' => "Editar"}.each_pair do |code,value| %>
+<% {'en' => "Edit",'de' => "Editieren",'fr'=> "Éditer",'pt' => "Editar",'es' => "Editar",'hu' => "Szerkesztes"}.each_pair do |code,value| %>
 updated_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_updated) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Translate",'de' => "Übersetzen",'fr'=> "Traduire",'pt' => "Traduzir",'es' => "Traducir"}.each_pair do |code,value| %>
+<% {'en' => "Translate",'de' => "Übersetzen",'fr'=> "Traduire",'pt' => "Traduzir",'es' => "Traducir",'hu' => "Forditas"}.each_pair do |code,value| %>
 translated_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_translated) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Incorporate",'de' => "Einfügen",'fr'=> "Incorporer",'pt' => "Incorporar",'es' => "Incorporar"}.each_pair do |code,value| %>
+<% {'en' => "Incorporate",'de' => "Einfügen",'fr'=> "Incorporer",'pt' => "Incorporar",'es' => "Incorporar",'hu' => "Beillesztes"}.each_pair do |code,value| %>
 incorporated_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_incorporated) %>
   code: <%= code %>
@@ -254,63 +261,63 @@ incorporated_<%= code %>:
   context:
 <% end %>
 
-<% {'en' => "Core Team",'de' => "Ständiges Team",'fr'=> "Coeur équipe",'pt' => "Equipa-Núcleo",'es' => "Equipo Permanente"}.each_pair do |code,value| %>
+<% {'en' => "Core Team",'de' => "Ständiges Team",'fr'=> "Coeur équipe",'pt' => "Equipa-Núcleo",'es' => "Equipo Permanente",'hu' => "Fo csapat"}.each_pair do |code,value| %>
 core_team_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_core_team) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Supporters",'de' => "Unterstützer",'fr'=> "Collaborateurs",'pt' => "Colaboradores",'es' => "Colaboradores"}.each_pair do |code,value| %>
+<% {'en' => "Supporters",'de' => "Unterstützer",'fr'=> "Collaborateurs",'pt' => "Colaboradores",'es' => "Colaboradores",'hu' => "Tamogatok"}.each_pair do |code,value| %>
 supporters_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_supporters) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Translators",'de' => "Übersetzer",'fr'=> "Traducteurs",'pt' => "Tradutores",'es' => "Traductores"}.each_pair do |code,value| %>
+<% {'en' => "Translators",'de' => "Übersetzer",'fr'=> "Traducteurs",'pt' => "Tradutores",'es' => "Traductores",'hu' => "Forditok"}.each_pair do |code,value| %>
 translators_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_translators) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Interns",'de' => "Praktikanten",'fr'=> "Stagiaires",'pt' => "Estagiários",'es' => "Becarios"}.each_pair do |code,value| %>
+<% {'en' => "Interns",'de' => "Praktikanten",'fr'=> "Stagiaires",'pt' => "Estagiários",'es' => "Becarios",'hu' => "Segedek"}.each_pair do |code,value| %>
 interns_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_interns) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Alumni",'de' => "Absolventen",'fr'=> "Diplômées",'pt' => "Graduados",'es' => "Graduados"}.each_pair do |code,value| %>
+<% {'en' => "Alumni",'de' => "Absolventen",'fr'=> "Diplômées",'pt' => "Graduados",'es' => "Graduados",'hu' => "Alumni"}.each_pair do |code,value| %>
 alumni_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_alumni) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Technology Partners",'de' => "Technologiepartner",'fr'=> "Partenaires Tecnologiques",'pt' => "Parceiros Tecnológicos",'es' => "Colaboradores Tecnológicos"}.each_pair do |code,value| %>
+<% {'en' => "Technology Partners",'de' => "Technologiepartner",'fr'=> "Partenaires Tecnologiques",'pt' => "Parceiros Tecnológicos",'es' => "Colaboradores Tecnológicos",'hu' => "Technologiai partnerek"}.each_pair do |code,value| %>
 technology_partners_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_technology_partners) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Financial Partners",'de' => "Finanzpartner",'fr'=> "Partenaires Financières",'pt' => "Parceiros Financeiros",'es' => "Colaboradores Financieros"}.each_pair do |code,value| %>
+<% {'en' => "Financial Partners",'de' => "Finanzpartner",'fr'=> "Partenaires Financières",'pt' => "Parceiros Financeiros",'es' => "Colaboradores Financieros",'hu' => "Penzugyi partnerek"}.each_pair do |code,value| %>
 financial_partners_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_financial_partners) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Strategic Partners",'de' => "Strategische Partner",'fr'=> "Partenaires Stratégiques",'pt' => "Parceiros Estratégicos",'es' => "Colaboradores Estratégicos"}.each_pair do |code,value| %>
+<% {'en' => "Strategic Partners",'de' => "Strategische Partner",'fr'=> "Partenaires Stratégiques",'pt' => "Parceiros Estratégicos",'es' => "Colaboradores Estratégicos",'hu' => "Strategiai partnerek"}.each_pair do |code,value| %>
 strategic_partners_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_strategic_partners) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Thematic Partners",'de' => "Thematische Partner",'fr'=> "Partenaires Thématiques",'pt' => "Parceiros Temáticos",'es' => "Colaboradores Temàticos"}.each_pair do |code,value| %>
+<% {'en' => "Thematic Partners",'de' => "Thematische Partner",'fr'=> "Partenaires Thématiques",'pt' => "Parceiros Temáticos",'es' => "Colaboradores Temàticos",'hu' => "Tematikus partnerek"}.each_pair do |code,value| %>
 thematic_partners_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_thematic_partners) %>
   code: <%= code %>
@@ -319,63 +326,63 @@ thematic_partners_<%= code %>:
 <% end %>
 
 
-<% {'en' => "Article",'de' => "Artikel",'fr'=> "Article",'pt' => "Artigo",'es' => "Artículo"}.each_pair do |code,value| %>
+<% {'en' => "Article",'de' => "Artikel",'fr'=> "Article",'pt' => "Artigo",'es' => "Artículo",'hu' => "Cikk"}.each_pair do |code,value| %>
 article_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_article) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Paper",'de' => "Referat",'fr'=> "Exposé",'pt' => "Artigo Científico",'es' => "Ponencia"}.each_pair do |code,value| %>
+<% {'en' => "Paper",'de' => "Referat",'fr'=> "Exposé",'pt' => "Artigo Científico",'es' => "Ponencia",'hu' => "Tudomanyos cikk"}.each_pair do |code,value| %>
 paper_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_paper) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Book",'de' => "Buch",'fr'=> "Livre",'pt' => "Livro",'es' => "Libro"}.each_pair do |code,value| %>
+<% {'en' => "Book",'de' => "Buch",'fr'=> "Livre",'pt' => "Livro",'es' => "Libro",'hu' => "Konyv"}.each_pair do |code,value| %>
 book_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_book) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Audio",'de' => "Audio",'fr'=> "Audio",'pt' => "Audio",'es' => "Audio"}.each_pair do |code,value| %>
+<% {'en' => "Audio",'de' => "Audio",'fr'=> "Audio",'pt' => "Audio",'es' => "Audio",'hu' => "Audio"}.each_pair do |code,value| %>
 audio_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_audio) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Photo",'de' => "Foto",'fr'=> "Photo",'pt' => "Foto",'es' => "Foto"}.each_pair do |code,value| %>
+<% {'en' => "Photo",'de' => "Foto",'fr'=> "Photo",'pt' => "Foto",'es' => "Foto",'hu' => "Foto"}.each_pair do |code,value| %>
 photo_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_photo) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Video",'de' => "Video",'fr'=> "Video",'pt' => "Video",'es' => "Video"}.each_pair do |code,value| %>
+<% {'en' => "Video",'de' => "Video",'fr'=> "Video",'pt' => "Video",'es' => "Video",'hu' => "Video"}.each_pair do |code,value| %>
 video_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_video) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Law",'de' => "Law",'fr'=> "Law",'pt' => "Law",'es' => "Law"}.each_pair do |code,value| %>
+<% {'en' => "Law",'de' => "Law",'fr'=> "Law",'pt' => "Law",'es' => "Law",'hu' => "Jogi"}.each_pair do |code,value| %>
 law_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_law) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Document",'de' => "Document",'fr'=> "Document",'pt' => "Document",'es' => "Document"}.each_pair do |code,value| %>
+<% {'en' => "Document",'de' => "Document",'fr'=> "Document",'pt' => "Document",'es' => "Document",'hu' => "Dokumentum"}.each_pair do |code,value| %>
 document_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_document) %>
   code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "Misc",'de' => "Misc",'fr'=> "Misc",'pt' => "Misc",'es' => "Misc"}.each_pair do |code,value| %>
+<% {'en' => "Misc",'de' => "Misc",'fr'=> "Misc",'pt' => "Misc",'es' => "Misc",'hu' => "Egyeb"}.each_pair do |code,value| %>
 misc_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_misc) %>
   code: <%= code %>
