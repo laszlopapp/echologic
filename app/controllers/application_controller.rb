@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   private
   def rescure_routing_error(e)
-    log_message_error(e, "Invalid URL - Redirecting to #{last_url}")
+    log_message_error(e, "Invalid URL - Referer: #{request.referer} - Redirecting to #{last_url}")
     redirect_to_url last_url, 'application.routing_error'
   end
 
