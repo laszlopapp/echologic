@@ -29,13 +29,13 @@ hu:
           <p>
           Az echo egy a közösségből fakadó <a href="{{github_url}}" target="_blank">nyílt forrású</a> projekt egy
           <strong>élő demokráciáért</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">világszerte</span>,
-          minden ember egyenrangú, aktív részvételével. Átfogó koncepciója korunk egyik kulcsproblémájának megoldását
+          mindannyiunk egyenrangú, aktív részvételével. Átfogó koncepciója korunk egyik kulcsproblémájának megoldását
           célozza: a politikai rezignáció és az egyedüli ember tehetetlenség érzetének leküzdését.
           </p><p>
-          "Megvitatjuk - Összefogunk - Cselekszünk!" - A szociális szoftver lehetőséget nyújt <strong>konstruktív,
-          többnyelvű nyílt viták</strong> folytatására véleményformálás és közös megoldáskeresés céljából.
-          Az echo összeköti a vitákban azonos álláspontokat kialakító embereket és támogatja őket a
-          <strong>közös cselekvésben</strong> a társadalmi és politikai befolyásgyakorlás sikeréért.
+          "Megvitatjuk - Összefogunk - Cselekszünk!" - A szociális szoftver lehetőséget nyújt <strong>széleskörű
+          társadalmi viták</strong> folytatására és konstruktív <strong>javaslataink együttes kidolgozására</strong>.
+          Az echo összeköt minket a vitákban azonos álláspontokat kialakító emberekkel és támogat a
+          <strong>közös cselekvésben</strong> a társadalmi és politikai érdekérvényesítés sikeréért.
           Bárhol is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
           egyedül véleményünkkel és céljainkkal - hangunk visszhangja <strong>átformálja a világot</strong>.
           </p>
@@ -50,10 +50,10 @@ hu:
             vagy éppen privát blogokban. Bármely weboldalon is legyünk, az echo segítségével együtt alakíthatjuk ki és
             fejleszthetjük tovább javaslatainkat - demokratikus úton, adminisztrátorok és moderátorok nélkül.
             Kollektív tudásunk szilánkjai, vélemények és ezek támogatói ezáltal az egymástól elszigetelt weblapok,
-            közösségek és különböző beszélt nyelvek határain túl <strong>az Internet teljes egészére kiterjedően</strong>
+            közösségek és különböző beszélt nyelvek határain túl <strong>az Internet egészén</strong>
             összeköttetnek egymással.
             </p><p>
-            Az echo struktúrált dialógusai <strong>bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
+            Az echo struktúrált <strong>dialógusai bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
             Elénk tárják a különböző alternatívákat, a mellettük és ellenük szóló érveket valamint a velük kapcsolatos
             multimediális háttérinformációkat. A témák közötti összefüggések illetve a különböző
             <strong>társadalmi csoportok álláspontja</strong> és érvelése könnyen átláthatóvá válik.<br/>
@@ -71,7 +71,7 @@ hu:
             "<a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a>"
             cégek és civil szervezetek alapításán át, felöleli a különböző <strong>direkt demokratikus eszközök</strong>
             szervezett használatát (pl. Európai Polgári Kezdeményezés, e-Petíció, népszavazás, carrot mob,
-            demonstráció, bojkott).<br/>
+            demonstráció, fogyasztói engedetlenség, bojkott).<br/>
             </p><p>
             Az <strong>akciók finanszírozását</strong> az echo költségsemleges pénzgyűjtéssel valamint több
             skálázható üzleti modellből származó teljes nyereségének demokratikus, az echo közösség által történő
@@ -885,66 +885,69 @@ hu:
     activation:
       subject: Kérjük aktiváld új echo profilodat
       text1: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Köszönjük, hogy regisztráltál az echo rendszerébe. Kérjük kattints az alábbi linkre és aktiváld profilodat.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Ha bármi problémád adódna profilod aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
 
-        Looking forward to seeing you soon at echo,
+        Reméljük, az echon mindjárt találkozunk. :-)
 
-        Your echo team
+        Minden jót,
+
+        Az echo csapata
 
     # Welcome section
     welcome:
-      subject: Üdvözlünk az echo közösségben
+      subject: Légy üdvözölve az echo közösségben
       text: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        welcome to echo!
+        Üdvözlünk Téged az echo rendszerében - az élő, valódi demokrácia internetes otthonában.
 
-        We are happy seeing you join us to participate in the evolution of echo.
-        As a member you can take part in discussions and also provide helpful
-        impulses for a successfull development of echo.
+        Örülünk, hogy mostantól Téged is mozgalmunk aktív tagjaként köszönthetünk.
 
-        We wish you an inspiring and enriching time.
+        Használd az echot bártan és kelts visszhangot a SAJÁT weboldaladon is - a SAJÁT közösségeddel, a SAJÁT céljaitok kapcsán.
+        Mert ne feledd: a hangod egy echora, az echo a hangodra vár. :-)
 
-        See you soon,
+        Sok sikert kívánunk Neked akcióidhoz egy közös jövő megteremtéséért.
+        Minden jót,
 
-        Your echo team
+        Az echo csapata
 
     new_password:
       subject: Új echo jelszó
       text1: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        a new password was requested for your echo account. If you want to change it please click on the following link.
-
+        Új jelszavad megadásához kérjük kattints az alábbi linkre.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Ha bármi problémád adódna jelszavad aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
 
-        We wish you further much inspiration and fun at echo.
-        With best regards,
+        További sok sikert kívánunk Neked az echo használatához. :-)
 
-        Your echo team
+        Minden jót,
+
+        Az echo csapata
 
     activate_email:
-      subject: Kérjük aktiváld E-Mail címedet
+      subject: Kérjük aktiváld új E-Mail címedet
       text1: |
-        Dear {{name}},
+        Kedves {{name}},
 
-        In order to successfully update your E-Mail address, you must complete the last step of the process, which consists of clicking the URL below, allowing us to successfully confirm your new E-Mail address.
+        Kérjük kattints az alábbi linkre, hogy megerősítsd és aktiváld újonnan megadott E-Mail címedet.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        If you keep having problems with activating your email, please feel free to contact us at support@echologic.org.
+        Ha bármi problémád adódna új E-Mail címed aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
 
-        Looking forward to seeing you soon at echo,
+        További sok sikert kívánunk Neked az echo használatához. :-)
 
-        Your echo team
+        Minden jót,
 
+        Az echo csapata
 

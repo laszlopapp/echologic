@@ -4,7 +4,7 @@
 <% content_tag :div, :class => 'header active' do %>
 
   <% content_tag :div, :class => 'header_buttons' do %>
-     <%= navigation_buttons(statement_node, node_type(statement_node)) %>
+     <%= navigation_buttons(statement_node, node_type(statement_node), :form => true) %>
   <% end %>
 
   <% content_tag :div, :class => "header_link#{linking_enabled ? ' linkable' : ''}" do %>
