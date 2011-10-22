@@ -901,7 +901,7 @@ hu:
 
     # Welcome section
     welcome:
-      subject: Üdvözlégy az echo közösségben
+      subject: Légy üdvözölve az echo közösségben
       text: |
         Kedves {{name}},
 
@@ -909,10 +909,11 @@ hu:
 
         Örülünk, hogy mostantól Téged is mozgalmunk aktív tagjaként köszönthetünk.
 
-        Használd az echot és kelts visszhangot a SAJÁT weboldaladon is - a SAJÁT közösségeddel, a SAJÁT témáitok kapcsán.
+        Használd az echot bártan és kelts visszhangot a SAJÁT weboldaladon is - a SAJÁT közösségeddel, a SAJÁT céljaitok kapcsán.
         Mert ne feledd: a hangod egy echora, az echo a hangodra vár. :-)
 
-        Sok sikert és minden jót kíván,
+        Sok sikert kívánunk Neked akcióidhoz egy közös jövő megteremtéséért.
+        Minden jót,
 
         Az echo csapata
 
