@@ -34,8 +34,8 @@ namespace :create_shortcuts do
     end
   end
 
-  task :embed_echo => :environment do
-    %w(embed-echo).each do |shortcut|
+  task :embed_echo_discussion => :environment do
+    %w(embed-echo-discussion).each do |shortcut|
       ShortcutUrl.statement_shortcut :title => shortcut,
                                      :params => { :id => 1901 },
                                      :language => "en"
