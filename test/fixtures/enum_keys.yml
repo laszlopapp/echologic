@@ -1,4 +1,4 @@
-<% %w(en de fr pt es).each_with_index do |code, index| %>
+<% %w(en de fr pt es hu).each_with_index do |code, index| %>
 language_<%= code %>:
   code: <%= code %>
   type: Language

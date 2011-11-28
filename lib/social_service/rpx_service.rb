@@ -152,7 +152,7 @@ class RpxService
       raise RpxException.new(resp), "Unexpected HTTP status code from server: #{resp.code}"
     end
     if data['stat'] != 'ok'
-      raise RpxException.new(resp), 'Unexpected API error'
+      raise RpxException.new(resp), "RPX API call failed. Error code: #{data['err']['code']} - Msg: #{data['err']['msg']}"
     end
     data
   end

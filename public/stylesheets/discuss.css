@@ -1008,7 +1008,7 @@ a.statement_link:hover {
 	background: #FEFEFE;
   position: absolute;
   text-align: left;
-  z-index: 5;
+  z-index: 15;
   cursor: default;
   border-radius: 15px;
   -moz-border-radius: 15px;
