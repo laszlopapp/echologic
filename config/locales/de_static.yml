@@ -155,7 +155,7 @@ de:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -900,14 +900,14 @@ de:
     activation:
       subject: "Freischaltung Ihres Zugangs zu echo"
       text1: |
-        Liebe(r) {{name}},
+        Hallo,
 
         vielen Dank, dass Sie sich auf echo angemeldet haben. Bitte aktivieren Sie Ihren Zugang über den unten stehenden Link.
       text2: |
         Sollte dieser Link nicht funktionieren, kopieren Sie bitte den Link in die Adressleiste Ihres Browsers.
 
         Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns jederzeit unter
-        support@echologic.org zu kontaktieren.
+        support@echo.to zu kontaktieren.
 
         Wir freuen uns sehr auf ein baldiges Treffen auf echo,
 
@@ -944,7 +944,7 @@ de:
         Sollte dieser Link nicht funktionieren, kopieren Sie ihn bitte in die Adressleiste Ihres Browsers.
 
         Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns jederzeit
-        unter support@echologic.org zu kontaktieren. Wir helfen Ihnen gerne und schnellstmöglich.
+        unter support@echo.to zu kontaktieren. Wir helfen Ihnen gerne und schnellstmöglich.
 
         Wir wuenschen Ihnen weiterhin viel Inspiration und Spass in der echo Community.
         Mit den besten Grüßen,
@@ -964,7 +964,7 @@ de:
         kopieren Sie bitte die URL und fügen Sie sie in ein neues Browserfenster ein.
 
         Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns
-        jederzeit unter support@echologic.org zu kontaktieren.
+        jederzeit unter support@echo.to zu kontaktieren.
 
         Wir freuen uns sehr auf ein baldiges Treffen auf echo.
 

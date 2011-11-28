@@ -1,5 +1,7 @@
 namespace :create_shortcuts do
-  desc "Turns on newsletter notifications for all users"
+
+  desc "Creates different URL shortcuts to search results and statements"
+
   task :vision_summit_2011 => :environment do
     %w(vs11 vision-summit visionsummit).each do |shortcut|
       ShortcutUrl.discuss_search_shortcut :title => shortcut,
@@ -39,6 +41,14 @@ namespace :create_shortcuts do
       ShortcutUrl.statement_shortcut :title => shortcut,
                                      :params => { :id => 1901 },
                                      :language => "en"
+    end
+  end
+
+  task :charta_promotionskultur => :environment do
+    %w(charta-fuer-eine-neue-promotionskultur charta-promotionskultur).each do |shortcut|
+      ShortcutUrl.statement_shortcut :title => shortcut,
+                                     :params => { :id => 1902 },
+                                     :language => "de"
     end
   end
 

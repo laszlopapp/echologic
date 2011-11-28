@@ -149,7 +149,7 @@ pt:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -832,7 +832,7 @@ pt:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -872,13 +872,13 @@ pt:
     activation:
       subject: Por favor ative a sua conta echo
       text1: |
-        Caro/a {{name}},
+        Oi,
 
         Obrigado por se registar na echo. Por favor clique no URL aqui em baixo para ativar a sua conta.
       text2: |
         Se clicar no URL não abrir uma nova janela no seu browser automaticamente, por favor copie e cole o URL no seu browser manualmente.
 
-        Se continuar a ter problemas para ativar a sua conta, não hesite em contactar-nos em support@echologic.org.
+        Se continuar a ter problemas para ativar a sua conta, não hesite em contactar-nos em support@echo.to.
 
         Esperamos vê-lo/a em breve na echo,
 
@@ -912,7 +912,7 @@ pt:
       text2: |
         Se clicar no URL não abre uma nova janela no seu browser automaticamente, por favor copie e cole o URL no seu browser automaticamente.
 
-        Se continua a ter problemas com a ativação da sua conta, não hesite em contactar-nos em support@echologic.org.
+        Se continua a ter problemas com a ativação da sua conta, não hesite em contactar-nos em support@echo.to.
 
         Desejamos-lhe muita inspiração e boa disposição com a comunidade echo.
         Com os melhores cumprimentos,
@@ -930,7 +930,7 @@ pt:
       text2: |
         Se ao premir o URL não for aberta automaticamente uma nova janela no seu navegador web, por favor copie e cole você mesmo o URL no navegador web.
 
-        Se tiver problemas com a confirmação do seu novo endereço E-mail, por favor contacte-nos através do endereço support@echologic.org.
+        Se tiver problemas com a confirmação do seu novo endereço E-mail, por favor contacte-nos através do endereço support@echo.to.
 
         Esperamos encontrá-lo brevemente na echo,
 
