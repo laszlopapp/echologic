@@ -760,7 +760,7 @@ class StatementsController < ApplicationController
         return
       end
     rescue Exception => e
-      log_error_home(e,"Error running redirect approved/incorporated IP filter")
+      log_error_home(e, "Error running redirect approved/incorporated IP filter.")
     end
   end
 

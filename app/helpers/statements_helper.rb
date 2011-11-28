@@ -277,7 +277,7 @@ module StatementsHelper
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       buttons = ''
-      if statement_node.parent_node 
+      if statement_node.parent_node
         buttons << add_new_sibling_button(statement_node) if !alternative_mode?(statement_node)
       else
         if origin.blank?
@@ -312,7 +312,7 @@ module StatementsHelper
           statement_icon_title(I18n.t("discuss.statements.types.alternative"))
         end
         if alternative_mode?(statement_node) and @discuss_alternatives_question.nil?
-          buttons << add_new_child_link(statement_node, "discuss_alternatives_question", :nl => true, :bids => params[:bids], :origin => params[:origin]) 
+          buttons << add_new_child_link(statement_node, "discuss_alternatives_question", :nl => true, :bids => params[:bids], :origin => params[:origin])
         end
       end
       buttons
@@ -592,7 +592,7 @@ module StatementsHelper
   #
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
-    if statement_node and 
+    if statement_node and
       (opts[:form] or (!opts[:origin].blank? and opts[:origin][0,2].eql?('dq') and statement_node.level.eql?(0)))
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
@@ -855,17 +855,17 @@ module StatementsHelper
   end
 
   def close_alternative_mode_button(statement_node)
-    # BIDS 
+    # BIDS
     bids = params[:bids] || ''
     bids = bids.split(",")
     bids.pop
     bids = bids.join(",")
     # AL
     al = @alternative_modes - [@level]
-    
-    link_to '', statement_node_url(statement_node, 
-                                    :bids => bids, 
-                                    :origin => params[:origin], 
+
+    link_to '', statement_node_url(statement_node,
+                                    :bids => bids,
+                                    :origin => params[:origin],
                                     :al => al.join(",")),
             :class => "alternative_close ttLink no_border",
             :title => I18n.t("discuss.tooltips.close_alternative_mode")
@@ -881,13 +881,13 @@ module StatementsHelper
   def create_discuss_alternatives_question_link(statement_node)
     create_new_child_statement_link(statement_node, "discuss_alternatives_question", :css => "new_statement", :nl => true, :origin => params[:origin], :bids => params[:bids])
   end
-  
+
   def alternative_mode?(statement_node_or_level)
     return true if !params[:hub].blank?
     return false if statement_node_or_level.nil?
-    index = statement_node_or_level.kind_of?(Integer) ? statement_node_or_level : 
+    index = statement_node_or_level.kind_of?(Integer) ? statement_node_or_level :
             (@current_stack ? @current_stack.index(statement_node_or_level.id) : statement_node_or_level.level)
-    @alternative_modes and 
+    @alternative_modes and
     @alternative_modes.include?(index)
   end
 

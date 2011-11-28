@@ -63,7 +63,6 @@ class Users::ActivationsController < ApplicationController
             set_error 'users.activation.messages.failed'
             redirect_or_render_with_error(base_url, @user)
           end
-
         else
           # via_form === true, given email is not verified, therefore, send activation email
 
@@ -81,11 +80,11 @@ class Users::ActivationsController < ApplicationController
               end
             else
               set_error 'users.activation.messages.failed'
-              later_call_with_error(request.referer, signup_url, @user)
+              later_call_with_error(last_url, signup_url, @user)
             end
           else
-              set_error 'activerecord.errors.messages.blank', :attribute => I18n.t('application.general.email')
-              later_call_with_error(request.referer, signup_url, @user)
+            set_error 'activerecord.errors.messages.blank', :attribute => I18n.t('application.general.email')
+            later_call_with_error(last_url, signup_url, @user)
           end
         end
       end
@@ -95,6 +94,7 @@ class Users::ActivationsController < ApplicationController
   else
     log_message_info("User '#{@user.id}' has been activated sucessfully.")
   end
+
 
   def activate_email
     @action = PendingAction.find(params[:token])
