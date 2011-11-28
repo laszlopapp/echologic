@@ -1,10 +1,11 @@
 ActionMailer::Base.smtp_settings = {
-  :address => 'smtp.1und1.de',
+  :address => SMTP_HOST,
   :port => 25,
-  :domain => 'noreply@echo-logic.org',
+  :domain => 'echo.to',
   :authentication => :login,
-  :user_name => 'noreply@echo-logic.org',
-  :password => 'nreopbosP@ss'
+  :enable_starttls_auto => true,
+  :user_name => SMTP_USER,
+  :password => SMTP_PASS
 }
 
 ActionMailer::Base.raise_delivery_errors = true
