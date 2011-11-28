@@ -146,7 +146,7 @@ hu:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -845,7 +845,7 @@ hu:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -885,13 +885,13 @@ hu:
     activation:
       subject: Kérjük aktiváld új echo profilodat
       text1: |
-        Kedves {{name}},
+        Szia,
 
         Köszönjük, hogy regisztráltál az echo rendszerébe. Kérjük kattints az alábbi linkre és aktiváld profilodat.
       text2: |
         Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        Ha bármi problémád adódna profilod aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
+        Ha bármi problémád adódna profilod aktiválásával, kérjük fordulj hozzánk bizalommal a support@echo.to címen.
 
         Reméljük, az echon mindjárt találkozunk. :-)
 
@@ -926,7 +926,7 @@ hu:
       text2: |
         Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        Ha bármi problémád adódna jelszavad aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
+        Ha bármi problémád adódna jelszavad aktiválásával, kérjük fordulj hozzánk bizalommal a support@echo.to címen.
 
         További sok sikert kívánunk Neked az echo használatához. :-)
 
@@ -943,7 +943,7 @@ hu:
       text2: |
         Ha a linkre kattintva nem nyílik meg automatikusan egy új böngészőablak, kérjük másold be azt manuálisan böngésződbe.
 
-        Ha bármi problémád adódna új E-Mail címed aktiválásával, kérjük fordulj hozzánk bizalommal a support@echologic.org címen.
+        Ha bármi problémád adódna új E-Mail címed aktiválásával, kérjük fordulj hozzánk bizalommal a support@echo.to címen.
 
         További sok sikert kívánunk Neked az echo használatához. :-)
 

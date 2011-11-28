@@ -159,7 +159,7 @@ en:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -858,7 +858,7 @@ en:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -898,13 +898,13 @@ en:
     activation:
       subject: Please activate your echo account
       text1: |
-        Dear {{name}},
+        Hi,
 
         Thank you for registering at echo. Please click the URL below to activate your account.
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        If you keep having problems with activating your account, please feel free to contact us at support@echo.to.
 
         Looking forward to seeing you soon at echo,
 
@@ -938,7 +938,7 @@ en:
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        If you keep having problems with activating your account, please feel free to contact us at support@echo.to.
 
         We wish you further much inspiration and fun at echo.
 
@@ -955,7 +955,7 @@ en:
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
-        If you keep having problems with activating your email, please feel free to contact us at support@echologic.org.
+        If you keep having problems with activating your email, please feel free to contact us at support@echo.to.
 
         Looking forward to seeing you soon at echo,
 
