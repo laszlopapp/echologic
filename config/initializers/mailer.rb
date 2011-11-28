@@ -1,7 +1,7 @@
 ActionMailer::Base.smtp_settings = {
   :address => SMTP_HOST,
   :port => 25,
-  :domain => 'echo.to',
+  :domain => SMTP_DOMAIN,
   :authentication => :login,
   :enable_starttls_auto => true,
   :user_name => SMTP_USER,

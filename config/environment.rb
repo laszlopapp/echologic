@@ -62,6 +62,7 @@ Rails::Initializer.run do |config|
 
   # Action Mailer
   config.action_mailer.default_charset = "utf-8"
+  SMTP_DOMAIN = ENV['ECHO_SMTP_DOMAIN']
   SMTP_HOST = ENV['ECHO_SMTP_HOST']
   SMTP_USER = ENV['ECHO_SMTP_USER']
   SMTP_PASS = ENV['ECHO_SMTP_PASS']
