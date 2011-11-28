@@ -6,7 +6,7 @@ class ActivityTrackingMailer < ActionMailer::Base
   def activity_tracking_mail(recipient, root_events, question_tag_counts, events)
     language = recipient.default_language
     subject       I18n.t('mailers.activity_tracking.subject', :locale => language.code)
-    from          "noreply@echologic.org"
+    from          "content@echo.to"
     recipients    recipient.email
     sent_on       Time.now
     content_type "text/html"
