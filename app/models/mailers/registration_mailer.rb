@@ -7,7 +7,7 @@ class RegistrationMailer < ActionMailer::Base
     from          "account@echo.to"
     recipients    user.email
     sent_on       Time.now
-    body          :name => user.full_name, :activation_url => register_url(user.perishable_token)
+    body          :activation_url => register_url(user.perishable_token)
   end
 
   # Delivers activation request to the given user.
