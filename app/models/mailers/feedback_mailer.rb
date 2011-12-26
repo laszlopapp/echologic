@@ -5,7 +5,7 @@ class FeedbackMailer < ActionMailer::Base
   def feedback(feedback)
     subject       "echo - Feedback from #{feedback.name}"
     recipients    FEEDBACK_RECIPIENT
-    from          "feedback@echologic.org"
+    from          "feedback@echo.to"
     reply_to      [feedback.email, FEEDBACK_RECIPIENT]
     sent_on       Time.now
     body          :name => feedback.name, :message => feedback.message

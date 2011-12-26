@@ -153,7 +153,7 @@ fr:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echo.to">team@echo.to</a><br/>
           </p><p>
           <strong>Responsabilité légale</strong>:<br/>
           Dans le cadre de nos prestations, nous mettons sur nos pages égalements des liens conduisant
@@ -927,14 +927,14 @@ fr:
     activation:
       subject: "Activez votre compte sur echo"
       text1: |-
-        Cher, chère(r) {{name}},
+        Salut,
 
         Nous vous remercions de votre inscription sur echo. Veuillez activer votre accès grâce au lien ci-dessous.
       text2: |-
         Si ce lien ne fonctionne pas, veuillez le copier dans la barre d'adresse de votre navigateur.
 
         Si les difficulté d'accéder à echo persistaient, veuillez nous contacter au plus vite à l'adresse suivante:
-        support@echologic.org.
+        support@echo.to.
 
         Nous serions heureux de vous rencontrer très bientôt sur echo.
 
@@ -944,7 +944,7 @@ fr:
     welcome:
       subject: "Bienvenue  sur echo"
       text: |
-        cher, chère {{name}},
+        Cher, chère {{name}},
 
         Bienvenue  sur echo!
 
@@ -970,7 +970,7 @@ fr:
         Si ce lien ne fonctionne pas, veuillez le copier dans la barre d'adresse de votre navigateur.
 
         Si les difficultés d'accéder à echo persistent, n'hésitez pas à nous contacter à tout moment
-        à l'adresse suivante: support@echologic.org. Nous vous aiderons au plus vite.
+        à l'adresse suivante: support@echo.to. Nous vous aiderons au plus vite.
 
         Bonne continuation, beaucoup d'idées nouvelles, et surtout,  des moments stimulants avec echo.
 
@@ -979,13 +979,13 @@ fr:
     activate_email:
       subject: Veuillez verifier votre adresse mail
       text1: |
-        Cher,e {{name}},
+        Cher, chère {{name}},
 
         Afin de rétablir avec succès votre adresse mail, vous devez accomplir un dernier pas  en cliquant sur l'URL ci-desous. Nous pourrons ainsi confirmer votre nouvelle adresse mail.
       text2: |
         Si la fenêtre dans votre navigateur ne s'ouvre pas en cIiquant sur l'URL, veuillez copier et glisser l'URL dans la barre de votre navigateur.
 
-        Si les problèmes persistaient pour activer votre adresse mail, veuillez contacter le support technique: support@echologic.org.
+        Si les problèmes persistaient pour activer votre adresse mail, veuillez contacter le support technique: support@echo.to.
 
         A bientôt sur echo!
 
