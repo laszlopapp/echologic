@@ -148,7 +148,7 @@ es:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-Mail: team@echologic.org<br/>
+          E-Mail: team@echo.to<br/>
           </p><p>
           <strong>Responsabilidad con respecto a los contenidos de los enlaces</strong>:<br/>
           Como parte de esta página se incluyen también enlaces a contenidos de otras páginas. No podemos influenciar
@@ -814,7 +814,7 @@ es:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-Mail: team@echologic.org<br/>
+          E-Mail: team@echo.to<br/>
           </p><p>
           Responsabilidad con respecto a los contenidos de los enlaces:<br/>
           Como parte de esta página se incluyen también los enlaces a contenidos de otras páginas. No podemos influenciar este contenido;
@@ -857,13 +857,13 @@ es:
     activation:
       subject: "Activar tu cuenta en echo"
       text1: |
-        Estimado/a {{name}},
+        Hola,
 
         gracias por registrarte en echo! Por favor activa tu cuenta siguiendo el enlace de abajo.
       text2: |
         En caso de que este enlace no funcione, copia el enlace en tu buscador.
 
-        Si has tenido problemas con el acceso a echo, no lo dudes, y contáctanos en support@echologic.org.
+        Si has tenido problemas con el acceso a echo, no lo dudes, y contáctanos en support@echo.to.
 
         Esperamos reencontrarte en echo en breve!
 
@@ -896,7 +896,7 @@ es:
       text2: |
         En caso de que este enace no funciones, copia el enlace tu buscador.
 
-        Si has tenido problemas con el acceso a echo, no lo dudes y contáctanos por support@echologic.org.
+        Si has tenido problemas con el acceso a echo, no lo dudes y contáctanos por support@echo.to.
 
         Esperamos reencontrarte en echo en breve!
 
@@ -916,7 +916,7 @@ es:
         por favor, copia y pega la dirección URL en tu navegador.
 
         Si sigues teniendo problemas con la activación de tu email, por favor,
-        no dudes en contactarnos en support@echologic.org.
+        no dudes en contactarnos en support@echo.to.
 
         Esperamos encontrarte pronto en echo,
 

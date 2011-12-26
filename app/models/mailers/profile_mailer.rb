@@ -5,7 +5,7 @@ class ProfileMailer < ActionMailer::Base
     language = recipient.default_language
     subject       I18n.t("mailers.user_mail.subject",
                          :subject => mail[:subject])
-    from          "noreply@echologic.org"
+    from          "user@echo.to"
     recipients    [recipient.email]
     reply_to      [sender.email]
     sent_on       Time.now

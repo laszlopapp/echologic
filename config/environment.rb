@@ -16,6 +16,9 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %w(statements mailers).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
+  config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
+  config.load_paths += %w(activity_tracking_service drafting_service echo_service social_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
 
   # Specify gems that this application depends on and have them installed with rake gems:install
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
@@ -59,18 +62,20 @@ Rails::Initializer.run do |config|
 
   # Action Mailer
   config.action_mailer.default_charset = "utf-8"
+  SMTP_DOMAIN = ENV['ECHO_SMTP_DOMAIN']
+  SMTP_HOST = ENV['ECHO_SMTP_HOST']
+  SMTP_USER = ENV['ECHO_SMTP_USER']
+  SMTP_PASS = ENV['ECHO_SMTP_PASS']
+  require File.join(File.dirname(__FILE__), 'smtp_config') # Setting SMTP data in EngineYard environment
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :en
 
-  # Authologic RPX
+  # Authlogic RPX
   RPX_APP_NAME = ENV['ECHO_RPX_APP_NAME']
   RPX_API_KEY = ENV['ECHO_RPX_API_KEY']
-
-  # Setting RPX data in EngineYard environment
-  require File.join(File.dirname(__FILE__), 'rpx_config')
-
+  require File.join(File.dirname(__FILE__), 'rpx_config') # Setting RPX data in EngineYard environment
   raise "RPX/Janrain Engage API key must be defined ENV['ECHO_RPX_API_KEY']" unless RPX_API_KEY
   raise "RPX/Janrain Engage Application Name must be defined ENV['ECHO_RPX_APP_NAME']" unless RPX_APP_NAME
 
@@ -79,12 +84,5 @@ Rails::Initializer.run do |config|
 
   # Session Storage
   config.action_controller.session_store = :active_record_store
-
-  # add load paths for models in subfolders... this can be extended by further subfolders if neccessary
-  config.load_paths += %w(statements mailers).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
-  # the same for controllers
-  config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
-  # libs
-  config.load_paths += %w(activity_tracking_service drafting_service echo_service social_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
 
 end

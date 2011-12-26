@@ -23,7 +23,7 @@ hu:
       Blog: http://blog.echo.to
       Twitter: http://twitter.com/echologic
       Facebook: http://www.facebook.com/echo.agora
-      E-Mail: team@echologic.org
+      E-Mail: team@echo.to
     signature_as_html: |-
       <strong>echo</strong> - Élő Demokrácia
       <br/><br/>
@@ -31,7 +31,7 @@ hu:
       Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
       Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
-      E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
+      E-Mail: <a href="mailto:team@echo.to">team@echo.to</a>
 
     newsletter:
       show_online: "Kattints ide, ha a hírlevél nem jeleníthető meg megfelelően."

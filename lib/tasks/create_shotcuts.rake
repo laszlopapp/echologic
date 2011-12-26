@@ -44,4 +44,12 @@ namespace :create_shortcuts do
     end
   end
 
+  task :charta_promotionskultur => :environment do
+    %w(charta-fuer-eine-neue-promotionskultur charta-promotionskultur).each do |shortcut|
+      ShortcutUrl.statement_shortcut :title => shortcut,
+                                     :params => { :id => 1902 },
+                                     :language => "de"
+    end
+  end
+
 end

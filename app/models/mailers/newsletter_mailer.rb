@@ -26,7 +26,7 @@ class NewsletterMailer < ActionMailer::Base
 
     subject       subject
     recipients    recipient.email
-    from          "noreply@echologic.org"
+    from          "news@echo.to"
     sent_on       Time.now
     content_type  "text/html"
     body          :online_url => newsletter_url(newsletter, :locale => language_code),
